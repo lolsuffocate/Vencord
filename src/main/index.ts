@@ -16,6 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import { emitHeadersReceived } from "@api/HeadersReceived";
 import { app, protocol, session } from "electron";
 import { join } from "path";
 
@@ -106,7 +107,8 @@ if (IS_VESKTOP || !IS_VANILLA) {
             }
         };
 
-        session.defaultSession.webRequest.onHeadersReceived(({ responseHeaders, resourceType }, cb) => {
+        session.defaultSession.webRequest.onHeadersReceived((details, cb) => {
+            const { responseHeaders, resourceType } = details;
             if (responseHeaders) {
                 if (resourceType === "mainFrame")
                     patchCsp(responseHeaders);
@@ -117,6 +119,14 @@ if (IS_VESKTOP || !IS_VANILLA) {
                     const header = findHeader(responseHeaders, "content-type");
                     if (header)
                         responseHeaders[header] = ["text/css"];
+                }
+
+                try {
+                    // Emit the headers received event so plugins can modify them without the risk of conflicts mentioned below
+                    // can't use IPC because the preload where VencordNative is exposed runs after the first headers are received
+                    emitHeadersReceived(details);
+                }catch(e) {
+                    console.error("Error in headers received listener", e);
                 }
             }
 

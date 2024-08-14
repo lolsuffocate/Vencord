@@ -21,6 +21,7 @@ import * as $ChatButtons from "./ChatButtons";
 import * as $Commands from "./Commands";
 import * as $ContextMenu from "./ContextMenu";
 import * as $DataStore from "./DataStore";
+import * as $HeadersReceived from "./HeadersReceived";
 import * as $MemberListDecorators from "./MemberListDecorators";
 import * as $MessageAccessories from "./MessageAccessories";
 import * as $MessageDecorations from "./MessageDecorations";
@@ -122,3 +123,9 @@ export const MessageUpdater = $MessageUpdater;
  * An API allowing you to get an user setting
  */
 export const UserSettings = $UserSettings;
+
+/**
+ * An API allowing you to listen to headers received when making requests
+ * Useful for modifying Content Security Policies
+ */
+export const HeadersReceived = $HeadersReceived;
