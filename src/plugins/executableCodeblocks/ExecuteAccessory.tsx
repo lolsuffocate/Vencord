@@ -226,8 +226,7 @@ export function ExecuteAccessory(props: Record<string, any>) {
         const quickCssId = `/*start ${id} */`;
         const quickCssEnd = `/*end ${id} */`;
         const quickCss = getQuickCssStr();
-        const isIn = quickCss.includes(quickCssId) && quickCss.includes(quickCssEnd) && quickCss.indexOf(quickCssId) < quickCss.indexOf(quickCssEnd);
-        return isIn;
+        return quickCss.includes(quickCssId) && quickCss.includes(quickCssEnd) && quickCss.indexOf(quickCssId) < quickCss.indexOf(quickCssEnd);
     };
 
     const getImportsAndCodeFromCssCodeblock = (code: string): { imports: string, code: string } => {
