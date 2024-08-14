@@ -66,6 +66,12 @@ export default {
 
         openFile: () => invoke<void>(IpcEvents.OPEN_QUICKCSS),
         openEditor: () => invoke<void>(IpcEvents.OPEN_MONACO_EDITOR),
+
+        // Reloads the window containing the QuickCSS editor
+        reloadEditor: () => invoke<void>(IpcEvents.RELOAD_MONACO_EDITOR),
+
+        // Reloads the contents of the QuickCSS editor without reloading the entire window
+        reloadEditorCss: () => invoke<void>(IpcEvents.RELOAD_MONACO_EDITOR_CONTENTS),
     },
 
     native: {

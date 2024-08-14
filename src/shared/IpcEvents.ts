@@ -37,6 +37,8 @@ export const enum IpcEvents {
     UPDATE = "VencordUpdate",
     BUILD = "VencordBuild",
     OPEN_MONACO_EDITOR = "VencordOpenMonacoEditor",
+    RELOAD_MONACO_EDITOR = "VencordReloadMonacoEditor",
+    RELOAD_MONACO_EDITOR_CONTENTS = "VencordReloadMonacoEditorContents",
 
     GET_PLUGIN_IPC_METHOD_MAP = "VencordGetPluginIpcMethodMap",
 

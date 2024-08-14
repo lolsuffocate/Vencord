@@ -22,11 +22,13 @@
 import monacoHtmlLocal from "file://monacoWin.html?minify";
 import monacoHtmlCdn from "file://../src/main/monacoWin.html?minify";
 import * as DataStore from "../src/api/DataStore";
-import { debounce } from "../src/utils";
+import { debounce, sendMessage } from "../src/utils";
 import { EXTENSION_BASE_URL } from "../src/utils/web-metadata";
 import { getTheme, Theme } from "../src/utils/discord";
 import { getThemeInfo } from "../src/main/themes";
 import { Settings } from "../src/Vencord";
+import { IpcEvents } from "@shared/IpcEvents";
+import { BrowserWindow, ipcRenderer } from "electron";
 
 // Discord deletes this so need to store in variable
 const { localStorage } = window;
@@ -93,6 +95,43 @@ window.VencordNative = {
                     : "vs-dark";
 
             win.document.write(IS_EXTENSION ? monacoHtmlLocal : monacoHtmlCdn);
+        },
+
+        // Reloads the window containing the QuickCSS editor
+        async reloadEditor() {
+            const title = "Vencord QuickCSS Editor";
+            const existingWindow = BrowserWindow.getAllWindows().find(w => w.title === title);
+            if (existingWindow && !existingWindow.isDestroyed()) {
+                // get current window's cursor position and scroll position so we can preserve it
+                const scrollTop = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getScrollTop()");
+                const scrollLeft = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getScrollLeft()");
+                const selection = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getSelection()");
+                existingWindow.reload();
+                existingWindow.webContents.once("dom-ready", () => {
+                    // restore cursor position and scroll position
+                    existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setScrollTop(${scrollTop})`);
+                    existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setScrollLeft(${scrollLeft})`);
+                    existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setSelection(${JSON.stringify(selection)})`);
+                });
+                return;
+            }
+        },
+
+        // Reloads the contents of the QuickCSS editor without reloading the entire window
+        async reloadEditorCss(){
+            const title = "Vencord QuickCSS Editor";
+            const existingWindow = BrowserWindow.getAllWindows().find(w => w.title === title);
+            if (existingWindow && !existingWindow.isDestroyed()) {
+                // get current window's cursor position and scroll position so we can preserve it
+                const scrollTop = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getScrollTop()");
+                const scrollLeft = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getScrollLeft()");
+                const selection = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getSelection()");
+                existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setValue(${JSON.stringify(await this.get())})`);
+                // restore cursor position and scroll position
+                existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setScrollTop(${scrollTop})`);
+                existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setScrollLeft(${scrollLeft})`);
+                existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setSelection(${JSON.stringify(selection)})`);
+            }
         },
     },
 

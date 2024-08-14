@@ -142,3 +142,39 @@ ipcMain.handle(IpcEvents.OPEN_MONACO_EDITOR, async () => {
 
     await win.loadURL(`data:text/html;base64,${monacoHtml}`);
 });
+
+/* These could probably be one function */
+ipcMain.handle(IpcEvents.RELOAD_MONACO_EDITOR, async () => {
+    const title = "Vencord QuickCSS Editor";
+    const existingWindow = BrowserWindow.getAllWindows().find(w => w.title === title);
+    if (existingWindow && !existingWindow.isDestroyed()) {
+        // get current window's cursor position and scroll position so we can preserve it
+        const scrollTop = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getScrollTop()");
+        const scrollLeft = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getScrollLeft()");
+        const selection = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getSelection()");
+        existingWindow.reload();
+        existingWindow.webContents.once("dom-ready", () => {
+            // restore cursor position and scroll position
+            existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setScrollTop(${scrollTop})`);
+            existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setScrollLeft(${scrollLeft})`);
+            existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setSelection(${JSON.stringify(selection)})`);
+        });
+        return;
+    }
+});
+
+ipcMain.handle(IpcEvents.RELOAD_MONACO_EDITOR_CONTENTS, async () => {
+    const title = "Vencord QuickCSS Editor";
+    const existingWindow = BrowserWindow.getAllWindows().find(w => w.title === title);
+    if (existingWindow && !existingWindow.isDestroyed()) {
+        // get current window's cursor position and scroll position so we can preserve it
+        const scrollTop = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getScrollTop()");
+        const scrollLeft = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getScrollLeft()");
+        const selection = await existingWindow.webContents.executeJavaScript("window.monaco.editor.getEditors()[0].getSelection()");
+        existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setValue(${JSON.stringify(await readCss())})`);
+        // restore cursor position and scroll position
+        existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setScrollTop(${scrollTop})`);
+        existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setScrollLeft(${scrollLeft})`);
+        existingWindow.webContents.executeJavaScript(`window.monaco.editor.getEditors()[0].setSelection(${JSON.stringify(selection)})`);
+    }
+});
