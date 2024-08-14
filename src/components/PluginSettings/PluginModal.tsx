@@ -40,6 +40,7 @@ import {
     ISettingElementProps,
     SettingBooleanComponent,
     SettingCustomComponent,
+    SettingMultiSelectComponent,
     SettingNumericComponent,
     SettingSelectComponent,
     SettingSliderComponent,
@@ -80,6 +81,7 @@ const Components: Record<OptionType, React.ComponentType<ISettingElementProps<an
     [OptionType.BIGINT]: SettingNumericComponent,
     [OptionType.BOOLEAN]: SettingBooleanComponent,
     [OptionType.SELECT]: SettingSelectComponent,
+    [OptionType.MULTISELECT]: SettingMultiSelectComponent,
     [OptionType.SLIDER]: SettingSliderComponent,
     [OptionType.COMPONENT]: SettingCustomComponent
 };
