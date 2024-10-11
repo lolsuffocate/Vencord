@@ -93,15 +93,17 @@ if (IS_VESKTOP || !IS_VANILLA) {
             if (header) {
                 const csp = parsePolicy(headers[header][0]);
 
-                for (const directive of ["style-src", "connect-src", "img-src", "font-src", "media-src", "worker-src"]) {
+                for (const directive of ["style-src", "connect-src", "img-src", "font-src", "media-src", "worker-src", "frame-src", "script-src"]) {
                     csp[directive] ??= [];
-                    csp[directive].push("*", "blob:", "data:", "vencord:", "'unsafe-inline'");
+                    csp[directive].push("*", "blob:", "data:", "vencord:", "'unsafe-inline'", "'unsafe-eval'");
                 }
 
                 // TODO: Restrict this to only imported packages with fixed version.
                 // Perhaps auto generate with esbuild
                 csp["script-src"] ??= [];
                 csp["script-src"].push("'unsafe-eval'", "https://unpkg.com", "https://cdnjs.cloudflare.com");
+                csp["script-src"] = csp["script-src"].filter(v => !v.includes("nonce-"));
+
                 headers[header] = [stringifyPolicy(csp)];
             }
         };
@@ -117,6 +119,17 @@ if (IS_VESKTOP || !IS_VANILLA) {
                     const header = findHeader(responseHeaders, "content-type");
                     if (header)
                         responseHeaders[header] = ["text/css"];
+                }
+
+                let header = findHeader(responseHeaders, "frame-options");
+                if (header) {
+                    responseHeaders[header] = responseHeaders[header].filter(v => v.toLowerCase() !== "deny" && v.toLowerCase() !== "sameorigin");
+                    // delete responseHeaders[header];
+                }
+                header = findHeader(responseHeaders, "x-frame-options");
+                if (header) {
+                    responseHeaders[header] = responseHeaders[header].filter(v => v.toLowerCase() !== "deny" && v.toLowerCase() !== "sameorigin");
+                    // delete responseHeaders[header];
                 }
             }
 

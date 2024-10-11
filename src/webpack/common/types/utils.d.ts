@@ -33,6 +33,8 @@ export interface FluxDispatcher {
     subscribe(event: FluxEvents, callback: (data: any) => void): void;
     unsubscribe(event: FluxEvents, callback: (data: any) => void): void;
     wait(callback: () => void): void;
+    addInterceptor(callback: (any) => void): void;
+    _interceptors: any;
 }
 
 export type Parser = Record<

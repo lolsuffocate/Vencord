@@ -473,6 +473,9 @@ export type ScrollerThin = ComponentType<PropsWithChildren<{
 
 export type Clickable = ComponentType<PropsWithChildren<{
     className?: string;
+    style?: CSSProperties;
+    onMouseOver?(event): void;
+    onMouseOut?(event): void;
 
     href?: string;
     ignoreKeyPress?: boolean;
