@@ -47,6 +47,7 @@ import {
 } from "./components";
 import { openContributorModal } from "./ContributorModal";
 import { GithubButton, WebsiteButton } from "./LinkIconButton";
+import { SettingMultiSelectComponent } from "@components/PluginSettings/components/SettingMultiSelectComponent";
 
 const cl = classNameFactory("vc-plugin-modal-");
 
@@ -80,6 +81,7 @@ const Components: Record<OptionType, React.ComponentType<ISettingElementProps<an
     [OptionType.BIGINT]: SettingNumericComponent,
     [OptionType.BOOLEAN]: SettingBooleanComponent,
     [OptionType.SELECT]: SettingSelectComponent,
+    [OptionType.MULTISELECT]: SettingMultiSelectComponent,
     [OptionType.SLIDER]: SettingSliderComponent,
     [OptionType.COMPONENT]: SettingCustomComponent
 };

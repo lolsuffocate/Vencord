@@ -165,6 +165,7 @@ export const enum OptionType {
     BIGINT,
     BOOLEAN,
     SELECT,
+    MULTISELECT,
     SLIDER,
     COMPONENT,
 }
@@ -180,6 +181,7 @@ export type PluginSettingDef = (
     | PluginSettingNumberDef
     | PluginSettingBooleanDef
     | PluginSettingSelectDef
+    | PluginSettingMultiSelectDef
     | PluginSettingSliderDef
     | PluginSettingComponentDef
     | PluginSettingBigIntDef
@@ -237,6 +239,10 @@ export interface PluginSettingSelectDef {
     type: OptionType.SELECT;
     options: readonly PluginSettingSelectOption[];
 }
+export interface PluginSettingMultiSelectDef {
+    type: OptionType.MULTISELECT;
+    options: readonly PluginSettingSelectOption[];
+}
 export interface PluginSettingSelectOption {
     label: string;
     value: string | number | boolean;
@@ -290,11 +296,14 @@ type PluginSettingType<O extends PluginSettingDef> = O extends PluginSettingStri
     O extends PluginSettingBigIntDef ? BigInt :
     O extends PluginSettingBooleanDef ? boolean :
     O extends PluginSettingSelectDef ? O["options"][number]["value"] :
+    O extends PluginSettingMultiSelectDef ? O["options"][number]["value"][] :
     O extends PluginSettingSliderDef ? number :
     O extends PluginSettingComponentDef ? any :
     never;
 type PluginSettingDefaultType<O extends PluginSettingDef> = O extends PluginSettingSelectDef ? (
     O["options"] extends { default?: boolean; }[] ? O["options"][number]["value"] : undefined
+) : O extends PluginSettingMultiSelectDef ? (
+    O["options"] extends { default?: boolean[]; }[] ? O["options"][number]["value"][] : undefined
 ) : O extends { default: infer T; } ? T : undefined;
 
 type SettingsStore<D extends SettingsDefinition> = {
@@ -343,12 +352,14 @@ export type PluginOptionsItem =
     | PluginOptionNumber
     | PluginOptionBoolean
     | PluginOptionSelect
+    | PluginOptionMultiSelect
     | PluginOptionSlider
     | PluginOptionComponent;
 export type PluginOptionString = PluginSettingStringDef & PluginSettingCommon & IsDisabled & IsValid<string>;
 export type PluginOptionNumber = (PluginSettingNumberDef | PluginSettingBigIntDef) & PluginSettingCommon & IsDisabled & IsValid<number | BigInt>;
 export type PluginOptionBoolean = PluginSettingBooleanDef & PluginSettingCommon & IsDisabled & IsValid<boolean>;
 export type PluginOptionSelect = PluginSettingSelectDef & PluginSettingCommon & IsDisabled & IsValid<PluginSettingSelectOption>;
+export type PluginOptionMultiSelect = PluginSettingMultiSelectDef & PluginSettingCommon & IsDisabled & IsValid<PluginSettingSelectOption>;
 export type PluginOptionSlider = PluginSettingSliderDef & PluginSettingCommon & IsDisabled & IsValid<number>;
 export type PluginOptionComponent = PluginSettingComponentDef & PluginSettingCommon;
 
