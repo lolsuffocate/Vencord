@@ -40,6 +40,7 @@ import {
     ISettingElementProps,
     SettingBooleanComponent,
     SettingCustomComponent,
+    SettingMultiSelectComponent,
     SettingNumericComponent,
     SettingSelectComponent,
     SettingSliderComponent,
@@ -47,7 +48,6 @@ import {
 } from "./components";
 import { openContributorModal } from "./ContributorModal";
 import { GithubButton, WebsiteButton } from "./LinkIconButton";
-import { SettingMultiSelectComponent } from "@components/PluginSettings/components/SettingMultiSelectComponent";
 
 const cl = classNameFactory("vc-plugin-modal-");
 
