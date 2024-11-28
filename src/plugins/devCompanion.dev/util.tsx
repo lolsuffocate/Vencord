@@ -117,6 +117,7 @@ export function parseNode(node: Node) {
 }
 // we need to have our own because the one in webpack returns the first with no handling of more than one module
 export function findModuleId(find: CodeFilter) {
+    find = find.map(canonicalizeMatch);
     const matches: string[] = [];
     for (const id in wreq.m) {
         if (stringMatches(wreq.m[id].toString(), find)) matches.push(id);
