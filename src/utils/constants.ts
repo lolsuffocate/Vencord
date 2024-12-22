@@ -16,6 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+import { PluginCategory } from "@utils/types";
+
 export const WEBPACK_CHUNK = "webpackChunkdiscord_app";
 export const REACT_GLOBAL = "Vencord.Webpack.Common.React";
 export const SUPPORT_CHANNEL_ID = "1026515880080842772";
@@ -25,6 +27,63 @@ export interface Dev {
     id: bigint;
     badge?: boolean;
 }
+
+export const PluginCategories = /* #__PURE__ */ /* Object.freeze( */{
+    DEVELOPER: {
+        name: "Dev Tools",
+        description: "Plugins that help with development"
+    },
+    COMMANDS: {
+        name: "Commands",
+        description: "Plugins that add commands"
+    },
+    FUN: {
+        name: "Fun",
+        description: "Plugins that add features just for fun"
+    },
+    INFO: {
+        name: "Info",
+        description: "Plugins that provide additional information"
+    },
+    NITRO: {
+        name: "Nitro",
+        description: "Plugins that provide or emulate Nitro features"
+    },
+    PRIVACY: {
+        name: "Privacy & Tracking",
+        description: "Plugins that enhance privacy"
+    },
+    RPC: {
+        name: "RPC",
+        description: "Plugins that add Rich Presence features"
+    },
+    TWEAKS: {
+        name: "Tweaks",
+        description: "Plugins that tweak existing features in the client"
+    },
+    UI: {
+        name: "UI",
+        description: "Plugins that add to or change the client's appearance"
+    },
+    UTILITY: {
+        name: "Utility",
+        description: "Plugins that provide helpful utilities"
+    },
+    VOICE: {
+        name: "Voice",
+        description: "Plugins that enhance voice & call features"
+    },
+
+
+    USER_PLUGIN: {
+        name: "User Plugin",
+        description: "Plugins made by Vencord users, not maintained by the Vencord team"
+    },
+    UNCATEGORIZED: {
+        name: "Uncategorized",
+        description: "Plugins that haven't been assigned a category"
+    }
+}/* )  satisfies Record<string, PluginCategory> */;
 
 /**
  * If you made a plugin or substantial contribution, add yourself here.

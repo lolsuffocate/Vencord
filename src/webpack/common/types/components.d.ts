@@ -197,6 +197,24 @@ export type Switch = ComponentType<PropsWithChildren<{
     tooltipNote?: ReactNode;
 }>>;
 
+export type Checkbox = ComponentType<PropsWithChildren<{
+    value: boolean;
+    onChange(value: boolean): void;
+
+    align?: string;
+    disabled?: boolean;
+    displayOnly?: boolean;
+    readOnly?: boolean;
+    reverse?: boolean;
+    shape?: string;
+    size?: number;
+    type?: string;
+}>> & {
+    Aligns: Record<"CENTER" | "TOP", string>;
+    Shapes: Record<"BOX" | "ROUND" | "SMALL_BOX", string>;
+    Types: Record<"DEFAULT" | "INVERTED" | "GHOST" | "ROW", string>;
+};
+
 export type Timestamp = ComponentType<PropsWithChildren<{
     timestamp: Date;
     isEdited?: boolean;

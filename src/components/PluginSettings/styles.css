@@ -15,12 +15,74 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+#vencordplugins-tab {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-bottom: 10px;
+    max-width: unset;
+}
+
+#vencordplugins-tab > div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+[class^=standardSidebarView]:has(#vencordplugins-tab) > [class^=sidebarRegion]{
+    max-width: fit-content;
+}
+
+.vc-plugins-list {
+    overflow-y: auto;
+    padding: 5px;
+}
 
 .vc-plugins-grid {
     margin-top: 16px;
     display: grid;
     grid-gap: 16px;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.vc-plugins-category-picker {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 4px;
+}
+
+.vc-plugins-categories {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin-top: 0.5em;
+    gap: 8px;
+}
+
+.vc-plugins-category-badge {
+    padding: 5px 10px 5px 10px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--white-500);
+    text-align: center;
+    outline: var(--button-filled-brand-background) solid 1px;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover {
+        transition: background-color 0.2s;
+        background-color: var(--button-filled-brand-background-hover)
+    }
+
+    &.selected {
+        background-color: var(--button-filled-brand-background)
+    }
 }
 
 .vc-plugins-info-button {
