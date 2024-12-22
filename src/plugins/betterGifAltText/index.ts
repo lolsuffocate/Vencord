@@ -16,12 +16,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "BetterGifAltText",
     authors: [Devs.Ven],
+    categories: [PluginCategories.TWEAKS],
     description:
         "Change GIF alt text from simply being 'GIF' to containing the gif tags / filename",
     patches: [

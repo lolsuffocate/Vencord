@@ -6,7 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { makeRange } from "@components/PluginSettings/components";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 // The entire code of this plugin can be found in ipcPlugins
@@ -14,6 +14,7 @@ export default definePlugin({
     name: "FixSpotifyEmbeds",
     description: "Fixes spotify embeds being incredibly loud by letting you customise the volume",
     authors: [Devs.Ven],
+    categories: [PluginCategories.TWEAKS],
     settings: definePluginSettings({
         volume: {
             type: OptionType.SLIDER,

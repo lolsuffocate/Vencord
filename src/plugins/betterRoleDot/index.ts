@@ -17,13 +17,14 @@
 */
 
 import { Settings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { Clipboard, Toasts } from "@webpack/common";
 
 export default definePlugin({
     name: "BetterRoleDot",
     authors: [Devs.Ven, Devs.AutumnVN],
+    categories: [PluginCategories.UI, PluginCategories.TWEAKS],
     description:
         "Copy role colour on RoleDot (accessibility setting) click. Also allows using both RoleDot and coloured names simultaneously",
 

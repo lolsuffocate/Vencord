@@ -17,7 +17,7 @@
 */
 
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { isNonNullish } from "@utils/guards";
 import { Logger } from "@utils/Logger";
 import definePlugin from "@utils/types";
@@ -81,6 +81,7 @@ export default definePlugin({
     name: "MutualGroupDMs",
     description: "Shows mutual group dms in profiles",
     authors: [Devs.amia],
+    categories: [PluginCategories.TWEAKS, PluginCategories.INFO],
 
     patches: [
         {

@@ -17,7 +17,7 @@
 */
 
 import { Settings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { runtimeHashMessageKey } from "@utils/intlHash";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
@@ -36,6 +36,7 @@ export default definePlugin({
     name: "NoBlockedMessages",
     description: "Hides all blocked messages from chat completely.",
     authors: [Devs.rushii, Devs.Samu],
+    categories: [PluginCategories.TWEAKS, PluginCategories.UI, PluginCategories.PRIVACY],
     patches: [
         {
             find: "#{intl::BLOCKED_MESSAGES_HIDE}",

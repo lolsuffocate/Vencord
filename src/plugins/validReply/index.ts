@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { findByCodeLazy } from "@webpack";
 import { FluxDispatcher, RestAPI } from "@webpack/common";
@@ -35,6 +35,7 @@ export default definePlugin({
     name: "ValidReply",
     description: 'Fixes "Message could not be loaded" upon hovering over the reply',
     authors: [Devs.newwares],
+    categories: [PluginCategories.TWEAKS],
     patches: [
         {
             find: "#{intl::REPLY_QUOTE_MESSAGE_NOT_LOADED}",

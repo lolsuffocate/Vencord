@@ -21,7 +21,7 @@ import "./style.css";
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { NotesIcon, OpenExternalIcon } from "@components/Icons";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { classes } from "@utils/misc";
 import definePlugin from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -65,6 +65,7 @@ export default definePlugin({
     name: "ReviewDB",
     description: "Review other users (Adds a new settings to profiles)",
     authors: [Devs.mantikafasi, Devs.Ven],
+    categories: [PluginCategories.UTILITY],
 
     settings,
     contextMenus: {

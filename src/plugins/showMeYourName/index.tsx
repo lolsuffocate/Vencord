@@ -8,7 +8,7 @@ import "./styles.css";
 
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message, User } from "discord-types/general";
 
@@ -46,6 +46,7 @@ export default definePlugin({
     name: "ShowMeYourName",
     description: "Display usernames next to nicks, or no nicks at all",
     authors: [Devs.Rini, Devs.TheKodeToad],
+    categories: [PluginCategories.TWEAKS],
     patches: [
         {
             find: '?"@":""',

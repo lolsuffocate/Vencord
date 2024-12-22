@@ -6,7 +6,7 @@
 
 import { DataStore } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByCodeLazy, findByPropsLazy } from "@webpack";
 import { ChannelStore, GuildStore } from "@webpack/common";
@@ -52,6 +52,7 @@ export default definePlugin({
     name: "Summaries",
     description: "Enables Discord's experimental Summaries feature on every server, displaying AI generated summaries of conversations",
     authors: [Devs.mantikafasi],
+    categories: [PluginCategories.TWEAKS],
     settings,
     patches: [
         {

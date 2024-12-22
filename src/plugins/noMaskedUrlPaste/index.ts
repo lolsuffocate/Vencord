@@ -4,12 +4,13 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { Devs } from "@utils/constants.js";
+import { Devs, PluginCategories } from "@utils/constants.js";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoMaskedUrlPaste",
     authors: [Devs.CatNoir],
+    categories: [PluginCategories.TWEAKS],
     description: "Pasting a link while having text selected will not paste as masked URL",
     patches: [
         {

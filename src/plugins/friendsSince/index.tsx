@@ -5,7 +5,7 @@
  */
 
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { getCurrentChannel } from "@utils/discord";
 import definePlugin from "@utils/types";
 import { findByCodeLazy, findByPropsLazy, findComponentByCodeLazy } from "@webpack";
@@ -21,6 +21,7 @@ export default definePlugin({
     name: "FriendsSince",
     description: "Shows when you became friends with someone in the user popout",
     authors: [Devs.Elvyra, Devs.Antti],
+    categories: [PluginCategories.UI, PluginCategories.INFO],
     patches: [
         // DM User Sidebar
         {

@@ -8,7 +8,7 @@ import "./styles.css";
 
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { GuildStore, SelectedGuildStore, useState } from "@webpack/common";
 import { User } from "discord-types/general";
@@ -46,6 +46,7 @@ export default definePlugin({
     name: "MentionAvatars",
     description: "Shows user avatars and role icons inside mentions",
     authors: [Devs.Ven, Devs.SerStars],
+    categories: [PluginCategories.UI],
 
     patches: [{
         find: ".USER_MENTION)",

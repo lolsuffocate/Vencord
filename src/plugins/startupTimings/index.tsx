@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 import StartupTimingPage from "./StartupTimingPage";
@@ -25,6 +25,7 @@ export default definePlugin({
     name: "StartupTimings",
     description: "Adds Startup Timings to the Settings menu",
     authors: [Devs.Megu],
+    categories: [PluginCategories.DEVELOPER, PluginCategories.INFO],
     patches: [{
         find: "#{intl::ACTIVITY_SETTINGS}",
         replacement: {

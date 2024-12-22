@@ -16,13 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "iLoveSpam",
     description: "Do not hide messages from 'likely spammers'",
     authors: [Devs.botato, Devs.Nyako],
+    categories: [PluginCategories.TWEAKS],
     patches: [
         {
             find: "hasFlag:{writable",

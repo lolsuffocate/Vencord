@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { canonicalizeMatch } from "@utils/patches";
 import definePlugin, { OptionType } from "@utils/types";
 
@@ -28,6 +28,7 @@ export default definePlugin({
     name: "PermissionFreeWill",
     description: "Disables the client-side restrictions for channel permission management.",
     authors: [Devs.lewisakura],
+    categories: [PluginCategories.TWEAKS, PluginCategories.UTILITY],
 
     patches: [
         // Permission lockout, just set the check to true

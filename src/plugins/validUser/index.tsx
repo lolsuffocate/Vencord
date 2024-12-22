@@ -17,7 +17,7 @@
 */
 
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { isNonNullish } from "@utils/guards";
 import { sleep } from "@utils/misc";
 import { Queue } from "@utils/Queue";
@@ -180,6 +180,7 @@ export default definePlugin({
     name: "ValidUser",
     description: "Fix mentions for unknown users showing up as '@unknown-user' (hover over a mention to fix it)",
     authors: [Devs.Ven, Devs.Dolfies],
+    categories: [PluginCategories.TWEAKS],
     tags: ["MentionCacheFix"],
 
     patches: [

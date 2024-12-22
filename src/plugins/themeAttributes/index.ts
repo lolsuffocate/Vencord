@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { UserStore } from "@webpack/common";
 import { Message } from "discord-types/general";
@@ -14,6 +14,7 @@ export default definePlugin({
     name: "ThemeAttributes",
     description: "Adds data attributes to various elements for theming purposes",
     authors: [Devs.Ven, Devs.Board],
+    categories: [PluginCategories.UI, PluginCategories.DEVELOPER],
 
     patches: [
         // Add data-tab-id to all tab bar items

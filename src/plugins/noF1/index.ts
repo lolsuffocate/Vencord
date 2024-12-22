@@ -16,13 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoF1",
     description: "Disables F1 help bind.",
     authors: [Devs.Cyn],
+    categories: [PluginCategories.TWEAKS, PluginCategories.UTILITY],
     patches: [
         {
             find: ',"f1"],comboKeysBindGlobal:',
