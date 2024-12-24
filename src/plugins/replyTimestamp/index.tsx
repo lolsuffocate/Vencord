@@ -7,7 +7,7 @@
 import "./style.css";
 
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { filters, findByPropsLazy, mapMangledModuleLazy } from "@webpack";
 import { Timestamp } from "@webpack/common";
@@ -64,6 +64,7 @@ export default definePlugin({
     name: "ReplyTimestamp",
     description: "Shows a timestamp on replied-message previews",
     authors: [Devs.Kyuuhachi],
+    categories: [PluginCategories.UI],
 
     patches: [
         {

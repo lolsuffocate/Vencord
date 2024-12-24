@@ -33,6 +33,7 @@ export let Icons = {} as t.Icons;
 export let Card: t.Card;
 export let Button: t.Button;
 export let Switch: t.Switch;
+export let Checkbox: t.Checkbox;
 export let Tooltip: t.Tooltip;
 export let TooltipContainer: t.TooltipContainer;
 export let TextInput: t.TextInput;
@@ -67,6 +68,7 @@ waitFor(["FormItem", "Button"], m => {
         Card,
         Button,
         FormSwitch: Switch,
+        Checkbox,
         Tooltip,
         TooltipContainer,
         TextInput,

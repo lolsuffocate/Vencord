@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
@@ -22,6 +22,7 @@ export default definePlugin({
     name: "NotificationVolume",
     description: "Save your ears and set a separate volume for notifications and in-app sounds",
     authors: [Devs.philipbry],
+    categories: [PluginCategories.UTILITY],
     settings,
     patches: [
         {

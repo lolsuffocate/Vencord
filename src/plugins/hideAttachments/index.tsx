@@ -19,7 +19,7 @@
 import { get, set } from "@api/DataStore";
 import { addButton, removeButton } from "@api/MessagePopover";
 import { ImageInvisible, ImageVisible } from "@components/Icons";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { ChannelStore } from "@webpack/common";
 
@@ -38,6 +38,7 @@ export default definePlugin({
     name: "HideAttachments",
     description: "Hide attachments and Embeds for individual messages via hover button",
     authors: [Devs.Ven],
+    categories: [PluginCategories.TWEAKS],
     dependencies: ["MessagePopoverAPI"],
 
     async start() {

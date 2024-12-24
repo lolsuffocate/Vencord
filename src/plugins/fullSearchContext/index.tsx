@@ -18,7 +18,7 @@
 
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { migratePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
 import { NoopComponent } from "@utils/react";
 import definePlugin from "@utils/types";
@@ -82,6 +82,7 @@ export default definePlugin({
     name: "FullSearchContext",
     description: "Makes the message context menu in message search results have all options you'd expect",
     authors: [Devs.Ven, Devs.Aria],
+    categories: [PluginCategories.TWEAKS, PluginCategories.UTILITY],
 
     patches: [{
         find: "onClick:this.handleMessageClick,",

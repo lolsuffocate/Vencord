@@ -19,7 +19,7 @@
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { makeRange } from "@components/PluginSettings/components";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByCodeLazy } from "@webpack";
@@ -75,6 +75,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "RoleColorEverywhere",
     authors: [Devs.KingFish, Devs.lewisakura, Devs.AutumnVN, Devs.Kyuuhachi, Devs.jamesbt365],
+    categories: [PluginCategories.UI],
     description: "Adds the top role color anywhere possible",
     settings,
 

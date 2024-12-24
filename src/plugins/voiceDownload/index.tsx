@@ -6,13 +6,14 @@
 
 import "./style.css";
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "VoiceDownload",
     description: "Adds a download to voice messages. (Opens a new browser tab)",
     authors: [Devs.puv],
+    categories: [PluginCategories.UTILITY],
     patches: [
         {
             find: "rippleContainer,children",

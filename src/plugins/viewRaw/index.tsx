@@ -22,7 +22,7 @@ import { definePluginSettings } from "@api/Settings";
 import { CodeBlock } from "@components/CodeBlock";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Flex } from "@components/Flex";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
 import { Margins } from "@utils/margins";
 import { copyWithToast } from "@utils/misc";
@@ -149,6 +149,7 @@ export default definePlugin({
     name: "ViewRaw",
     description: "Copy and view the raw content/data of any message, channel or guild",
     authors: [Devs.KingFish, Devs.Ven, Devs.rad, Devs.ImLvna],
+    categories: [PluginCategories.DEVELOPER, PluginCategories.INFO],
     dependencies: ["MessagePopoverAPI"],
     settings,
     contextMenus: {

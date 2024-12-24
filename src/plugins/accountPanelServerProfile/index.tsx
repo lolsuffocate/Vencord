@@ -6,7 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { getCurrentChannel } from "@utils/discord";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy, findComponentByCodeLazy } from "@webpack";
@@ -65,6 +65,7 @@ export default definePlugin({
     name: "AccountPanelServerProfile",
     description: "Right click your account panel in the bottom left to view your profile in the current server",
     authors: [Devs.Nuckyz, Devs.relitrix],
+    categories: [PluginCategories.TWEAKS, PluginCategories.UI],
     settings,
 
     patches: [

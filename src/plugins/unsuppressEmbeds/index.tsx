@@ -18,7 +18,7 @@
 
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { ImageInvisible, ImageVisible } from "@components/Icons";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { Constants, Menu, PermissionsBits, PermissionStore, RestAPI, UserStore } from "@webpack/common";
 
@@ -55,6 +55,7 @@ const messageContextMenuPatch: NavContextMenuPatchCallback = (children, { channe
 export default definePlugin({
     name: "UnsuppressEmbeds",
     authors: [Devs.rad, Devs.HypedDomi],
+    categories: [PluginCategories.UTILITY],
     description: "Allows you to unsuppress embeds in messages",
     contextMenus: {
         "message": messageContextMenuPatch

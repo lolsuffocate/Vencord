@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { saveFile } from "@utils/web";
 import { findByPropsLazy } from "@webpack";
@@ -72,6 +72,7 @@ export default definePlugin({
     name: "WebContextMenus",
     description: "Re-adds context menus missing in the web version of Discord: Links & Images (Copy/Open Link/Image), Text Area (Copy, Cut, Paste, SpellCheck)",
     authors: [Devs.Ven],
+    categories: [PluginCategories.TWEAKS, PluginCategories.UTILITY],
     enabledByDefault: true,
     required: IS_VESKTOP,
 

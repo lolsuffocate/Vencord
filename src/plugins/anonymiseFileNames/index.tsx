@@ -19,7 +19,7 @@
 import { Upload } from "@api/MessageEvents";
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByCodeLazy, findByPropsLazy } from "@webpack";
 
@@ -69,6 +69,7 @@ export default definePlugin({
     name: "AnonymiseFileNames",
     authors: [Devs.fawn],
     description: "Anonymise uploaded file names",
+    categories: [PluginCategories.TWEAKS],
     patches: [
         {
             find: "instantBatchUpload:",

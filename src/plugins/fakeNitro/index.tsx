@@ -18,7 +18,7 @@
 
 import { addPreEditListener, addPreSendListener, removePreEditListener, removePreSendListener } from "@api/MessageEvents";
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { ApngBlendOp, ApngDisposeOp, importApngJs } from "@utils/dependencies";
 import { getCurrentGuild, getEmojiURL } from "@utils/discord";
 import { Logger } from "@utils/Logger";
@@ -217,6 +217,7 @@ function makeBypassPatches(): Omit<Patch, "plugin"> {
 export default definePlugin({
     name: "FakeNitro",
     authors: [Devs.Arjix, Devs.D3SOX, Devs.Ven, Devs.fawn, Devs.captain, Devs.Nuckyz, Devs.AutumnVN],
+    categories: [PluginCategories.TWEAKS, PluginCategories.NITRO, PluginCategories.UI],
     description: "Allows you to stream in nitro quality, send fake emojis/stickers, use client themes and custom Discord notifications.",
     dependencies: ["MessageEventsAPI"],
 

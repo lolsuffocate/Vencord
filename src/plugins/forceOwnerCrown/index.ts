@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { GuildStore } from "@webpack/common";
 import { Channel, User } from "discord-types/general";
@@ -25,6 +25,7 @@ export default definePlugin({
     name: "ForceOwnerCrown",
     description: "Force the owner crown next to usernames even if the server is large.",
     authors: [Devs.D3SOX, Devs.Nickyux],
+    categories: [PluginCategories.UI, PluginCategories.INFO],
     patches: [
         {
             find: "#{intl::GUILD_OWNER}",

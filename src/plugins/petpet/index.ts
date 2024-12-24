@@ -17,7 +17,7 @@
 */
 
 import { ApplicationCommandInputType, ApplicationCommandOptionType, Argument, CommandContext, findOption, sendBotMessage } from "@api/Commands";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { makeLazy } from "@utils/lazy";
 import definePlugin from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -88,6 +88,7 @@ export default definePlugin({
     name: "petpet",
     description: "Adds a /petpet slash command to create headpet gifs from any image",
     authors: [Devs.Ven],
+    categories: [PluginCategories.COMMANDS, PluginCategories.FUN],
     commands: [
         {
             inputType: ApplicationCommandInputType.BUILT_IN,

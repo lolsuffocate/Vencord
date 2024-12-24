@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { UserStore } from "@webpack/common";
 
@@ -24,6 +24,7 @@ export default definePlugin({
     name: "NoProfileThemes",
     description: "Completely removes Nitro profile themes from everyone but yourself",
     authors: [Devs.TheKodeToad],
+    categories: [PluginCategories.UI],
     patches: [
         {
             find: "hasThemeColors(){",

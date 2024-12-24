@@ -4,11 +4,12 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "FixYoutubeEmbeds",
     description: "Bypasses youtube videos being blocked from display on Discord (for example by UMG)",
-    authors: [Devs.coolelectronics]
+    authors: [Devs.coolelectronics],
+    categories: [PluginCategories.TWEAKS]
 });

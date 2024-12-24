@@ -16,13 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "FixCodeblockGap",
     description: "Removes the gap between codeblocks and text below it",
     authors: [Devs.Grzesiek11],
+    categories: [PluginCategories.TWEAKS, PluginCategories.UI],
     patches: [
         {
             find: String.raw`/^${"```"}(?:([a-z0-9_+\-.#]+?)\n)?\n*([^\n][^]*?)\n*${"```"}`,

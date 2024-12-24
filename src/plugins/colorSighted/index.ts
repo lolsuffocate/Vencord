@@ -16,13 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "ColorSighted",
     description: "Removes the colorblind-friendly icons from statuses, just like 2015-2017 Discord",
     authors: [Devs.lewisakura],
+    categories: [PluginCategories.UI],
     patches: [
         {
             find: "Masks.STATUS_ONLINE",

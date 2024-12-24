@@ -21,7 +21,7 @@ import "./style.css";
 import { definePluginSettings } from "@api/Settings";
 import { classNameFactory } from "@api/Styles";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findStoreLazy } from "@webpack";
 import { FluxStore } from "@webpack/types";
@@ -60,6 +60,7 @@ export default definePlugin({
     name: "MemberCount",
     description: "Shows the amount of online & total members in the server member list and tooltip",
     authors: [Devs.Ven, Devs.Commandtechno],
+    categories: [PluginCategories.INFO, PluginCategories.UI],
     settings,
 
     patches: [

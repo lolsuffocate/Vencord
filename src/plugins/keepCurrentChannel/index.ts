@@ -17,7 +17,7 @@
 */
 
 import * as DataStore from "@api/DataStore";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { ChannelRouter, ChannelStore, NavigationRouter, SelectedChannelStore, SelectedGuildStore } from "@webpack/common";
 
@@ -44,6 +44,7 @@ export default definePlugin({
     name: "KeepCurrentChannel",
     description: "Attempt to navigate to the channel you were in before switching accounts or loading Discord.",
     authors: [Devs.Nuckyz],
+    categories: [PluginCategories.TWEAKS],
 
     patches: [
         {

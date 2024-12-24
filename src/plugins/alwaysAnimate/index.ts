@@ -16,13 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "AlwaysAnimate",
     description: "Animates anything that can be animated",
     authors: [Devs.FieryFlames],
+    categories: [PluginCategories.UI],
 
     patches: [
         {

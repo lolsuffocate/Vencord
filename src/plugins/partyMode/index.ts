@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType, ReporterTestable } from "@utils/types";
 import { FluxDispatcher } from "@webpack/common";
 
@@ -45,6 +45,7 @@ export default definePlugin({
     name: "PartyMode",
     description: "Allows you to use party mode cause the party never ends ✨",
     authors: [Devs.UwUDev],
+    categories: [PluginCategories.FUN],
     reporterTestable: ReporterTestable.None,
     settings,
 

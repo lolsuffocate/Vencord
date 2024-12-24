@@ -20,7 +20,7 @@ import { definePluginSettings } from "@api/Settings";
 import { disableStyle, enableStyle } from "@api/Styles";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { ErrorCard } from "@components/ErrorCard";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { Margins } from "@utils/margins";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy, findLazy } from "@webpack";
@@ -50,6 +50,7 @@ export default definePlugin({
         Devs.BanTheNons,
         Devs.Nuckyz
     ],
+    categories: [PluginCategories.TWEAKS, PluginCategories.INFO, PluginCategories.DEVELOPER],
 
     settings,
 

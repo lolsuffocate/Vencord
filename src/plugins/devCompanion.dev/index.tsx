@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType, ReporterTestable } from "@utils/types";
 
@@ -50,6 +50,7 @@ export default definePlugin({
     name: "DevCompanion",
     description: "Dev Companion Plugin",
     authors: [Devs.Ven, Devs.sadan, Devs.Samwich],
+    categories: [PluginCategories.DEVELOPER, PluginCategories.UTILITY],
     reporterTestable: ReporterTestable.None,
     settings,
 

@@ -18,7 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Flex } from "@components/Flex";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { RelationshipStore } from "@webpack/common";
 import { User } from "discord-types/general";
@@ -35,6 +35,7 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "SortFriendRequests",
     authors: [Devs.Megu],
+    categories: [PluginCategories.TWEAKS],
     description: "Sorts friend requests by date of receipt",
     settings,
 

@@ -21,7 +21,7 @@ import "./style.css";
 import { addDecorator, removeDecorator } from "@api/MemberListDecorators";
 import { addDecoration, removeDecoration } from "@api/MessageDecorations";
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 import { VoiceChannelIndicator } from "./components";
@@ -51,6 +51,7 @@ export default definePlugin({
     name: "UserVoiceShow",
     description: "Shows an indicator when a user is in a Voice Channel",
     authors: [Devs.Nuckyz, Devs.LordElias],
+    categories: [PluginCategories.UI, PluginCategories.VOICE],
     dependencies: ["MemberListDecoratorsAPI", "MessageDecorationsAPI"],
     settings,
 

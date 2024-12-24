@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findLazy } from "@webpack";
 import { ContextMenuApi, FluxDispatcher, Menu, MessageActions } from "@webpack/common";
@@ -161,6 +161,7 @@ export default definePlugin({
     name: "GreetStickerPicker",
     description: "Allows you to use any greet sticker instead of only the random one by right-clicking the 'Wave to say hi!' button",
     authors: [Devs.Ven],
+    categories: [PluginCategories.TWEAKS],
 
     settings,
 

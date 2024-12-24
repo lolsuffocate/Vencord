@@ -19,7 +19,7 @@
 import "./shiki.css";
 
 import { enableStyle } from "@api/Styles";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { ReporterTestable } from "@utils/types";
 import previewExampleText from "file://previewExample.tsx";
 
@@ -34,6 +34,7 @@ export default definePlugin({
     name: "ShikiCodeblocks",
     description: "Brings vscode-style codeblocks into Discord, powered by Shiki",
     authors: [Devs.Vap],
+    categories: [PluginCategories.DEVELOPER, PluginCategories.UI],
     reporterTestable: ReporterTestable.Patches,
     settings,
 

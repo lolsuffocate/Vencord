@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
@@ -31,6 +31,7 @@ export default definePlugin({
     name: "OverrideForumDefaults",
     description: "Allows you to override default forum layout/sort order. you can still change it on a per-channel basis",
     authors: [Devs.Inbestigator],
+    categories: [PluginCategories.TWEAKS, PluginCategories.UI],
     patches: [
         {
             find: "getDefaultLayout(){",

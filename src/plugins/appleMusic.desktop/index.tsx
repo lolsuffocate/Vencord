@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType, PluginNative, ReporterTestable } from "@utils/types";
 import { ApplicationAssetUtils, FluxDispatcher, Forms } from "@webpack/common";
 
@@ -173,6 +173,7 @@ export default definePlugin({
     name: "AppleMusicRichPresence",
     description: "Discord rich presence for your Apple Music!",
     authors: [Devs.RyanCaoDev],
+    categories: [PluginCategories.RPC],
     hidden: !navigator.platform.startsWith("Mac"),
     reporterTestable: ReporterTestable.None,
 

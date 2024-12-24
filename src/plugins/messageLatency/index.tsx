@@ -6,7 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { isNonNullish } from "@utils/guards";
 import definePlugin, { OptionType } from "@utils/types";
 import { findExportedComponentLazy } from "@webpack";
@@ -32,6 +32,7 @@ export default definePlugin({
     name: "MessageLatency",
     description: "Displays an indicator for messages that took ≥n seconds to send",
     authors: [Devs.arHSM],
+    categories: [PluginCategories.UI, PluginCategories.INFO],
 
     settings: definePluginSettings({
         latency: {

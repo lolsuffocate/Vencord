@@ -18,7 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { useCallback, useEffect, useRef, useState } from "@webpack/common";
@@ -87,6 +87,7 @@ export const settings = definePluginSettings({
 export default definePlugin({
     name: "FavoriteGifSearch",
     authors: [Devs.Aria],
+    categories: [PluginCategories.TWEAKS],
     description: "Adds a search bar to favorite gifs.",
 
     patches: [

@@ -23,20 +23,22 @@ import { showNotice } from "@api/Notices";
 import { Settings, useSettings } from "@api/Settings";
 import { classNameFactory } from "@api/Styles";
 import { CogWheel, InfoIcon } from "@components/Icons";
+import { CategoryBadge } from "@components/PluginSettings/CategoryBadge";
 import { openPluginModal } from "@components/PluginSettings/PluginModal";
 import { AddonCard } from "@components/VencordSettings/AddonCard";
 import { SettingsTab } from "@components/VencordSettings/shared";
 import { ChangeList } from "@utils/ChangeList";
+import { PluginCategories } from "@utils/constants";
 import { proxyLazy } from "@utils/lazy";
 import { Logger } from "@utils/Logger";
 import { Margins } from "@utils/margins";
 import { classes, isObjectEmpty } from "@utils/misc";
 import { useAwaiter } from "@utils/react";
-import { Plugin } from "@utils/types";
+import { Plugin, PluginCategory } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
-import { Alerts, Button, Card, Forms, lodash, Parser, React, Select, Text, TextInput, Toasts, Tooltip, useMemo } from "@webpack/common";
+import { Alerts, Button, Card, Checkbox, Forms, lodash, Parser, React, Select, Text, TextInput, Toasts, Tooltip, useMemo } from "@webpack/common";
 
-import Plugins, { ExcludedPlugins } from "~plugins";
+import Plugins, { ExcludedPlugins, PluginMeta } from "~plugins";
 
 // Avoid circular dependency
 const { startDependenciesRecursive, startPlugin, stopPlugin } = proxyLazy(() => require("../../plugins"));
@@ -46,6 +48,7 @@ const logger = new Logger("PluginSettings", "#a6d189");
 
 const InputStyles = findByPropsLazy("inputWrapper", "inputDefault", "error");
 const ButtonClasses = findByPropsLazy("button", "disabled", "enabled");
+const ScrollbarClasses = findByPropsLazy("thin", "auto", "managedReactiveScroller");
 
 
 function showErrorToast(message: string) {
@@ -60,6 +63,7 @@ function showErrorToast(message: string) {
 }
 
 function ReloadRequiredCard({ required }: { required: boolean; }) {
+    if (!required) return null; // todo: properly remove regular plugin management card maybe
     return (
         <Card className={cl("info-card", { "restart-card": required })}>
             {required ? (
@@ -86,11 +90,13 @@ function ReloadRequiredCard({ required }: { required: boolean; }) {
 interface PluginCardProps extends React.HTMLProps<HTMLDivElement> {
     plugin: Plugin;
     disabled: boolean;
+    toggleCategory?: (category: PluginCategory) => void;
+    activeCategories?: PluginCategory[];
     onRestartNeeded(name: string): void;
     isNew?: boolean;
 }
 
-export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, onMouseLeave, isNew }: PluginCardProps) {
+export function PluginCard({ plugin, disabled, onRestartNeeded, toggleCategory, activeCategories, onMouseEnter, onMouseLeave, isNew }: PluginCardProps) {
     const settings = Settings.plugins[plugin.name];
 
     const isEnabled = () => Vencord.Plugins.isPluginEnabled(plugin.name);
@@ -144,6 +150,16 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, on
         <AddonCard
             name={plugin.name}
             description={plugin.description}
+            footer={
+                plugin.categories && (
+                    <div className={cl("categories")}>
+                        {plugin.categories.sort((a, b) => a.name.localeCompare(b.name)).map((category, index) => (
+                            <CategoryBadge category={category} toggleCategory={toggleCategory}
+                                           selected={activeCategories?.includes(category)}/>
+                        ))}
+                    </div>
+                )
+            }
             isNew={isNew}
             enabled={isEnabled()}
             setEnabled={toggleEnabled}
@@ -244,18 +260,67 @@ export default function PluginSettings() {
     const sortedPlugins = useMemo(() => Object.values(Plugins)
         .sort((a, b) => a.name.localeCompare(b.name)), []);
 
-    const [searchValue, setSearchValue] = React.useState({ value: "", status: SearchStatus.ALL });
+
+    const [searchValue, setSearchValue] = React.useState({
+        value: "",
+        status: SearchStatus.ALL,
+        categories: [] as PluginCategory[],
+        combineCategoryFilters: false
+    });
+    const usedCategories = useMemo(() => {
+        const categories = new Set<PluginCategory>();
+        let hasUncategorized = false;
+
+        for (const plugin of sortedPlugins) {
+            if (plugin.hidden || (plugin.name.endsWith("API"))) continue;
+
+            if (PluginMeta[plugin.name]?.userPlugin && !plugin?.categories?.includes(PluginCategories.USER_PLUGIN)) {
+                plugin.categories ??= [];
+                plugin.categories.push(PluginCategories.USER_PLUGIN);
+            }
+
+            if (plugin.categories) {
+                for (const category of plugin.categories) {
+                    categories.add(category);
+                }
+            } else {
+                hasUncategorized = true;
+            }
+        }
+        const catArray = Array.from(categories);
+        catArray.sort((a, b) => a.name.localeCompare(b.name));
+        if (hasUncategorized) catArray.push(PluginCategories.UNCATEGORIZED);
+        return catArray;
+    }, []);
 
     const search = searchValue.value.toLowerCase();
     const onSearch = (query: string) => setSearchValue(prev => ({ ...prev, value: query }));
     const onStatusChange = (status: SearchStatus) => setSearchValue(prev => ({ ...prev, status }));
+    const toggleCategory = (newCategory: PluginCategory) => setSearchValue(prev => {
+        const newCategories = prev.categories;
+
+        if (newCategories.includes(newCategory)) {
+            return ({ ...prev, categories: newCategories.filter(c => c !== newCategory) });
+        }
+
+        return ({ ...prev, categories: [...newCategories, newCategory] });
+    });
+    const toggleCombineCategoryFilters = () => setSearchValue(prev => ({
+        ...prev,
+        combineCategoryFilters: !prev.combineCategoryFilters
+    }));
 
     const pluginFilter = (plugin: typeof Plugins[keyof typeof Plugins]) => {
-        const { status } = searchValue;
+        const { status, categories, combineCategoryFilters } = searchValue;
         const enabled = Vencord.Plugins.isPluginEnabled(plugin.name);
         if (enabled && status === SearchStatus.DISABLED) return false;
         if (!enabled && status === SearchStatus.ENABLED) return false;
         if (status === SearchStatus.NEW && !newPlugins?.includes(plugin.name)) return false;
+        if (combineCategoryFilters) {
+            if (categories.length && !categories.every(c => plugin.categories?.includes(c) || (!plugin.categories && c === PluginCategories.UNCATEGORIZED))) return false;
+        } else {
+            if (categories.length && !categories.some(c => plugin.categories?.includes(c) || (!plugin.categories && c === PluginCategories.UNCATEGORIZED))) return false;
+        }
         if (!search.length) return true;
 
         return (
@@ -305,6 +370,8 @@ export default function PluginSettings() {
                         <PluginCard
                             onMouseLeave={onMouseLeave}
                             onMouseEnter={onMouseEnter}
+                            toggleCategory={toggleCategory}
+                            activeCategories={searchValue.categories}
                             onRestartNeeded={name => changes.handleChange(name)}
                             disabled={true}
                             plugin={p}
@@ -318,6 +385,8 @@ export default function PluginSettings() {
                 <PluginCard
                     onRestartNeeded={name => changes.handleChange(name)}
                     disabled={false}
+                    toggleCategory={toggleCategory}
+                    activeCategories={searchValue.categories}
                     plugin={p}
                     isNew={newPlugins?.includes(p.name)}
                     key={p.name}
@@ -328,56 +397,82 @@ export default function PluginSettings() {
 
     return (
         <SettingsTab title="Plugins">
-            <ReloadRequiredCard required={changes.hasChanges} />
+            <div>
+                <ReloadRequiredCard required={changes.hasChanges}/>
 
-            <Forms.FormTitle tag="h5" className={classes(Margins.top20, Margins.bottom8)}>
-                Filters
-            </Forms.FormTitle>
+                <Forms.FormTitle tag="h5" className={classes(Margins.top20, Margins.bottom8)}>
+                    Filters
+                </Forms.FormTitle>
 
-            <div className={classes(Margins.bottom20, cl("filter-controls"))}>
-                <TextInput autoFocus value={searchValue.value} placeholder="Search for a plugin..." onChange={onSearch} />
-                <div className={InputStyles.inputWrapper}>
-                    <Select
-                        options={[
-                            { label: "Show All", value: SearchStatus.ALL, default: true },
-                            { label: "Show Enabled", value: SearchStatus.ENABLED },
-                            { label: "Show Disabled", value: SearchStatus.DISABLED },
-                            { label: "Show New", value: SearchStatus.NEW }
-                        ]}
-                        serialize={String}
-                        select={onStatusChange}
-                        isSelected={v => v === searchValue.status}
-                        closeOnSelect={true}
-                        className={InputStyles.inputDefault}
-                    />
-                </div>
-            </div>
-
-            <Forms.FormTitle className={Margins.top20}>Plugins</Forms.FormTitle>
-
-            {plugins.length || requiredPlugins.length
-                ? (
-                    <div className={cl("grid")}>
-                        {plugins.length
-                            ? plugins
-                            : <Text variant="text-md/normal">No plugins meet the search criteria.</Text>
-                        }
+                <div className={classes(Margins.bottom20, cl("filter-controls"))}>
+                    <TextInput autoFocus value={searchValue.value} placeholder="Search for a plugin..." onChange={onSearch} />
+                    <div className={InputStyles.inputWrapper}>
+                        <Select
+                            options={[
+                                { label: "Show All", value: SearchStatus.ALL, default: true },
+                                { label: "Show Enabled", value: SearchStatus.ENABLED },
+                                { label: "Show Disabled", value: SearchStatus.DISABLED },
+                                { label: "Show New", value: SearchStatus.NEW }
+                            ]}
+                            serialize={String}
+                            select={onStatusChange}
+                            isSelected={v => v === searchValue.status}
+                            closeOnSelect={true}
+                            className={InputStyles.inputDefault}
+                        />
                     </div>
-                )
-                : <ExcludedPluginsList search={search} />
-            }
+                </div>
 
+                <Forms.FormTitle tag="h5" className={classes(Margins.top20, Margins.bottom8)}>
+                    Categories
+                </Forms.FormTitle>
+                <div className={cl("category-picker")}>
+                    <Checkbox value={searchValue.combineCategoryFilters} onChange={toggleCombineCategoryFilters}>
+                        Combine filters
+                    </Checkbox>
+                </div>
+                <ul className={classes(cl("category-picker"), ScrollbarClasses.auto)}>
+                    {[
+                        <li>
+                            <CategoryBadge category={{ name: "All", description: "All" }}
+                                           toggleCategory={() => setSearchValue({ ...searchValue, categories: [] })}
+                                           selected={!searchValue.categories.length}/>
+                        </li>,
+                        ...usedCategories.map(category => (
+                            <li key={category.name}>
+                                <CategoryBadge category={category} toggleCategory={toggleCategory}
+                                               selected={searchValue.categories.includes(category)}/>
+                            </li>
+                        ))
+                    ]}
+                </ul>
 
-            <Forms.FormDivider className={Margins.top20} />
-
-            <Forms.FormTitle tag="h5" className={classes(Margins.top20, Margins.bottom8)}>
-                Required Plugins
-            </Forms.FormTitle>
-            <div className={cl("grid")}>
-                {requiredPlugins.length
-                    ? requiredPlugins
-                    : <Text variant="text-md/normal">No plugins meet the search criteria.</Text>
+                <Forms.FormTitle className={Margins.top20}>Plugins</Forms.FormTitle>
+            </div>
+            <div className={classes(cl("list"), ScrollbarClasses.auto)}>
+                {plugins.length || requiredPlugins.length
+                    ? (
+                        <div className={cl("grid")}>
+                            {plugins.length
+                                ? plugins
+                                : <Text variant="text-md/normal">No plugins meet the search criteria.</Text>
+                            }
+                        </div>
+                    )
+                    : <ExcludedPluginsList search={search}/>
                 }
+
+                <Forms.FormDivider className={Margins.top20}/>
+
+                <Forms.FormTitle tag="h5" className={classes(Margins.top20, Margins.bottom8)}>
+                    Required Plugins
+                </Forms.FormTitle>
+                <div className={cl("grid")}>
+                    {requiredPlugins.length
+                        ? requiredPlugins
+                        : <Text variant="text-md/normal">No plugins meet the search criteria.</Text>
+                    }
+                </div>
             </div>
         </SettingsTab >
     );

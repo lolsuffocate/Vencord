@@ -18,7 +18,7 @@
 
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { ScreenshareIcon } from "@components/Icons";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { openImageModal } from "@utils/discord";
 import definePlugin from "@utils/types";
 import { Menu } from "@webpack/common";
@@ -93,6 +93,7 @@ export default definePlugin({
     name: "BiggerStreamPreview",
     description: "This plugin allows you to enlarge stream previews",
     authors: [Devs.phil],
+    categories: [PluginCategories.UI, PluginCategories.VOICE],
     contextMenus: {
         "user-context": userContextPatch,
         "stream-context": streamContextPatch

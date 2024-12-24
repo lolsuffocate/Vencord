@@ -7,7 +7,7 @@
 import { Notices } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
 import { makeRange } from "@components/PluginSettings/components";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { FluxDispatcher } from "@webpack/common";
 
@@ -31,6 +31,7 @@ export default definePlugin({
     name: "CustomIdle",
     description: "Allows you to set the time before Discord goes idle (or disable auto-idle)",
     authors: [Devs.newwares],
+    categories: [PluginCategories.TWEAKS],
     settings,
     patches: [
         {

@@ -16,13 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoDevtoolsWarning",
     description: "Disables the 'HOLD UP' banner in the console. As a side effect, also prevents Discord from hiding your token, which prevents random logouts.",
     authors: [Devs.Ven],
+    categories: [PluginCategories.DEVELOPER],
     patches: [{
         find: "setDevtoolsCallbacks",
         replacement: {

@@ -17,7 +17,7 @@
 */
 
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { sleep } from "@utils/misc";
 import { Queue } from "@utils/Queue";
 import { useForceUpdater } from "@utils/react";
@@ -101,6 +101,7 @@ export default definePlugin({
     name: "WhoReacted",
     description: "Renders the avatars of users who reacted to a message",
     authors: [Devs.Ven, Devs.KannaDev, Devs.newwares],
+    categories: [PluginCategories.TWEAKS, PluginCategories.UI, PluginCategories.INFO],
 
     patches: [
         {

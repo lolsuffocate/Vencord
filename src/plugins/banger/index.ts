@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
@@ -33,6 +33,7 @@ export default definePlugin({
     name: "BANger",
     description: "Replaces the GIF in the ban dialogue with a custom one.",
     authors: [Devs.Xinto, Devs.Glitch],
+    categories: [PluginCategories.TWEAKS],
     settings,
     patches: [
         {

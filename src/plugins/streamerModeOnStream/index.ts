@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { FluxDispatcher, UserStore } from "@webpack/common";
 
@@ -38,6 +38,7 @@ export default definePlugin({
     name: "StreamerModeOnStream",
     description: "Automatically enables streamer mode when you start streaming in Discord",
     authors: [Devs.Kodarru],
+    categories: [PluginCategories.TWEAKS, PluginCategories.UTILITY, PluginCategories.VOICE],
     flux: {
         STREAM_CREATE: d => toggleStreamerMode(d, true),
         STREAM_DELETE: d => toggleStreamerMode(d, false)

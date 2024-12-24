@@ -58,6 +58,11 @@ export interface PluginAuthor {
     id: BigInt;
 }
 
+export interface PluginCategory {
+    name: string;
+    description: string;
+}
+
 export interface Plugin extends PluginDef {
     patches?: Patch[];
     started: boolean;
@@ -141,6 +146,8 @@ export interface PluginDef {
     toolboxActions?: Record<string, () => void>;
 
     tags?: string[];
+
+    categories?: PluginCategory[];
 }
 
 export const enum StartAt {

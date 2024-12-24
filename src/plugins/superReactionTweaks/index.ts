@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { UserStore } from "@webpack/common";
 
@@ -38,6 +38,7 @@ export default definePlugin({
     name: "SuperReactionTweaks",
     description: "Customize the limit of Super Reactions playing at once, and super react by default",
     authors: [Devs.FieryFlames, Devs.ant0n],
+    categories: [PluginCategories.TWEAKS, PluginCategories.UI],
     patches: [
         {
             find: ",BURST_REACTION_EFFECT_PLAY",

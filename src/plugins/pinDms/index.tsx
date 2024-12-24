@@ -8,7 +8,7 @@ import "./styles.css";
 
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { classes } from "@utils/misc";
 import definePlugin, { OptionType, StartAt } from "@utils/types";
 import { findByPropsLazy, findStoreLazy } from "@webpack";
@@ -62,6 +62,7 @@ export default definePlugin({
     name: "PinDMs",
     description: "Allows you to pin private channels to the top of your DM list. To pin/unpin or reorder pins, right click DMs",
     authors: [Devs.Ven, Devs.Aria],
+    categories: [PluginCategories.UI, PluginCategories.UTILITY],
     settings,
     contextMenus,
 

@@ -18,7 +18,7 @@
 
 import { showNotification } from "@api/Notifications";
 import { definePluginSettings } from "@api/Settings";
-import { Devs } from "@utils/constants";
+import { Devs, PluginCategories } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import { closeAllModals } from "@utils/modal";
 import definePlugin, { OptionType } from "@utils/types";
@@ -61,6 +61,7 @@ export default definePlugin({
     name: "CrashHandler",
     description: "Utility plugin for handling and possibly recovering from crashes without a restart",
     authors: [Devs.Nuckyz],
+    categories: [PluginCategories.UTILITY],
     enabledByDefault: true,
 
     settings,
