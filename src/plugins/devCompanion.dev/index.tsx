@@ -19,15 +19,18 @@
 import { definePluginSettings } from "@api/Settings";
 import { Devs, PluginCategories } from "@utils/constants";
 import { Logger } from "@utils/Logger";
-import definePlugin, { OptionType, ReporterTestable } from "@utils/types";
+import definePlugin, { OptionType, PluginNative, ReporterTestable } from "@utils/types";
 
 import { initWs, socket, stopWs } from "./initWs";
 console.log("imported");
 export const PORT = 8485;
 const NAV_ID = "dev-companion-reconnect";
+const Native = VencordNative.pluginHelpers.DevCompanion as PluginNative<typeof import("./native")>;
 
 export const logger = new Logger("DevCompanion");
-
+export const hardReload = async () => {
+    Native.fullRestart();
+};
 export const settings = definePluginSettings({
     notifyOnAutoConnect: {
         description: "Whether to notify when Dev Companion has automatically connected.",
@@ -40,7 +43,7 @@ export const settings = definePluginSettings({
         type: OptionType.BOOLEAN,
     },
     reloadAfterToggle: {
-        description: "Reload after a disable/enable plugin command is recived.",
+        description: "Reload after a disable/enable plugin command is received.",
         default: true,
         type: OptionType.BOOLEAN
     }

@@ -20,7 +20,7 @@ import { Command } from "@api/Commands";
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { FluxEvents } from "@webpack/types";
 import { JSX } from "react";
-import { Promisable } from "type-fest";
+import { LiteralUnion, Promisable } from "type-fest";
 
 // exists to export default definePlugin({...})
 export default function definePlugin<P extends PluginDef>(p: P & Record<string, any>) {
@@ -87,7 +87,7 @@ export interface PluginDef {
      * These will automatically be enabled and loaded before your plugin
      * Generally these will be API plugins
      */
-    dependencies?: string[],
+    dependencies?: LiteralUnion<"BadgeAPI" | "ChatInputButtonAPI" | "CommandsAPI" | "ContextMenuAPI" | "DynamicImageModalAPI" | "MemberListDecoratorsAPI" | "MessageAccessoriesAPI" | "MessageDecorationsAPI" | "MessageEventsAPI" | "MessagePopoverAPI" | "MessageUpdaterAPI" | "NoticesAPI" | "ServerListAPI" | "UserSettingsAPI", string>[];
     /**
      * Whether this plugin is required and forcefully enabled
      */

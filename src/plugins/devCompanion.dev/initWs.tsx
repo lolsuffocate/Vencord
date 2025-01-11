@@ -10,7 +10,7 @@ import { Toasts } from "@webpack/common";
 import { reporterData } from "debug/reporterData";
 import { Settings } from "Vencord";
 
-import { logger, PORT, settings } from ".";
+import { hardReload, logger, PORT, settings } from ".";
 import { extractAndPatchModule, extractModule, FindData, findModuleId, FindType, mkRegexFind, parseNode, PatchData, SendData, toggleEnabled, } from "./util";
 
 export function stopWs() {
@@ -227,7 +227,8 @@ export function initWs(isManual = false, isReconnect = false, reconnectAttempt =
             }
             case "reload": {
                 reply();
-                window.location.reload();
+                if(data?.hard) hardReload();
+                else window.location.reload();
                 break;
             }
             case "extract": {
