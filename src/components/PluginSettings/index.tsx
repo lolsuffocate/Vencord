@@ -36,7 +36,7 @@ import { classes, isObjectEmpty } from "@utils/misc";
 import { useAwaiter } from "@utils/react";
 import { Plugin, PluginCategory } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
-import { Alerts, Button, Card, Forms, Checkbox, lodash, Parser, React, Select, Text, TextInput, Toasts, Tooltip, useMemo } from "@webpack/common";
+import { Alerts, Button, Card, Checkbox, Forms, lodash, Parser, React, Select, Text, TextInput, Toasts, Tooltip, useMemo } from "@webpack/common";
 import { JSX } from "react";
 
 import Plugins, { ExcludedPlugins, PluginMeta } from "~plugins";
@@ -155,7 +155,7 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, toggleCategory, 
                 plugin.categories && (
                     <div className={cl("categories")}>
                         {plugin.categories.sort((a, b) => a.name.localeCompare(b.name)).map((category, index) => (
-                            <CategoryBadge category={category} toggleCategory={toggleCategory}
+                            <CategoryBadge key={category.name} category={category} toggleCategory={toggleCategory}
                                            selected={activeCategories?.includes(category)}/>
                         ))}
                     </div>
@@ -434,7 +434,7 @@ export default function PluginSettings() {
                 </div>
                 <ul className={classes(cl("category-picker"), ScrollbarClasses.auto)}>
                     {[
-                        <li>
+                        <li key={PluginCategories.UNCATEGORIZED.name}>
                             <CategoryBadge category={{ name: "All", description: "All" }}
                                            toggleCategory={() => setSearchValue({ ...searchValue, categories: [] })}
                                            selected={!searchValue.categories.length}/>
