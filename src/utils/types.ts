@@ -62,6 +62,7 @@ export interface PluginAuthor {
 export interface PluginCategory {
     name: string;
     description: string;
+    color?: string;
 }
 
 export interface Plugin extends PluginDef {

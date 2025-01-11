@@ -17,9 +17,23 @@ type CategoryBadgeProps = {
     selected?: boolean;
 };
 
+function setAlpha(sixCharHex: string, alpha: number) {
+    const hex = sixCharHex.replace("#", "");
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 export function CategoryBadge({ category, toggleCategory, selected }: CategoryBadgeProps) {
     return (
-        <Clickable onClick={() => toggleCategory?.(category)}>
+        <Clickable onClick={() => toggleCategory?.(category)}
+                   style={category.color ? {
+                       outlineColor: category.color,
+                       "--button-filled-brand-background": setAlpha(category.color, 0.7),
+                       "--button-filled-brand-background-hover": setAlpha(category.color, 0.5)
+                   } as React.CSSProperties : {}}
+        >
             <TooltipContainer key={category.name}
                               className={classes(cl("category-badge"), selected && "selected")}
                               text={category.description}>
