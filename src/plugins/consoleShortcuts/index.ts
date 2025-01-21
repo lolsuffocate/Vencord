@@ -180,6 +180,16 @@ export default definePlugin({
     authors: [Devs.Ven],
     categories: [PluginCategories.DEVELOPER],
 
+    patches: [
+        {
+            find: 'this,"_changeCallbacks",',
+            replacement: {
+                match: /\i\(this,"_changeCallbacks",/,
+                replace: "Reflect.defineProperty(this,Symbol.toStringTag,{value:this.getName(),configurable:!0,writable:!0,enumerable:!1}),$&"
+            }
+        }
+    ],
+
     startAt: StartAt.Init,
     start() {
         const shortcuts = makeShortcuts();
