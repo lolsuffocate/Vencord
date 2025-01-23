@@ -14,7 +14,7 @@ export default definePlugin({
     categories: [PluginCategories.TWEAKS],
     patches: [
         {
-            find: "getFormatQuality(){",
+            find: ".handleImageLoad)",
             replacement: {
                 match: /(?<=null;return )\i\.\i&&\(\i\|\|!\i\.isAnimated.+?:(?=\i&&\(\i="png"\))/,
                 replace: ""

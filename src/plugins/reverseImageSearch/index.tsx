@@ -109,7 +109,7 @@ export default definePlugin({
 
     patches: [
         {
-            find: "#{intl::MESSAGE_ACTIONS_MENU_LABEL}",
+            find: "#{intl::MESSAGE_ACTIONS_MENU_LABEL}),shouldHideMediaOptions:",
             replacement: {
                 match: /favoriteableType:\i,(?<=(\i)\.getAttribute\("data-type"\).+?)/,
                 replace: (m, target) => `${m}reverseImageSearchType:${target}.getAttribute("data-role"),`

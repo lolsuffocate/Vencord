@@ -56,7 +56,7 @@ export default definePlugin({
         },
         {
             // Clicking on replied messages to jump
-            find: "flash:!0,returnMessageId",
+            find: '("interactionUsernameProfile',
             replacement: [
                 {
                     match: /.\?(.{1,10}\.show\({.{1,50}#{intl::UNBLOCK_TO_JUMP_TITLE})/,

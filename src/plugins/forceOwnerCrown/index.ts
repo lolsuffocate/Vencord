@@ -28,7 +28,7 @@ export default definePlugin({
     categories: [PluginCategories.UI, PluginCategories.INFO],
     patches: [
         {
-            find: "#{intl::GUILD_OWNER}",
+            find: "#{intl::GUILD_OWNER}),children:",
             replacement: {
                 match: /,isOwner:(\i),/,
                 replace: ",_isOwner:$1=$self.isGuildOwner(e),"
