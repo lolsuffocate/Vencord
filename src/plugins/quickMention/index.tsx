@@ -17,7 +17,7 @@
 */
 
 import { addButton, removeButton } from "@api/MessagePopover";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { insertTextIntoChatInputBox } from "@utils/discord";
 import definePlugin from "@utils/types";
 import { ChannelStore, PermissionsBits, PermissionStore } from "@webpack/common";
@@ -25,7 +25,6 @@ import { ChannelStore, PermissionsBits, PermissionStore } from "@webpack/common"
 export default definePlugin({
     name: "QuickMention",
     authors: [Devs.kemo],
-    categories: [PluginCategories.TWEAKS],
     description: "Adds a quick mention button to the message actions bar",
     dependencies: ["MessagePopoverAPI"],
 

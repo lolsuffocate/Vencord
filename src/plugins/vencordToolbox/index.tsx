@@ -21,7 +21,7 @@ import "./index.css";
 import { openNotificationLogModal } from "@api/Notifications/notificationLog";
 import { Settings, useSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { findExportedComponentLazy } from "@webpack";
 import { Menu, Popout, useState } from "@webpack/common";
@@ -134,7 +134,6 @@ export default definePlugin({
     name: "VencordToolbox",
     description: "Adds a button next to the inbox button in the channel header that houses Vencord quick actions",
     authors: [Devs.Ven, Devs.AutumnVN],
-    categories: [PluginCategories.DEVELOPER, PluginCategories.UI],
 
     patches: [
         {

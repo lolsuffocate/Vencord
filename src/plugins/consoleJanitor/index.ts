@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType, StartAt } from "@utils/types";
 
 const Noop = () => { };
@@ -52,7 +52,6 @@ export default definePlugin({
     name: "ConsoleJanitor",
     description: "Disables annoying console messages/errors",
     authors: [Devs.Nuckyz, Devs.sadan],
-    categories: [PluginCategories.DEVELOPER],
     settings,
 
     startAt: StartAt.Init,

@@ -18,7 +18,7 @@
 
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { CheckedTextInput } from "@components/CheckedTextInput";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import { Margins } from "@utils/margins";
 import { ModalContent, ModalHeader, ModalRoot, openModalLazy } from "@utils/modal";
@@ -366,7 +366,6 @@ export default definePlugin({
     description: "Allows you to clone Emotes & Stickers to your own server (right click them)",
     tags: ["StickerCloner"],
     authors: [Devs.Ven, Devs.Nuckyz],
-    categories: [PluginCategories.UTILITY],
     contextMenus: {
         "message": messageContextMenuPatch,
         "expression-picker": expressionPickerPatch

@@ -7,7 +7,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { getUserSettingLazy } from "@api/UserSettings";
 import { ImageIcon } from "@components/Icons";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { getCurrentGuild, openImageModal } from "@utils/discord";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -65,7 +65,6 @@ export default definePlugin({
     name: "BetterRoleContext",
     description: "Adds options to copy role color / edit role / view role icon when right clicking roles in the user profile",
     authors: [Devs.Ven, Devs.goodbee],
-    categories: [PluginCategories.TWEAKS],
     dependencies: ["UserSettingsAPI"],
 
     settings,

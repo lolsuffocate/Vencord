@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { React } from "@webpack/common";
 
@@ -26,7 +26,6 @@ export default definePlugin({
     name: "ReactErrorDecoder",
     description: 'Replaces "Minifed React Error" with the actual error.',
     authors: [Devs.Cyn, Devs.maisymoe],
-    categories: [PluginCategories.DEVELOPER, PluginCategories.INFO],
     patches: [
         {
             find: '"https://reactjs.org/docs/error-decoder.html?invariant="',

@@ -4,13 +4,12 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoTypingAnimation",
     authors: [Devs.AutumnVN],
-    categories: [PluginCategories.TWEAKS, PluginCategories.UI],
     description: "Disables the CPU-intensive typing dots animation",
     patches: [{
         find: "dotCycle",

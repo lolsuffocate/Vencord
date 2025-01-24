@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 import { onChannelDelete, onGuildDelete, onRelationshipRemove, removeFriend, removeGroup, removeGuild } from "./functions";
@@ -27,7 +27,6 @@ export default definePlugin({
     name: "RelationshipNotifier",
     description: "Notifies you when a friend, group chat, or server removes you.",
     authors: [Devs.nick],
-    categories: [PluginCategories.UTILITY, PluginCategories.INFO],
     settings,
 
     patches: [

@@ -8,7 +8,7 @@ import "./styles.css";
 
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
 import { canonicalizeMatch } from "@utils/patches";
 import definePlugin, { OptionType } from "@utils/types";
@@ -68,7 +68,6 @@ export default definePlugin({
     name: "ShowTimeoutDuration",
     description: "Shows how much longer a user's timeout will last, either in the timeout icon tooltip or next to it",
     authors: [Devs.Ven, Devs.Sqaaakoi],
-    categories: [PluginCategories.INFO],
 
     settings,
 

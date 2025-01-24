@@ -6,7 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { classNameFactory } from "@api/Styles";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
@@ -79,7 +79,6 @@ export default definePlugin({
     name: "BetterSettings",
     description: "Enhances your settings-menu-opening experience",
     authors: [Devs.Kyuuhachi],
-    categories: [PluginCategories.UI],
     settings,
 
     patches: [

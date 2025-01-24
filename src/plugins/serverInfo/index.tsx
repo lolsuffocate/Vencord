@@ -5,7 +5,7 @@
  */
 
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { Menu } from "@webpack/common";
 import { Guild } from "discord-types/general";
@@ -28,7 +28,6 @@ export default definePlugin({
     name: "ServerInfo",
     description: "Allows you to view info about a server",
     authors: [Devs.Ven, Devs.Nuckyz],
-    categories: [PluginCategories.INFO],
     dependencies: ["DynamicImageModalAPI"],
     tags: ["guild", "info", "ServerProfile"],
 

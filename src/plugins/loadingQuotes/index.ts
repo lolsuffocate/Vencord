@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import presetQuotesText from "file://quotes.txt";
@@ -57,7 +57,6 @@ export default definePlugin({
     name: "LoadingQuotes",
     description: "Replace Discords loading quotes",
     authors: [Devs.Ven, Devs.KraXen72, Devs.UlyssesZhan],
-    categories: [PluginCategories.UI, PluginCategories.TWEAKS, PluginCategories.FUN],
 
     settings,
 

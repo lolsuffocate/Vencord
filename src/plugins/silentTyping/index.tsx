@@ -20,7 +20,7 @@ import { addChatBarButton, ChatBarButton, removeChatBarButton } from "@api/ChatB
 import { ApplicationCommandInputType, ApplicationCommandOptionType, findOption, sendBotMessage } from "@api/Commands";
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { FluxDispatcher, Menu, React } from "@webpack/common";
 
@@ -95,7 +95,6 @@ const ChatBarContextCheckbox: NavContextMenuPatchCallback = children => {
 export default definePlugin({
     name: "SilentTyping",
     authors: [Devs.Ven, Devs.Rini, Devs.ImBanana],
-    categories: [PluginCategories.TWEAKS, PluginCategories.PRIVACY, PluginCategories.UTILITY],
     description: "Hide that you are typing",
     dependencies: ["ChatInputButtonAPI"],
     settings,

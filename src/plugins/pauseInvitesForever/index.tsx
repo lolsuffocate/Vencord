@@ -17,7 +17,7 @@
 */
 
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
 import definePlugin from "@utils/types";
 import { Constants, GuildStore, RestAPI } from "@webpack/common";
@@ -41,7 +41,6 @@ export default definePlugin({
     tags: ["DisableInvitesForever"],
     description: "Brings back the option to pause invites indefinitely that stupit Discord removed.",
     authors: [Devs.Dolfies, Devs.amia],
-    categories: [PluginCategories.UTILITY],
 
     patches: [
         {

@@ -22,7 +22,7 @@ import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/Co
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { SafetyIcon } from "@components/Icons";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { classes } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -161,7 +161,6 @@ export default definePlugin({
     name: "PermissionsViewer",
     description: "View the permissions a user or channel has, and the roles of a server",
     authors: [Devs.Nuckyz, Devs.Ven],
-    categories: [PluginCategories.INFO],
     settings,
 
     patches: [

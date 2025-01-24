@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
@@ -39,7 +39,6 @@ export default definePlugin({
     name: "SpotifyCrack",
     description: "Free listen along, no auto-pausing in voice chat, and allows activity to continue playing when idling",
     authors: [Devs.Cyn, Devs.Nuckyz],
-    categories: [PluginCategories.UTILITY],
     settings,
 
     patches: [

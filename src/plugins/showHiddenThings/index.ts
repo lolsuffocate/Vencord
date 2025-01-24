@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType, PluginSettingDef } from "@utils/types";
 
 const opt = (description: string) => ({
@@ -38,7 +38,6 @@ export default definePlugin({
     tags: ["ShowTimeouts", "ShowInvitesPaused", "ShowModView", "DisableDiscoveryFilters"],
     description: "Displays various hidden & moderator-only things regardless of permissions.",
     authors: [Devs.Dolfies],
-    categories: [PluginCategories.INFO],
     settings,
 
     patches: [

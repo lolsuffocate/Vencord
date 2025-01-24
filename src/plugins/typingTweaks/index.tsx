@@ -18,7 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { openUserProfile } from "@utils/discord";
 import definePlugin, { OptionType } from "@utils/types";
 import { Avatar, GuildMemberStore, React, RelationshipStore } from "@webpack/common";
@@ -92,7 +92,6 @@ export default definePlugin({
     name: "TypingTweaks",
     description: "Show avatars and role colours in the typing indicator",
     authors: [Devs.zt],
-    categories: [PluginCategories.TWEAKS, PluginCategories.UI, PluginCategories.INFO],
     settings,
 
     patches: [

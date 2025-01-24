@@ -20,7 +20,7 @@ import "./style.css";
 
 import { definePluginSettings, Settings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { getIntlMessage } from "@utils/discord";
 import definePlugin, { OptionType } from "@utils/types";
 import { findComponentByCodeLazy, findExportedComponentLazy, findStoreLazy } from "@webpack";
@@ -156,7 +156,6 @@ export default definePlugin({
     name: "TypingIndicator",
     description: "Adds an indicator if someone is typing on a channel.",
     authors: [Devs.Nuckyz, Devs.fawn, Devs.Sqaaakoi],
-    categories: [PluginCategories.UI],
     settings,
 
     patches: [

@@ -17,7 +17,7 @@
 */
 
 import { Settings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 let style: HTMLStyleElement;
@@ -40,7 +40,6 @@ export default definePlugin({
     name: "BlurNSFW",
     description: "Blur attachments in NSFW channels until hovered",
     authors: [Devs.Ven],
-    categories: [PluginCategories.PRIVACY, PluginCategories.UI],
 
     patches: [
         {

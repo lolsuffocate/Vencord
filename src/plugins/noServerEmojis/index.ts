@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
@@ -24,7 +24,6 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "NoServerEmojis",
     authors: [Devs.UlyssesZhan],
-    categories: [PluginCategories.TWEAKS, PluginCategories.UI],
     description: "Do not show server emojis in the autocomplete menu.",
     settings,
     patches: [

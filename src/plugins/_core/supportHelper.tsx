@@ -23,7 +23,7 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { Flex } from "@components/Flex";
 import { Link } from "@components/Link";
 import { openUpdaterModal } from "@components/VencordSettings/UpdaterTab";
-import { Devs, PluginCategories, SUPPORT_CHANNEL_ID } from "@utils/constants";
+import { Devs, SUPPORT_CHANNEL_ID } from "@utils/constants";
 import { sendMessage } from "@utils/discord";
 import { Logger } from "@utils/Logger";
 import { Margins } from "@utils/margins";
@@ -143,7 +143,6 @@ export default definePlugin({
     required: true,
     description: "Helps us provide support to you",
     authors: [Devs.Ven],
-    categories: [PluginCategories.UI],
     dependencies: ["UserSettingsAPI", "MessageAccessoriesAPI"],
 
     settings,

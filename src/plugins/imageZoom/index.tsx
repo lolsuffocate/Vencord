@@ -21,7 +21,7 @@ import { definePluginSettings } from "@api/Settings";
 import { disableStyle, enableStyle } from "@api/Styles";
 import { makeRange } from "@components/PluginSettings/components";
 import { debounce } from "@shared/debounce";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { Menu, ReactDOM } from "@webpack/common";
 import { JSX } from "react";
@@ -153,7 +153,6 @@ export default definePlugin({
     name: "ImageZoom",
     description: "Lets you zoom in to images and gifs. Use scroll wheel to zoom in and shift + scroll wheel to increase lens radius / size",
     authors: [Devs.Aria],
-    categories: [PluginCategories.UI],
     tags: ["ImageUtilities"],
 
     patches: [

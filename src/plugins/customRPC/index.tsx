@@ -21,7 +21,7 @@ import { getUserSettingLazy } from "@api/UserSettings";
 import { ErrorCard } from "@components/ErrorCard";
 import { Flex } from "@components/Flex";
 import { Link } from "@components/Link";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { isTruthy } from "@utils/guards";
 import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
@@ -394,7 +394,6 @@ export default definePlugin({
     name: "CustomRPC",
     description: "Add a fully customisable Rich Presence (Game status) to your Discord profile",
     authors: [Devs.captain, Devs.AutumnVN, Devs.nin0dev],
-    categories: [PluginCategories.RPC],
     dependencies: ["UserSettingsAPI"],
     start: setRpc,
     stop: () => setRpc(true),

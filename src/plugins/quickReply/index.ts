@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings, Settings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { ChannelStore, ComponentDispatch, FluxDispatcher as Dispatcher, MessageStore, PermissionsBits, PermissionStore, SelectedChannelStore, UserStore } from "@webpack/common";
@@ -56,7 +56,6 @@ const settings = definePluginSettings({
 export default definePlugin({
     name: "QuickReply",
     authors: [Devs.fawn, Devs.Ven, Devs.pylix],
-    categories: [PluginCategories.TWEAKS, PluginCategories.UTILITY],
     description: "Reply to (ctrl + up/down) and edit (ctrl + shift + up/down) messages via keybinds",
     settings,
 

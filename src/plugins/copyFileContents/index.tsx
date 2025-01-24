@@ -8,7 +8,7 @@ import "./style.css";
 
 import ErrorBoundary from "@components/ErrorBoundary";
 import { CopyIcon, NoEntrySignIcon } from "@components/Icons";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { copyWithToast } from "@utils/misc";
 import definePlugin from "@utils/types";
 import { Tooltip, useState } from "@webpack/common";
@@ -23,7 +23,6 @@ export default definePlugin({
     name: "CopyFileContents",
     description: "Adds a button to text file attachments to copy their contents",
     authors: [Devs.Obsidian, Devs.Nuckyz],
-    categories: [PluginCategories.TWEAKS],
     patches: [
         {
             find: "#{intl::PREVIEW_BYTES_LEFT}",

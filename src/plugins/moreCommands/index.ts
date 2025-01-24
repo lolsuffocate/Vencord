@@ -17,7 +17,7 @@
 */
 
 import { ApplicationCommandInputType, findOption, OptionalMessageOption, RequiredMessageOption, sendBotMessage } from "@api/Commands";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 
@@ -33,7 +33,6 @@ export default definePlugin({
     name: "MoreCommands",
     description: "echo, lenny, mock",
     authors: [Devs.Arjix, Devs.echo, Devs.Samu],
-    categories: [PluginCategories.COMMANDS, PluginCategories.FUN],
     commands: [
         {
             name: "echo",

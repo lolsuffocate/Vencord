@@ -17,14 +17,13 @@
 */
 
 import { addPreEditListener, addPreSendListener, MessageObject, removePreEditListener, removePreSendListener } from "@api/MessageEvents";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "Unindent",
     description: "Trims leading indentation from codeblocks",
     authors: [Devs.Ven],
-    categories: [PluginCategories.TWEAKS],
     dependencies: ["MessageEventsAPI"],
     patches: [
         {

@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { copyWithToast } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -52,7 +52,6 @@ export default definePlugin({
     name: "CopyEmojiMarkdown",
     description: "Allows you to copy emojis as formatted string (<:blobcatcozy:1026533070955872337>)",
     authors: [Devs.HappyEnderman, Devs.Vishnya],
-    categories: [PluginCategories.TWEAKS],
     settings,
 
     contextMenus: {

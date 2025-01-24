@@ -18,7 +18,7 @@
 
 import { NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { LinkIcon } from "@components/Icons";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { Clipboard, Menu } from "@webpack/common";
 import type { Channel, User } from "discord-types/general";
@@ -45,7 +45,6 @@ const UserContextMenuPatch: NavContextMenuPatchCallback = (children, { user }: U
 export default definePlugin({
     name: "CopyUserURLs",
     authors: [Devs.castdrian],
-    categories: [PluginCategories.TWEAKS],
     description: "Adds a 'Copy User URL' option to the user context menu.",
     contextMenus: {
         "user-context": UserContextMenuPatch

@@ -6,7 +6,7 @@
 
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { Flex, Menu } from "@webpack/common";
 
@@ -97,7 +97,6 @@ export default definePlugin({
     name: "ReplaceGoogleSearch",
     description: "Replaces the Google search with different Engines",
     authors: [Devs.Moxxie, Devs.Ethan],
-    categories: [PluginCategories.TWEAKS],
 
     settings,
 

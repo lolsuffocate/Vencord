@@ -7,7 +7,7 @@
 import "./ui/styles.css";
 
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { UserStore } from "@webpack/common";
 
@@ -28,7 +28,6 @@ export default definePlugin({
     name: "Decor",
     description: "Create and use your own custom avatar decorations, or pick your favorite from the presets.",
     authors: [Devs.FieryFlames],
-    categories: [PluginCategories.UI, PluginCategories.FUN, PluginCategories.NITRO],
     patches: [
         // Patch MediaResolver to return correct URL for Decor avatar decorations
         {

@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { ChannelStore, ReadStateStore, UserStore } from "@webpack/common";
 import { MessageJSON } from "discord-types/general";
@@ -41,7 +41,6 @@ export default definePlugin({
     name: "OnePingPerDM",
     description: "If unread messages are sent by a user in DMs multiple times, you'll only receive one audio ping. Read the messages to reset the limit",
     authors: [Devs.ProffDea],
-    categories: [PluginCategories.TWEAKS],
     settings,
     patches: [{
         find: ".getDesktopType()===",

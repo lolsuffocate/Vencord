@@ -19,7 +19,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { enableStyle } from "@api/Styles";
 import { Link } from "@components/Link";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 import style from "./index.css?managed";
@@ -54,7 +54,6 @@ export default definePlugin({
     name: "USRBG",
     description: "Displays user banners from USRBG, allowing anyone to get a banner without Nitro",
     authors: [Devs.AutumnVN, Devs.katlyn, Devs.pylix, Devs.TheKodeToad],
-    categories: [PluginCategories.UI, PluginCategories.NITRO],
     settings,
     patches: [
         {

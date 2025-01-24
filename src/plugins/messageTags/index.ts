@@ -19,7 +19,7 @@
 import { ApplicationCommandInputType, ApplicationCommandOptionType, findOption, registerCommand, sendBotMessage, unregisterCommand } from "@api/Commands";
 import * as DataStore from "@api/DataStore";
 import { Settings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 const EMOTE = "<:luna:1035316192220553236>";
@@ -74,7 +74,6 @@ export default definePlugin({
     name: "MessageTags",
     description: "Allows you to save messages and to use them with a simple command.",
     authors: [Devs.Luna],
-    categories: [PluginCategories.COMMANDS, PluginCategories.UTILITY],
     options: {
         clyde: {
             name: "Clyde message on send",

@@ -18,7 +18,7 @@
 
 import { Settings } from "@api/Settings";
 import { ErrorCard } from "@components/ErrorCard";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import { Margins } from "@utils/margins";
 import { wordsToTitle } from "@utils/text";
@@ -156,7 +156,6 @@ export default definePlugin({
     name: "VcNarrator",
     description: "Announces when users join, leave, or move voice channels via narrator",
     authors: [Devs.Ven],
-    categories: [PluginCategories.VOICE],
     reporterTestable: ReporterTestable.None,
 
     flux: {

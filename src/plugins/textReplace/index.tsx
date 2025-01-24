@@ -21,7 +21,7 @@ import { addPreSendListener, removePreSendListener } from "@api/MessageEvents";
 import { definePluginSettings } from "@api/Settings";
 import { Flex } from "@components/Flex";
 import { DeleteIcon } from "@components/Icons";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import { useForceUpdater } from "@utils/react";
 import definePlugin, { OptionType } from "@utils/types";
@@ -244,7 +244,6 @@ export default definePlugin({
     name: "TextReplace",
     description: "Replace text in your messages. You can find pre-made rules in the #textreplace-rules channel in Vencord's Server",
     authors: [Devs.AutumnVN, Devs.TheKodeToad],
-    categories: [PluginCategories.TWEAKS, PluginCategories.UI],
     dependencies: ["MessageEventsAPI"],
 
     settings,

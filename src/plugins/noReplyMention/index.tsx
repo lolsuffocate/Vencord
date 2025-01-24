@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import type { Message } from "discord-types/general";
 
@@ -54,7 +54,6 @@ export default definePlugin({
     name: "NoReplyMention",
     description: "Disables reply pings by default",
     authors: [Devs.DustyAngel47, Devs.axyie, Devs.pylix, Devs.outfoxxed],
-    categories: [PluginCategories.TWEAKS, PluginCategories.UTILITY],
     settings,
 
     shouldMention(message: Message, isHoldingShift: boolean) {

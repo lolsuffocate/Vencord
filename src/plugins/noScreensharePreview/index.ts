@@ -17,7 +17,7 @@
 */
 
 import { getUserSettingLazy } from "@api/UserSettings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 const DisableStreamPreviews = getUserSettingLazy<boolean>("voiceAndVideo", "disableStreamPreviews")!;
@@ -27,7 +27,6 @@ export default definePlugin({
     name: "NoScreensharePreview",
     description: "Disables screenshare previews from being sent.",
     authors: [Devs.Nuckyz],
-    categories: [PluginCategories.TWEAKS, PluginCategories.VOICE],
 
     start() {
         if (!DisableStreamPreviews.getSetting()) {

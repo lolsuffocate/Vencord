@@ -19,7 +19,7 @@
 import { showNotification } from "@api/Notifications";
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy, findExportedComponentLazy, findStoreLazy } from "@webpack";
 import { Constants, React, RestAPI, Tooltip } from "@webpack/common";
@@ -55,7 +55,6 @@ export default definePlugin({
     name: "BetterSessions",
     description: "Enhances the sessions (devices) menu. Allows you to view exact timestamps, give each session a custom name, and receive notifications about new sessions.",
     authors: [Devs.amia],
-    categories: [PluginCategories.PRIVACY, PluginCategories.UI],
 
     settings: settings,
 

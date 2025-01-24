@@ -22,7 +22,7 @@ import { addChatBarButton, ChatBarButton, removeChatBarButton } from "@api/ChatB
 import { addPreSendListener, removePreSendListener } from "@api/MessageEvents";
 import { definePluginSettings } from "@api/Settings";
 import { classNameFactory } from "@api/Styles";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { getTheme, insertTextIntoChatInputBox, Theme } from "@utils/discord";
 import { Margins } from "@utils/margins";
 import { closeModal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalProps, ModalRoot, openModal } from "@utils/modal";
@@ -160,7 +160,6 @@ export default definePlugin({
     name: "SendTimestamps",
     description: "Send timestamps easily via chat box button & text shortcuts. Read the extended description!",
     authors: [Devs.Ven, Devs.Tyler, Devs.Grzesiek11],
-    categories: [PluginCategories.TWEAKS, PluginCategories.UTILITY],
     dependencies: ["MessageEventsAPI", "ChatInputButtonAPI"],
 
     settings,

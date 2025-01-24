@@ -6,7 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { makeRange } from "@components/PluginSettings/components";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType, PluginNative, ReporterTestable } from "@utils/types";
 import { findByCodeLazy, findLazy } from "@webpack";
@@ -190,7 +190,6 @@ export default definePlugin({
     name: "XSOverlay",
     description: "Forwards discord notifications to XSOverlay, for easy viewing in VR",
     authors: [Devs.Nyako],
-    categories: [PluginCategories.UTILITY],
     tags: ["vr", "notify"],
     reporterTestable: ReporterTestable.None,
     settings,

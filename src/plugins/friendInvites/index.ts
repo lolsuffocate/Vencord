@@ -17,7 +17,7 @@
 */
 
 import { ApplicationCommandInputType, sendBotMessage } from "@api/Commands";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 
@@ -27,7 +27,6 @@ export default definePlugin({
     name: "FriendInvites",
     description: "Create and manage friend invite links via slash commands (/create friend invite, /view friend invites, /revoke friend invites).",
     authors: [Devs.afn, Devs.Dziurwa],
-    categories: [PluginCategories.COMMANDS, PluginCategories.UTILITY],
     commands: [
         {
             name: "create friend invite",

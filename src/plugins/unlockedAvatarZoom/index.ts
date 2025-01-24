@@ -6,7 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { makeRange } from "@components/PluginSettings/components";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
@@ -22,7 +22,6 @@ export default definePlugin({
     name: "UnlockedAvatarZoom",
     description: "Allows you to zoom in further in the image crop tool when changing your avatar",
     authors: [Devs.nakoyasha],
-    categories: [PluginCategories.TWEAKS, PluginCategories.UTILITY],
     settings,
     patches: [
         {

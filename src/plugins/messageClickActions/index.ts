@@ -18,7 +18,7 @@
 
 import { addClickListener, removeClickListener } from "@api/MessageEvents";
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { FluxDispatcher, PermissionsBits, PermissionStore, UserStore } from "@webpack/common";
@@ -57,7 +57,6 @@ export default definePlugin({
     name: "MessageClickActions",
     description: "Hold Backspace and click to delete, double click to edit/reply",
     authors: [Devs.Ven],
-    categories: [PluginCategories.UTILITY],
     dependencies: ["MessageEventsAPI"],
 
     settings,

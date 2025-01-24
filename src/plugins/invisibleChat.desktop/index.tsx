@@ -21,7 +21,7 @@ import { addButton, removeButton } from "@api/MessagePopover";
 import { updateMessage } from "@api/MessageUpdater";
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { getStegCloak } from "@utils/dependencies";
 import definePlugin, { OptionType, ReporterTestable } from "@utils/types";
 import { ChannelStore, Constants, RestAPI, Tooltip } from "@webpack/common";
@@ -104,7 +104,6 @@ export default definePlugin({
     name: "InvisibleChat",
     description: "Encrypt your Messages in a non-suspicious way!",
     authors: [Devs.SammCheese],
-    categories: [PluginCategories.UTILITY],
     dependencies: ["MessagePopoverAPI", "ChatInputButtonAPI", "MessageUpdaterAPI"],
     reporterTestable: ReporterTestable.Patches,
     settings,

@@ -23,7 +23,7 @@ import {
     removePreEditListener,
     removePreSendListener
 } from "@api/MessageEvents";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 import { defaultRules } from "./defaultRules";
@@ -36,7 +36,6 @@ export default definePlugin({
     name: "ClearURLs",
     description: "Removes tracking garbage from URLs",
     authors: [Devs.adryd],
-    categories: [PluginCategories.PRIVACY],
     dependencies: ["MessageEventsAPI"],
 
     escapeRegExp(str: string) {

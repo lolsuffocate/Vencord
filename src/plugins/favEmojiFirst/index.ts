@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { EmojiStore } from "@webpack/common";
 import { Emoji } from "@webpack/types";
@@ -36,7 +36,6 @@ interface EmojiAutocompleteState {
 export default definePlugin({
     name: "FavoriteEmojiFirst",
     authors: [Devs.Aria, Devs.Ven],
-    categories: [PluginCategories.TWEAKS],
     description: "Puts your favorite emoji first in the emoji autocomplete.",
     patches: [
         {

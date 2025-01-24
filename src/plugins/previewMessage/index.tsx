@@ -18,7 +18,7 @@
 
 import { addChatBarButton, ChatBarButton, removeChatBarButton } from "@api/ChatButtons";
 import { generateId, sendBotMessage } from "@api/Commands";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { StartAt } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { DraftStore, DraftType, SelectedChannelStore, UserStore, useStateFromStores } from "@webpack/common";
@@ -121,7 +121,6 @@ export default definePlugin({
     name: "PreviewMessage",
     description: "Lets you preview your message before sending it.",
     authors: [Devs.Aria],
-    categories: [PluginCategories.UTILITY],
     dependencies: ["ChatInputButtonAPI"],
     // start early to ensure we're the first plugin to add our button
     // This makes the popping in less awkward

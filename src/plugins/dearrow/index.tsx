@@ -8,7 +8,7 @@ import "./styles.css";
 
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { Tooltip } from "@webpack/common";
@@ -171,7 +171,6 @@ export default definePlugin({
     name: "Dearrow",
     description: "Makes YouTube embed titles and thumbnails less sensationalist, powered by Dearrow",
     authors: [Devs.Ven],
-    categories: [PluginCategories.INFO, PluginCategories.UTILITY],
     settings,
 
     embedDidMount,

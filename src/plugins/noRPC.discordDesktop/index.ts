@@ -16,14 +16,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoRPC",
     description: "Disables Discord's RPC server.",
     authors: [Devs.Cyn],
-    categories: [PluginCategories.RPC],
     patches: [
         {
             find: '.ensureModule("discord_rpc")',

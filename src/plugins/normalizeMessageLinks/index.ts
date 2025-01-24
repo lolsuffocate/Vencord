@@ -4,14 +4,13 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NormalizeMessageLinks",
     description: "Strip canary/ptb from message links",
     authors: [Devs.bb010g],
-    categories: [PluginCategories.TWEAKS],
     patches: [
         {
             find: "#{intl::COPY_MESSAGE_LINK}",

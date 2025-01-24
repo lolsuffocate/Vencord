@@ -16,14 +16,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "NoSystemBadge",
     description: "Disables the taskbar and system tray unread count badge.",
     authors: [Devs.rushii],
-    categories: [PluginCategories.UI],
     patches: [
         {
             find: ",setSystemTrayApplications",

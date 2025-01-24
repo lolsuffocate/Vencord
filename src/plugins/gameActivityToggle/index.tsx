@@ -20,7 +20,7 @@ import { definePluginSettings } from "@api/Settings";
 import { disableStyle, enableStyle } from "@api/Styles";
 import { getUserSettingLazy } from "@api/UserSettings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findComponentByCodeLazy } from "@webpack";
 
@@ -87,7 +87,6 @@ export default definePlugin({
     name: "GameActivityToggle",
     description: "Adds a button next to the mic and deafen button to toggle game activity.",
     authors: [Devs.Nuckyz, Devs.RuukuLada],
-    categories: [PluginCategories.TWEAKS, PluginCategories.UI],
     dependencies: ["UserSettingsAPI"],
     settings,
 

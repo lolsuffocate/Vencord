@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 
@@ -27,7 +27,6 @@ export default definePlugin({
     name: "RevealAllSpoilers",
     description: "Reveal all spoilers in a message by Ctrl-clicking a spoiler, or in the chat with Ctrl+Shift-click",
     authors: [Devs.whqwert],
-    categories: [PluginCategories.TWEAKS],
 
     patches: [
         {

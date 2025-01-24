@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 
@@ -24,7 +24,6 @@ export default definePlugin({
     name: "NoUnblockToJump",
     description: "Allows you to jump to messages of blocked users without unblocking them",
     authors: [Devs.dzshn],
-    categories: [PluginCategories.TWEAKS],
     patches: [
         {
             // Clicking on search results to jump

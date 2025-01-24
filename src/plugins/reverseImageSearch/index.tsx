@@ -19,7 +19,7 @@
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import { Flex } from "@components/Flex";
 import { OpenExternalIcon } from "@components/Icons";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { Menu } from "@webpack/common";
 
@@ -104,7 +104,6 @@ export default definePlugin({
     name: "ReverseImageSearch",
     description: "Adds ImageSearch to image context menus",
     authors: [Devs.Ven, Devs.Nuckyz],
-    categories: [PluginCategories.UTILITY],
     tags: ["ImageUtilities"],
 
     patches: [

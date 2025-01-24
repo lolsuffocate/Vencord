@@ -18,7 +18,7 @@
 
 import { Settings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { useTimer } from "@utils/react";
 import definePlugin, { OptionType } from "@utils/types";
 import { React } from "@webpack/common";
@@ -50,7 +50,6 @@ export default definePlugin({
     name: "CallTimer",
     description: "Adds a timer to vcs",
     authors: [Devs.Ven],
-    categories: [PluginCategories.VOICE, PluginCategories.UI],
 
     startTime: 0,
     interval: void 0 as NodeJS.Timeout | undefined,

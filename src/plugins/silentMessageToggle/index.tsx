@@ -19,7 +19,7 @@
 import { addChatBarButton, ChatBarButton, removeChatBarButton } from "@api/ChatButtons";
 import { addPreSendListener, removePreSendListener, SendListener } from "@api/MessageEvents";
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { React, useEffect, useState } from "@webpack/common";
 
@@ -90,7 +90,6 @@ const SilentMessageToggle: ChatBarButton = ({ isMainChat }) => {
 export default definePlugin({
     name: "SilentMessageToggle",
     authors: [Devs.Nuckyz, Devs.CatNoir],
-    categories: [PluginCategories.TWEAKS, PluginCategories.UTILITY],
     description: "Adds a button to the chat bar to toggle sending a silent message.",
     dependencies: ["MessageEventsAPI", "ChatInputButtonAPI"],
     settings,

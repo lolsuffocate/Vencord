@@ -18,7 +18,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Link } from "@components/Link";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -191,7 +191,6 @@ export default definePlugin({
     name: "LastFMRichPresence",
     description: "Little plugin for Last.fm rich presence",
     authors: [Devs.dzshn, Devs.RuiNtD, Devs.blahajZip, Devs.archeruwu],
-    categories: [PluginCategories.RPC],
 
     settingsAboutComponent: () => (
         <>

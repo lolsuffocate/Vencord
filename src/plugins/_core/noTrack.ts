@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import definePlugin, { OptionType, StartAt } from "@utils/types";
 
@@ -34,7 +34,6 @@ export default definePlugin({
     name: "NoTrack",
     description: "Disable Discord's tracking (analytics/'science'), metrics and Sentry crash reporting",
     authors: [Devs.Cyn, Devs.Ven, Devs.Nuckyz, Devs.Arrow],
-    categories: [PluginCategories.PRIVACY],
     required: true,
 
     settings,

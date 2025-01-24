@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings, Settings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { canonicalizeMatch } from "@utils/patches";
 import definePlugin, { OptionType } from "@utils/types";
 
@@ -40,7 +40,6 @@ export default definePlugin({
     name: "BetterNotesBox",
     description: "Hide notes or disable spellcheck (Configure in settings!!)",
     authors: [Devs.Ven],
-    categories: [PluginCategories.TWEAKS],
     settings,
 
     patches: [

@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { findStoreLazy } from "@webpack";
 import { ChannelStore, Constants, FluxDispatcher, GuildStore, RelationshipStore, SnowflakeUtils, UserStore } from "@webpack/common";
@@ -29,7 +29,6 @@ export default definePlugin({
     name: "ImplicitRelationships",
     description: "Shows your implicit relationships in the Friends tab.",
     authors: [Devs.Dolfies],
-    categories: [PluginCategories.INFO],
     patches: [
         // Counts header
         {

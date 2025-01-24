@@ -17,7 +17,7 @@
 */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
@@ -39,7 +39,6 @@ export default definePlugin({
     name: "AlwaysTrust",
     description: "Removes the annoying untrusted domain and suspicious file popup",
     authors: [Devs.zt, Devs.Trwy],
-    categories: [PluginCategories.TWEAKS],
     patches: [
         {
             find: '="MaskedLinkStore",',

@@ -19,7 +19,7 @@
 import { Settings } from "@api/Settings";
 import { disableStyle, enableStyle } from "@api/Styles";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 import hoverOnlyStyle from "./hoverOnly.css?managed";
@@ -33,7 +33,6 @@ export default definePlugin({
     name: "SpotifyControls",
     description: "Adds a Spotify player above the account panel",
     authors: [Devs.Ven, Devs.afn, Devs.KraXen72, Devs.Av32000],
-    categories: [PluginCategories.UI, PluginCategories.UTILITY],
     options: {
         hoverControls: {
             description: "Show controls on hover",

@@ -9,7 +9,7 @@ import { definePluginSettings, Settings } from "@api/Settings";
 import { getUserSettingLazy } from "@api/UserSettings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Flex } from "@components/Flex";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import { Margins } from "@utils/margins";
 import definePlugin, { OptionType } from "@utils/types";
 import { findStoreLazy } from "@webpack";
@@ -237,7 +237,6 @@ function isActivityTypeIgnored(type: number, id?: string) {
 export default definePlugin({
     name: "IgnoreActivities",
     authors: [Devs.Nuckyz, Devs.Kylie],
-    categories: [PluginCategories.TWEAKS],
     description: "Ignore activities from showing up on your status ONLY. You can configure which ones are specifically ignored from the Registered Games and Activities tabs, or use the general settings below",
     dependencies: ["UserSettingsAPI"],
 

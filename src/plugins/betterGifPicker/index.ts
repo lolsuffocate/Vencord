@@ -4,14 +4,13 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "BetterGifPicker",
     description: "Makes the gif picker open the favourite category by default",
     authors: [Devs.Samwich],
-    categories: [PluginCategories.TWEAKS],
     patches: [
         {
             find: '"state",{resultType:',

@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
@@ -21,7 +21,6 @@ export default definePlugin({
     name: "SecretRingToneEnabler",
     description: "Always play the secret version of the discord ringtone (except during special ringtone events)",
     authors: [Devs.AndrewDLO, Devs.FieryFlames, Devs.RamziAH],
-    categories: [PluginCategories.VOICE, PluginCategories.TWEAKS],
     settings,
     patches: [
         {

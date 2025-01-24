@@ -4,13 +4,12 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import { Devs, PluginCategories } from "@utils/constants";
+import { Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 
 export default definePlugin({
     name: "WebScreenShareFixes",
     authors: [Devs.Kaitlyn],
-    categories: [PluginCategories.VOICE],
     description: "Removes 2500kbps bitrate cap on chromium and vesktop clients.",
     enabledByDefault: true,
     patches: [
