@@ -27,7 +27,7 @@ import { MessageClickListener, MessageEditListener, MessageSendListener } from "
 import { MessagePopoverButtonFactory } from "@api/MessagePopover";
 import { FluxEvents } from "@webpack/types";
 import { JSX } from "react";
-import { LiteralUnion, Promisable } from "type-fest";
+import { Promisable } from "type-fest";
 
 // exists to export default definePlugin({...})
 export default function definePlugin<P extends PluginDef>(p: P & Record<string, any>) {
@@ -94,7 +94,7 @@ export interface PluginDef {
      * These will automatically be enabled and loaded before your plugin
      * Generally these will be API plugins
      */
-    dependencies?: LiteralUnion<"BadgeAPI" | "ChatInputButtonAPI" | "CommandsAPI" | "ContextMenuAPI" | "DynamicImageModalAPI" | "MemberListDecoratorsAPI" | "MessageAccessoriesAPI" | "MessageDecorationsAPI" | "MessageEventsAPI" | "MessagePopoverAPI" | "MessageUpdaterAPI" | "NoticesAPI" | "ServerListAPI" | "UserSettingsAPI", string>[];
+    dependencies?: string[],
     /**
      * Whether this plugin is required and forcefully enabled
      */
@@ -157,6 +157,11 @@ export interface PluginDef {
     tags?: string[];
 
     categories?: PluginCategory[];
+
+    /**
+     * Managed style to automatically enable and disable when the plugin is enabled or disabled
+     */
+    managedStyle?: string;
 
     userProfileBadge?: ProfileBadge;
 
