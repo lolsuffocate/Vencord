@@ -18,6 +18,7 @@
 
 import { ChatBarButton, ChatBarButtonFactory } from "@api/ChatButtons";
 import { generateId, sendBotMessage } from "@api/Commands";
+import { _handlePreSend } from "@api/MessageEvents";
 import { Devs } from "@utils/constants";
 import definePlugin, { StartAt } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
@@ -87,15 +88,18 @@ const PreviewButton: ChatBarButtonFactory = ({ isMainChat, isEmpty, type: { atta
     return (
         <ChatBarButton
             tooltip="Preview Message"
-            onClick={async () =>
-                sendBotMessage(
-                    channelId,
-                    {
-                        content: getDraft(channelId),
-                        author: UserStore.getCurrentUser(),
-                        attachments: hasAttachments ? await getAttachments(channelId) : undefined,
-                    }
-                )}
+            onClick={async () => {
+                const msg = {
+                    content: getDraft(channelId),
+                    author: UserStore.getCurrentUser(),
+                    attachments: hasAttachments ? await getAttachments(channelId) : undefined,
+                };
+
+                // @ts-ignore
+                if(await _handlePreSend(channelId, msg, {}, {})) return;
+
+                sendBotMessage(channelId, msg);
+            }}
             buttonProps={{
                 style: {
                     translate: "0 2px"
