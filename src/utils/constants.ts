@@ -18,8 +18,6 @@
 
 import { PluginCategory } from "@utils/types";
 
-export const WEBPACK_CHUNK = "webpackChunkdiscord_app";
-export const REACT_GLOBAL = "Vencord.Webpack.Common.React";
 export const VENBOT_USER_ID = "1017176847865352332";
 export const VENCORD_GUILD_ID = "1015060230222131221";
 export const DONOR_ROLE_ID = "1042507929485586532";
