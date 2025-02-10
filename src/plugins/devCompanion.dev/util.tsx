@@ -12,6 +12,8 @@ import { Toasts } from "@webpack/common";
 
 import { settings as companionSettings } from ".";
 
+export const SYM_PATCHED_SOURCE = Symbol("WebpackPatcher.patchedSource");
+
 type Node = StringNode | RegexNode | FunctionNode;
 
 
@@ -57,9 +59,9 @@ export interface FindData {
  */
 export function extractOrThrow(id) {
     const module = wreq.m[id];
-    if (!module?.$$vencordPatchedSource)
+    if (!module[SYM_PATCHED_SOURCE])
         throw new Error("No patched module found for module id " + id);
-    return module.$$vencordPatchedSource;
+    return module[SYM_PATCHED_SOURCE];
 }
 /**
  *  attempts to extract the module, throws if not found
@@ -73,7 +75,7 @@ export function extractModule(id: number, patched = companionSettings.store.useP
     const module = wreq.m[id];
     if (!module)
         throw new Error("No module found for module id:" + id);
-    return patched ? module.$$vencordPatchedSource ?? module.original.toString() : module.original.toString();
+    return patched ? module[SYM_PATCHED_SOURCE] ?? module.toString() : module.toString();
 }
 
 /**
@@ -90,7 +92,7 @@ export function extractAndPatchModule(pluginName: string = "YourPlugin", id: num
     if (!originalModule)
         throw new Error("No module found for module id:" + id);
 
-    let patchedModule = originalModule.original.toString();
+    let patchedModule = originalModule.toString();
 
     for (const replacement of replacements as PatchRepl[]) {
         const { match, replace } = replacement;
