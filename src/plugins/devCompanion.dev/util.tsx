@@ -9,14 +9,36 @@ import { Settings } from "@api/Settings";
 import { canonicalizeMatch, canonicalizeReplace } from "@utils/patches";
 import { CodeFilter, stringMatches, wreq } from "@webpack";
 import { Toasts } from "@webpack/common";
+import { AnyModuleFactory, AnyWebpackRequire } from "webpack";
 
 import { settings as companionSettings } from ".";
 
-export const SYM_PATCHED_SOURCE = Symbol("WebpackPatcher.patchedSource");
-
 type Node = StringNode | RegexNode | FunctionNode;
 
+let wpSet = false;
+let getPatchedModule: ((id: PropertyKey, webpackRequire?: AnyWebpackRequire) => string | undefined);
+let getOriginalModule: ((id: PropertyKey, webpackRequire?: AnyWebpackRequire) => AnyModuleFactory | undefined);
 
+export async function initPatchWebpackUtils() {
+    if(!wpSet) {
+        const patchWebpack = await import("../../webpack/patchWebpack");
+        getPatchedModule = patchWebpack.getFactoryPatchedSource;
+        getOriginalModule = patchWebpack.getOriginalFactory;
+        wpSet = true;
+    }
+}
+
+export async function getFactoryPatchedSource(id: number) {
+    await initPatchWebpackUtils();
+    return getPatchedModule(id);
+}
+
+export async function getOriginalFactory(id: number) {
+    await initPatchWebpackUtils();
+    return getOriginalModule(id);
+}
+
+// todo: update for new patcher stuff
 export interface StringNode {
     type: "string";
     value: string;
@@ -57,11 +79,11 @@ export interface FindData {
  * extracts the patched module, if there is no patched module, throws an error
  * @param id module id
  */
-export function extractOrThrow(id) {
-    const module = wreq.m[id];
-    if (!module[SYM_PATCHED_SOURCE])
+export async function extractOrThrow(id) {
+    const module = await getFactoryPatchedSource(id);
+    if (!module)
         throw new Error("No patched module found for module id " + id);
-    return module[SYM_PATCHED_SOURCE];
+    return module;
 }
 /**
  *  attempts to extract the module, throws if not found
@@ -71,11 +93,12 @@ export function extractOrThrow(id) {
  * @param id module id
  * @param patched return the patched module
  */
-export function extractModule(id: number, patched = companionSettings.store.usePatchedModule): string {
-    const module = wreq.m[id];
+export async function extractModule(id: number, patched = companionSettings.store.usePatchedModule): Promise<string> {
+    const module = await getOriginalFactory(id);
+    const patchedModule = await getFactoryPatchedSource(id);
     if (!module)
-        throw new Error("No module found for module id:" + id);
-    return patched ? module[SYM_PATCHED_SOURCE] ?? module.toString() : module.toString();
+        throw new Error("extractModule - No module found for module id:" + id);
+    return patched ? patchedModule ?? module.toString() : module.toString();
 }
 
 /**
@@ -86,11 +109,11 @@ export function extractModule(id: number, patched = companionSettings.store.useP
  * @returns patched module
  * @throws {Error} if no module is found
  */
-export function extractAndPatchModule(pluginName: string = "YourPlugin", id: number, replacements: PatchRepl[]): string {
-    const originalModule = wreq.m[id];
+export async function extractAndPatchModule(pluginName: string = "YourPlugin", id: number, replacements: PatchRepl[]): Promise<string> {
+    const originalModule = await getOriginalFactory(id);
 
     if (!originalModule)
-        throw new Error("No module found for module id:" + id);
+        throw new Error("extractAndPatchModule - No module found for module id:" + id);
 
     let patchedModule = originalModule.toString();
 
