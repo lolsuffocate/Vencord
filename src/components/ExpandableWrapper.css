@@ -1,0 +1,40 @@
+.expandable-wrapper-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.expandable-wrapper-container.expanded {
+    max-height: none;
+}
+
+.expandable-wrapper-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    /*position: absolute;*/
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    cursor: pointer;
+    color: var(--text-normal);
+    font-size: 0.75rem;
+    padding: 10px;
+    /*noinspection CssUnresolvedCustomProperty*/
+    background: linear-gradient(transparent, var(--background-secondary));
+}
+
+.expandable-wrapper-button.expanded {
+    /*position: relative;*/
+    height: unset;
+    /*noinspection CssUnresolvedCustomProperty*/
+    background: var(--background-secondary);
+}
+
+.expandable-wrapper-expand-icon {
+    transition: transform 0.3s;
+}
+
+.expandable-wrapper-expand-icon.expanded {
+    transform: rotate(180deg);
+}

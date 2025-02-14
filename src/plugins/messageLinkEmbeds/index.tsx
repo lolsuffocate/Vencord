@@ -21,6 +21,7 @@ import { updateMessage } from "@api/MessageUpdater";
 import { definePluginSettings } from "@api/Settings";
 import { getUserSettingLazy } from "@api/UserSettings";
 import ErrorBoundary from "@components/ErrorBoundary";
+import ExpandableWrapper from "@components/ExpandableWrapper";
 import { Devs } from "@utils/constants.js";
 import { classes } from "@utils/misc";
 import { Queue } from "@utils/Queue";
@@ -36,12 +37,12 @@ import {
     Parser,
     PermissionsBits,
     PermissionStore,
+    React,
     RestAPI,
     Text,
     UserStore
 } from "@webpack/common";
 import { Channel, Message } from "discord-types/general";
-import { JSX } from "react";
 
 const messageCache = new Map<string, {
     message?: Message;
@@ -229,7 +230,7 @@ function MessageEmbedAccessory({ message }: { message: Message; }) {
     // @ts-ignore
     const embeddedBy: string[] = message.vencordEmbeddedBy ?? [];
 
-    const accessories = [] as (JSX.Element | null)[];
+    const accessories = [] as (React.JSX.Element | null)[];
 
     for (const [_, channelID, messageID] of message.content!.matchAll(messageLinkRegex)) {
         if (embeddedBy.includes(messageID) || embeddedBy.length > 2) {
@@ -284,7 +285,7 @@ function getChannelLabelAndIconUrl(channel: Channel) {
     return ["Server", IconUtils.getGuildIconURL(GuildStore.getGuild(channel.guild_id))];
 }
 
-function ChannelMessageEmbedAccessory({ message, channel }: MessageEmbedProps): JSX.Element | null {
+function ChannelMessageEmbedAccessory({ message, channel }: MessageEmbedProps): React.JSX.Element | null {
     const compact = MessageDisplayCompact.useSetting();
 
     const dmReceiver = UserStore.getUser(ChannelStore.getChannel(channel.id).recipients?.[0]);
@@ -305,7 +306,8 @@ function ChannelMessageEmbedAccessory({ message, channel }: MessageEmbedProps): 
                 }
             }}
             renderDescription={() => (
-                <div key={message.id} className={classes(SearchResultClasses.message, settings.store.messageBackgroundColor && SearchResultClasses.searchResult)}>
+                <div key={message.id}
+                     className={classes(SearchResultClasses.message, settings.store.messageBackgroundColor && SearchResultClasses.searchResult)}>
                     <ChannelMessage
                         id={`message-link-embeds-${message.id}`}
                         message={message}
@@ -319,7 +321,7 @@ function ChannelMessageEmbedAccessory({ message, channel }: MessageEmbedProps): 
     );
 }
 
-function AutomodEmbedAccessory(props: MessageEmbedProps): JSX.Element | null {
+function AutomodEmbedAccessory(props: MessageEmbedProps): React.JSX.Element | null {
     const { message, channel } = props;
     const compact = MessageDisplayCompact.useSetting();
     const images = getImages(message);
@@ -330,8 +332,9 @@ function AutomodEmbedAccessory(props: MessageEmbedProps): JSX.Element | null {
     return <AutoModEmbed
         channel={channel}
         childrenAccessories={
-            <Text color="text-muted" variant="text-xs/medium" tag="span" className={`${EmbedClasses.embedAuthor} ${EmbedClasses.embedMargin}`}>
-                {iconUrl && <img src={iconUrl} className={EmbedClasses.embedAuthorIcon} alt="" />}
+            <Text color="text-muted" variant="text-xs/medium" tag="span"
+                  className={`${EmbedClasses.embedAuthor} ${EmbedClasses.embedMargin}`}>
+                {iconUrl && <img src={iconUrl} className={EmbedClasses.embedAuthorIcon} alt=""/>}
                 <span>
                     <span>{channelLabel} - </span>
                     {channel.isDM()
@@ -352,7 +355,7 @@ function AutomodEmbedAccessory(props: MessageEmbedProps): JSX.Element | null {
                     const { width, height } = computeWidthAndHeight(a.width, a.height);
                     return (
                         <div key={idx}>
-                            <img src={a.url} width={width} height={height} />
+                            <img src={a.url} width={width} height={height}/>
                         </div>
                     );
                 })}
@@ -382,9 +385,9 @@ export default definePlugin({
 
             return (
                 <ErrorBoundary>
-                    <MessageEmbedAccessory
-                        message={props.message}
-                    />
+                    <ExpandableWrapper collapseIfOver={400} collapseTo={200}>
+                        <MessageEmbedAccessory message={props.message}/>
+                    </ExpandableWrapper>
                 </ErrorBoundary>
             );
         }, 4 /* just above rich embeds */);
