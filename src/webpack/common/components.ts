@@ -42,7 +42,7 @@ export const Checkbox = waitForComponent<t.Checkbox>("Checkbox", filters.compone
 
 const Tooltips = mapMangledModuleLazy(".tooltipTop,bottom:", {
     Tooltip: filters.componentByCode("this.renderTooltip()]"),
-    TooltipContainer: filters.componentByCode('="div",')
+    TooltipContainer: filters.componentByCode('="div"')
 }) as {
     Tooltip: t.Tooltip,
     TooltipContainer: t.TooltipContainer;
