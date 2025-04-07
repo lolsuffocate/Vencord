@@ -185,7 +185,7 @@ const buildConfigs = ([
         globalName: "Vencord",
         sourcemap,
         plugins: [
-            globPlugins("vencordDesktop"),
+            globPlugins("vesktop"),
             ...commonRendererPlugins
         ],
         define: {
