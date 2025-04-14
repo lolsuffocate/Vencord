@@ -160,7 +160,7 @@ export function initWs(isManual = false, isReconnect = false, reconnectAttempt =
             ws.send(JSON.stringify(data));
         }
 
-        logger.info("Received Message:", type, "\n", data);
+        if(type !== "testPatch") logger.info("Received Message:", type, "\n", data);
 
         switch (type) {
             case "disable": {
@@ -174,7 +174,7 @@ export function initWs(isManual = false, isReconnect = false, reconnectAttempt =
                 const { id } = data;
                 replyData({
                     ok: true,
-                    data: await extractModule(id),
+                    data: extractModule(id),
                     type: "ret"
                 });
                 break;
@@ -190,8 +190,8 @@ export function initWs(isManual = false, isReconnect = false, reconnectAttempt =
                                 type: "diff",
                                 ok: true,
                                 data: {
-                                    patched: applyPatch && replacement?.length ? await extractAndPatchModule(pluginName, idOrSearch, replacement) : await extractModule(idOrSearch, applyPatch),
-                                    source: await extractModule(idOrSearch, false)
+                                    patched: applyPatch && replacement?.length ? await extractAndPatchModule(pluginName, idOrSearch, replacement) : extractModule(idOrSearch, applyPatch),
+                                    source: extractModule(idOrSearch, false)
                                 },
                                 moduleNumber: idOrSearch
                             });
@@ -204,8 +204,8 @@ export function initWs(isManual = false, isReconnect = false, reconnectAttempt =
 
                             else
                                 moduleId = +findModuleId(mkRegexFind(idOrSearch));
-                            const p = replacement?.length ? await extractAndPatchModule(pluginName, moduleId, replacement) : await extractModule(moduleId, true);
-                            const p2 = await extractModule(moduleId, false);
+                            const p = replacement?.length ? await extractAndPatchModule(pluginName, moduleId, replacement) : extractModule(moduleId, true);
+                            const p2 = extractModule(moduleId, false);
                             console.log(p, p2, "done");
                             replyData({
                                 type: "diff",
@@ -243,7 +243,7 @@ export function initWs(isManual = false, isReconnect = false, reconnectAttempt =
                                 replyData({
                                     type: "extract",
                                     ok: true,
-                                    data: await extractModule(idOrSearch, applyPatch),
+                                    data: extractModule(idOrSearch, applyPatch),
                                     moduleNumber: idOrSearch
                                 });
 
@@ -259,7 +259,7 @@ export function initWs(isManual = false, isReconnect = false, reconnectAttempt =
                             replyData({
                                 type: "extract",
                                 ok: true,
-                                data: applyPatch && replacement?.length ? await extractAndPatchModule(pluginName, moduleId, replacement) : await extractModule(moduleId, applyPatch),
+                                data: applyPatch && replacement?.length ? await extractAndPatchModule(pluginName, moduleId, replacement) : extractModule(moduleId, applyPatch),
                                 moduleNumber: moduleId
                             });
                             break;

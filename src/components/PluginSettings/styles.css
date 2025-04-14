@@ -16,12 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 /*#vencordplugins-tab {*/
-[role=tabpanel] {
+[class^=contentRegionSc] [role=tabpanel] {
     display: flex;
     flex-direction: column;
     height: 100%;
     padding-bottom: 10px;
-    max-width: unset;
+    max-width: 2200px;
 }
 
 #vencordplugins-tab > div {

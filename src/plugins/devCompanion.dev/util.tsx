@@ -9,34 +9,11 @@ import { Settings } from "@api/Settings";
 import { canonicalizeMatch, canonicalizeReplace } from "@utils/patches";
 import { CodeFilter, stringMatches, wreq } from "@webpack";
 import { Toasts } from "@webpack/common";
-import { AnyModuleFactory, AnyWebpackRequire } from "webpack";
+import { getFactoryPatchedSource } from "@webpack/patcher";
 
 import { settings as companionSettings } from ".";
 
 type Node = StringNode | RegexNode | FunctionNode;
-
-let wpSet = false;
-let getPatchedModule: ((id: PropertyKey, webpackRequire?: AnyWebpackRequire) => string | undefined);
-let getOriginalModule: ((id: PropertyKey, webpackRequire?: AnyWebpackRequire) => AnyModuleFactory | undefined);
-
-export async function initPatchWebpackUtils() {
-    if(!wpSet) {
-        const patchWebpack = await import("../../webpack/patchWebpack");
-        getPatchedModule = patchWebpack.getFactoryPatchedSource;
-        getOriginalModule = patchWebpack.getOriginalFactory;
-        wpSet = true;
-    }
-}
-
-export async function getFactoryPatchedSource(id: number) {
-    await initPatchWebpackUtils();
-    return getPatchedModule(id);
-}
-
-export async function getOriginalFactory(id: number) {
-    await initPatchWebpackUtils();
-    return getOriginalModule(id);
-}
 
 // todo: update for new patcher stuff
 export interface StringNode {
@@ -93,9 +70,9 @@ export async function extractOrThrow(id) {
  * @param id module id
  * @param patched return the patched module
  */
-export async function extractModule(id: number, patched = companionSettings.store.usePatchedModule): Promise<string> {
-    const module = await getOriginalFactory(id);
-    const patchedModule = await getFactoryPatchedSource(id);
+export function extractModule(id: number, patched = companionSettings.store.usePatchedModule): string {
+    const module = String(wreq.m[id]);
+    const patchedModule = getFactoryPatchedSource(id);
     if (!module)
         throw new Error("extractModule - No module found for module id:" + id);
     return patched ? patchedModule ?? module.toString() : module.toString();
@@ -110,7 +87,7 @@ export async function extractModule(id: number, patched = companionSettings.stor
  * @throws {Error} if no module is found
  */
 export async function extractAndPatchModule(pluginName: string = "YourPlugin", id: number, replacements: PatchRepl[]): Promise<string> {
-    const originalModule = await getOriginalFactory(id);
+    const originalModule = String(wreq.m[id]);
 
     if (!originalModule)
         throw new Error("extractAndPatchModule - No module found for module id:" + id);

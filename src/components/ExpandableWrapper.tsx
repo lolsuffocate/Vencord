@@ -8,10 +8,12 @@ import "./ExpandableWrapper.css";
 
 import { classNameFactory } from "@api/Styles";
 import { classes } from "@utils/misc";
-import { findComponentByCodeLazy } from "@webpack";
+import { findByPropsLazy, findComponentByCodeLazy, findLazy } from "@webpack";
 import { Clickable, React, TooltipContainer, useLayoutEffect, useRef, useState } from "@webpack/common";
 
 const ExpandIcon = findComponentByCodeLazy("M5.3 9.3a1");
+const scrollClasses = findByPropsLazy("scrollbarGhostHairline");
+const scrollClasses2 = findLazy(m => m.scrolling && m.thin && !m.disableScrollAnchor);
 const cl = classNameFactory("expandable-wrapper-");
 const DEFAULT_COLLAPSE_TO = 200;
 const DEFAULT_COLLAPSE_IF_OVER = 200;
@@ -23,6 +25,7 @@ interface ExpandableWrapperProps {
     defaultExpanded?: boolean;
     overlayWhenCollapsed?: boolean;
     overlayWhenExpanded?: boolean;
+    scrollableWhenCollapsed?: boolean;
     className?: string;
     style?: React.CSSProperties;
 }
@@ -34,6 +37,7 @@ export default function ExpandableWrapper({
     defaultExpanded = false,
     overlayWhenCollapsed = true,
     overlayWhenExpanded = false,
+    scrollableWhenCollapsed = false,
     className,
     style = {}
 }: ExpandableWrapperProps) {
@@ -68,10 +72,16 @@ export default function ExpandableWrapper({
 
     return (
         <div
-            className={classes(cl("container"), expanded && "expanded", className)}
-            style={isTallerThanLimit ? { maxHeight: expanded ? "none" : collapseTo } : {
-                maxHeight: collapseIfOver
-            }}
+            className={classes(
+                cl("container"),
+                expanded && "expanded",
+                className,
+                (scrollableWhenCollapsed && !expanded) && scrollClasses.scrollbarGhostHairline
+            )}
+            style={isTallerThanLimit ?
+                { maxHeight: expanded ? "none" : collapseTo, overflowY: scrollableWhenCollapsed ? "auto" : "hidden", overflowX: "hidden" } :
+                { maxHeight: collapseIfOver }
+        }
         >
             <div ref={childRef} style={style}>
                 {children}
@@ -81,7 +91,7 @@ export default function ExpandableWrapper({
                     onClick={() => setExpanded(!expanded)}
                     className={classes(cl("button"), (!overlayWhenExpanded && expanded) && "expanded")}
                     style={{
-                        position: expanded ? (overlayWhenExpanded ? "absolute" : "relative") : (overlayWhenCollapsed ? "absolute" : "relative")
+                        position: expanded ? (overlayWhenExpanded ? "absolute" : "relative") : (overlayWhenCollapsed ? "sticky" : "relative")
                     }}
                 >
                     <TooltipContainer text={Math.round(childRef.current?.getBoundingClientRect().height ?? 0) + "px"}>

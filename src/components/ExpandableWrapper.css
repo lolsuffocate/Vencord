@@ -22,6 +22,7 @@
     padding: 10px;
     /*noinspection CssUnresolvedCustomProperty*/
     background: linear-gradient(transparent, var(--background-secondary));
+    z-index: 999;
 }
 
 .expandable-wrapper-button.expanded {
