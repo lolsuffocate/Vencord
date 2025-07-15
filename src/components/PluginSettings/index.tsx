@@ -47,7 +47,7 @@ const { startDependenciesRecursive, startPlugin, stopPlugin } = proxyLazy(() => 
 const cl = classNameFactory("vc-plugins-");
 const logger = new Logger("PluginSettings", "#a6d189");
 
-const InputStyles = findByPropsLazy("inputWrapper", "inputDefault", "error");
+const InputStyles = findByPropsLazy("inputWrapper", "inputError", "error");
 const ButtonClasses = findByPropsLazy("button", "disabled", "enabled");
 const ScrollbarClasses = findByPropsLazy("thin", "auto", "managedReactiveScroller");
 
@@ -66,7 +66,7 @@ function showErrorToast(message: string) {
 function ReloadRequiredCard({ required }: { required: boolean; }) {
     if (!required) return null; // todo: properly remove regular plugin management card maybe
     return (
-        <Card className={cl("info-card", { "restart-card": required })}>
+        <Card className={classes(cl("info-card"), required && "vc-warning-card")}>
             {required ? (
                 <>
                     <Forms.FormTitle tag="h5">Restart required!</Forms.FormTitle>
@@ -405,24 +405,24 @@ export default function PluginSettings() {
                     Filters
                 </Forms.FormTitle>
 
-                <div className={classes(Margins.bottom20, cl("filter-controls"))}>
-                    <TextInput autoFocus value={searchValue.value} placeholder="Search for a plugin..." onChange={onSearch} />
-                    <div className={InputStyles.inputWrapper}>
-                        <Select
-                            options={[
-                                { label: "Show All", value: SearchStatus.ALL, default: true },
-                                { label: "Show Enabled", value: SearchStatus.ENABLED },
-                                { label: "Show Disabled", value: SearchStatus.DISABLED },
-                                { label: "Show New", value: SearchStatus.NEW }
-                            ]}
-                            serialize={String}
-                            select={onStatusChange}
-                            isSelected={v => v === searchValue.status}
-                            closeOnSelect={true}
-                            className={InputStyles.inputDefault}
-                        />
-                    </div>
+            <div className={classes(Margins.bottom20, cl("filter-controls"))}>
+                <TextInput autoFocus value={searchValue.value} placeholder="Search for a plugin..." onChange={onSearch} />
+                <div className={InputStyles.inputWrapper}>
+                    <Select
+                        options={[
+                            { label: "Show All", value: SearchStatus.ALL, default: true },
+                            { label: "Show Enabled", value: SearchStatus.ENABLED },
+                            { label: "Show Disabled", value: SearchStatus.DISABLED },
+                            { label: "Show New", value: SearchStatus.NEW }
+                        ]}
+                        serialize={String}
+                        select={onStatusChange}
+                        isSelected={v => v === searchValue.status}
+                        closeOnSelect={true}
+                        className={InputStyles.input}
+                    />
                 </div>
+            </div>
 
                 <Forms.FormTitle tag="h5" className={classes(Margins.top20, Margins.bottom8)}>
                     Categories

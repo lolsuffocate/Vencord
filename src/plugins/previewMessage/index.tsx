@@ -21,9 +21,9 @@ import { generateId, sendBotMessage } from "@api/Commands";
 import { _handlePreSend } from "@api/MessageEvents";
 import { Devs } from "@utils/constants";
 import definePlugin, { StartAt } from "@utils/types";
+import { MessageAttachment } from "@vencord/discord-types";
 import { findByPropsLazy } from "@webpack";
 import { DraftStore, DraftType, SelectedChannelStore, UserStore, useStateFromStores } from "@webpack/common";
-import { MessageAttachment } from "discord-types/general";
 
 const UploadStore = findByPropsLazy("getUploads");
 
