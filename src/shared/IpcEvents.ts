@@ -22,6 +22,7 @@ export const enum IpcEvents {
     SET_QUICK_CSS = "VencordSetQuickCss",
     QUICK_CSS_UPDATE = "VencordQuickCssUpdate",
 
+    GET_SETTINGS_DIR = "VencordGetSettingsDir",
     GET_SETTINGS = "VencordGetSettings",
     SET_SETTINGS = "VencordSetSettings",
 
@@ -32,6 +33,8 @@ export const enum IpcEvents {
     DELETE_THEME = "VencordDeleteTheme",
     THEME_UPDATE = "VencordThemeUpdate",
 
+    SPOTIFY_AUTHENTICATE = "VencordSpotifyAuthenticate",
+    SPOTIFY_LOGOUT = "VencordSpotifyLogout",
     OPEN_EXTERNAL = "VencordOpenExternal",
     OPEN_THEMES_FOLDER = "VencordOpenThemesFolder",
     OPEN_SETTINGS_FOLDER = "VencordOpenSettingsFolder",

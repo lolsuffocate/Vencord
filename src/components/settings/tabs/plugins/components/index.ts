@@ -18,6 +18,7 @@
 
 import "./styles.css";
 
+import { MultiSelectSetting } from "@components/settings/tabs/plugins/components/MultiSelectSetting";
 import { OptionType } from "@utils/types";
 import { ComponentType } from "react";
 
@@ -35,6 +36,7 @@ export const OptionComponentMap: Record<OptionType, ComponentType<SettingProps<a
     [OptionType.BIGINT]: NumberSetting,
     [OptionType.BOOLEAN]: BooleanSetting,
     [OptionType.SELECT]: SelectSetting,
+    [OptionType.MULTISELECT]: MultiSelectSetting,
     [OptionType.SLIDER]: SliderSetting,
     [OptionType.COMPONENT]: ComponentSetting,
     [OptionType.CUSTOM]: () => null,

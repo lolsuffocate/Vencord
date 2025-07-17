@@ -7,9 +7,10 @@
 import { showNotice } from "@api/Notices";
 import { CogWheel, InfoIcon } from "@components/Icons";
 import { AddonCard } from "@components/settings/AddonCard";
+import { CategoryBadge } from "@components/settings/tabs/plugins/CategoryBadge";
 import { proxyLazy } from "@utils/lazy";
 import { classes, isObjectEmpty } from "@utils/misc";
-import { Plugin } from "@utils/types";
+import { Plugin, PluginCategory } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
 import { React, showToast, Toasts } from "@webpack/common";
 import { Settings } from "Vencord";
@@ -25,11 +26,13 @@ export const ButtonClasses = findByPropsLazy("button", "disabled", "enabled");
 interface PluginCardProps extends React.HTMLProps<HTMLDivElement> {
     plugin: Plugin;
     disabled: boolean;
+    toggleCategory?: (category: PluginCategory) => void;
+    activeCategories?: PluginCategory[];
     onRestartNeeded(name: string, key: string): void;
     isNew?: boolean;
 }
 
-export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, onMouseLeave, isNew }: PluginCardProps) {
+export function PluginCard({ plugin, disabled, onRestartNeeded, toggleCategory, activeCategories, onMouseEnter, onMouseLeave, isNew }: PluginCardProps) {
     const settings = Settings.plugins[plugin.name];
 
     const isEnabled = () => isPluginEnabled(plugin.name);
@@ -88,6 +91,16 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, on
         <AddonCard
             name={plugin.name}
             description={plugin.description}
+            footer={
+                plugin.categories && (
+                    <div className={cl("categories")}>
+                        {plugin.categories.sort((a, b) => a.name.localeCompare(b.name)).map((category, index) => (
+                            <CategoryBadge key={category.name} category={category} toggleCategory={toggleCategory}
+                                           selected={activeCategories?.includes(category)}/>
+                        ))}
+                    </div>
+                )
+            }
             isNew={isNew}
             enabled={isEnabled()}
             setEnabled={toggleEnabled}

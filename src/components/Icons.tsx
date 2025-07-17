@@ -269,6 +269,22 @@ export function PlusIcon(props: IconProps) {
     );
 }
 
+export function MinusIcon(props: IconProps) {
+    return (
+        <Icon
+            {...props}
+            className={classes(props.className, "vc-minus-icon")}
+            viewBox="0 0 18 18"
+        >
+            <polygon
+                fillRule="nonzero"
+                fill="currentColor"
+                points="15 10 3 10 3 8 15 8"
+            />
+        </Icon>
+    );
+}
+
 export function NoEntrySignIcon(props: IconProps) {
     return (
         <Icon

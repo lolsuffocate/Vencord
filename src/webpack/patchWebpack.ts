@@ -26,6 +26,7 @@ export const SYM_PATCHED_BY = Symbol("WebpackPatcher.patchedBy");
 export const allWebpackInstances = new Set<AnyWebpackRequire>();
 
 export const patchTimings = [] as Array<[plugin: string, moduleId: PropertyKey, match: PatchReplacement["match"], totalTime: number]>;
+const IS_COMPANION_TEST = false;
 
 export const getBuildNumber = makeLazy(() => {
     try {

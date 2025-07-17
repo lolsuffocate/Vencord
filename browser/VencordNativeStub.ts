@@ -27,6 +27,7 @@ import { getTheme, Theme } from "../src/utils/discord";
 import { getThemeInfo } from "../src/main/themes";
 import { Settings } from "../src/Vencord";
 import { getStylusWebStoreUrl } from "@utils/web";
+import { IpcEvents } from "@shared/IpcEvents";
 
 // listeners for ipc.on
 const cssListeners = new Set<(css: string) => void>();
@@ -115,6 +116,9 @@ window.VencordNative = {
         openFolder: async () => Promise.reject("settings:openFolder is not supported on web"),
     },
 
+
+
+    spotify: {} as any,
     pluginHelpers: {} as any,
     csp: {} as any,
 };

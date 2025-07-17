@@ -21,23 +21,24 @@ import { wordsFromCamel, wordsToTitle } from "@utils/text";
 import { PluginOptionMultiSelect } from "@utils/types";
 import { Forms, React, Select } from "@webpack/common";
 
-import { ISettingElementProps } from ".";
+import { SettingProps } from "./Common";
 
-export function SettingMultiSelectComponent({
+export function MultiSelectSetting({
     option,
     pluginSettings,
     definedSettings,
     onChange,
-    onError,
+ //   onError,
     id
-}: ISettingElementProps<PluginOptionMultiSelect>) {
+}: SettingProps<PluginOptionMultiSelect>) {
     const def = pluginSettings[id] ?? option.options?.filter(o => o.default).map(o => o.value);
 
     const [state, setState] = React.useState<any>(def ?? []);
     const [error, setError] = React.useState<string | null>(null);
 
     React.useEffect(() => {
-        onError(error !== null);
+        // todo
+        // onError(error !== null);
     }, [error]);
 
     function handleChange(newValue) {

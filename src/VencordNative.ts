@@ -88,5 +88,10 @@ export default {
             invoke<CspRequestResult>(IpcEvents.CSP_REQUEST_ADD_OVERRIDE, url, directives, callerName),
     },
 
+    spotify: {
+        authenticate: () => invoke<{ success: boolean, message: string }>(IpcEvents.SPOTIFY_AUTHENTICATE),
+        logout: () => invoke<void>(IpcEvents.SPOTIFY_LOGOUT),
+    },
+
     pluginHelpers: PluginHelpers
 };
