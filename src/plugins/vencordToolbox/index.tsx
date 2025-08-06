@@ -31,6 +31,7 @@ const HeaderBarIcon = findComponentByCodeLazy(".HEADER_BAR_BADGE_TOP:", '.iconBa
 
 function VencordPopout(onClose: () => void) {
     const { useQuickCss } = useSettings(["useQuickCss"]);
+    const { showErrorBoundaries } = useSettings(["showErrorBoundaries"]);
 
     const pluginEntries = [] as ReactNode[];
 
@@ -80,6 +81,14 @@ function VencordPopout(onClose: () => void) {
                 id="vc-toolbox-quickcss"
                 label="Open QuickCSS"
                 action={() => VencordNative.quickCss.openEditor()}
+            />
+            <Menu.MenuCheckboxItem
+                id="vc-toolbox-errorboundary-toggle"
+                checked={showErrorBoundaries}
+                label={"Show Error Boundaries"}
+                action={() => {
+                    Settings.showErrorBoundaries = !showErrorBoundaries;
+                }}
             />
             {...pluginEntries}
         </Menu.Menu>

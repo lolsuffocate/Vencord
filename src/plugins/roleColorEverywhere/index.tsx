@@ -220,5 +220,5 @@ export default definePlugin({
                 {title ?? label} &mdash; {count}
             </span>
         );
-    }, { noop: true })
+    }, { fallback: props => <span style={{ color: "var(--text-muted)" }}>{props.wrappedProps.title ?? props.wrappedProps.label} &mdash; {props.wrappedProps.count}</span> })
 });

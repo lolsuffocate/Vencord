@@ -54,6 +54,7 @@ export interface Settings {
     | "window"
     | undefined;
     disableMinSize: boolean;
+    showErrorBoundaries: boolean;
     winNativeTitleBar: boolean;
     plugins: {
         [plugin: string]: {
@@ -90,6 +91,7 @@ const DefaultSettings: Settings = {
     winCtrlQ: false,
     macosVibrancyStyle: undefined,
     disableMinSize: false,
+    showErrorBoundaries: true,
     winNativeTitleBar: false,
     plugins: {},
 

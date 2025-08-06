@@ -19,7 +19,7 @@
 import { LazyComponent, LazyComponentWrapper } from "@utils/lazyReact";
 import { Logger } from "@utils/Logger";
 import { Margins } from "@utils/margins";
-import type { React } from "@webpack/common";
+import { React } from "@webpack/common";
 
 import { ErrorCard } from "./ErrorCard";
 
@@ -76,7 +76,7 @@ const ErrorBoundary = LazyComponent(() => {
         }
 
         get isNoop() {
-            if (IS_DEV) return false;
+            if (IS_DEV && Vencord.Settings.showErrorBoundaries) return false;
             return this.props.noop;
         }
 
