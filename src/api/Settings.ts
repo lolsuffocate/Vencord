@@ -154,12 +154,6 @@ export const SettingsStore = new SettingsStoreClass(settings, {
                         target[key] = def.value;
                     return def?.value;
                 }
-
-                if (setting.type === OptionType.MULTISELECT) {
-                    const def = setting.options.filter(o => o.default).map(o => o.value);
-                    target[key] = def;
-                    return def;
-                }
             }
         }
         return v;
