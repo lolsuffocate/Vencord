@@ -46,6 +46,11 @@ export const settings = definePluginSettings({
         description: "Reload after a disable/enable plugin command is received.",
         default: true,
         type: OptionType.BOOLEAN
+    },
+    keepAlive: {
+        description: "Send pings to the Dev Companion server to keep the connection alive.",
+        default: true,
+        type: OptionType.BOOLEAN
     }
 });
 

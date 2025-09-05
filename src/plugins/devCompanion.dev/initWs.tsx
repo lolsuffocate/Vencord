@@ -11,7 +11,18 @@ import { reporterData } from "debug/reporterData";
 import { Settings } from "Vencord";
 
 import { hardReload, logger, PORT, settings } from ".";
-import { extractAndPatchModule, extractModule, FindData, findModuleId, FindType, mkRegexFind, parseNode, PatchData, SendData, toggleEnabled, } from "./util";
+import {
+    extractAndPatchModule,
+    extractModule,
+    FindData,
+    findModuleId,
+    FindType,
+    mkRegexFind,
+    parseNode,
+    PatchData,
+    SendData,
+    toggleEnabled,
+} from "./util";
 
 export function stopWs() {
     socket?.close(1000, "Plugin Stopped");
@@ -24,6 +35,20 @@ export function initWs(isManual = false, isReconnect = false, reconnectAttempt =
     let wasConnected = isManual;
     let hasErrored = false;
     const ws = socket = new WebSocket(`ws://localhost:${PORT}`);
+
+    if (settings.store.keepAlive) {
+        // Keep the connection alive by sending a ping every 30 seconds
+        const pingInterval = setInterval(() => {
+            if (ws?.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: "ping" }));
+            } else {
+                clearInterval(pingInterval);
+            }
+        }, 30000);
+        ws.addEventListener("close", () => {
+            clearInterval(pingInterval);
+        });
+    }
 
     function replyData<T extends SendData>(data: T) {
         ws.send(JSON.stringify(data));
@@ -149,18 +174,20 @@ export function initWs(isManual = false, isReconnect = false, reconnectAttempt =
             logger.error("Invalid JSON:", err, "\n" + e.data);
             return;
         }
+
         function reply(error?: string) {
             const data = { nonce, ok: !error } as Record<string, unknown>;
             if (error) data.error = error;
 
             ws.send(JSON.stringify(data));
         }
+
         function replyData<T extends SendData>(data: T) {
             data.nonce = nonce;
             ws.send(JSON.stringify(data));
         }
 
-        if(type !== "testPatch") logger.info("Received Message:", type, "\n", data);
+        if (type !== "testPatch") logger.info("Received Message:", type, "\n", data);
 
         switch (type) {
             case "disable": {
@@ -227,7 +254,7 @@ export function initWs(isManual = false, isReconnect = false, reconnectAttempt =
             }
             case "reload": {
                 reply();
-                if(data?.hard) hardReload();
+                if (data?.hard) hardReload();
                 else window.location.reload();
                 break;
             }
