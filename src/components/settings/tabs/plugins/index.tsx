@@ -21,6 +21,10 @@ import "./styles.css";
 import * as DataStore from "@api/DataStore";
 import { useSettings } from "@api/Settings";
 import { classNameFactory } from "@api/Styles";
+import { Divider } from "@components/Divider";
+import ErrorBoundary from "@components/ErrorBoundary";
+import { HeadingTertiary } from "@components/Heading";
+import { Paragraph } from "@components/Paragraph";
 import { SettingsTab, wrapTab } from "@components/settings/tabs/BaseTab";
 import { CategoryBadge } from "@components/settings/tabs/plugins/CategoryBadge";
 import { ChangeList } from "@utils/ChangeList";
@@ -31,7 +35,8 @@ import { classes } from "@utils/misc";
 import { useAwaiter, useCleanupEffect } from "@utils/react";
 import { PluginCategory } from "@utils/types";
 import { findByPropsLazy } from "@webpack";
-import { Alerts, Button, Card, Checkbox, Forms, lodash, Parser, React, Select, Text, TextInput, Tooltip, useMemo, useState } from "@webpack/common";
+import { Alerts, Button, Card, Checkbox, lodash, Parser, React, Select, TextInput, Tooltip, useMemo, useState
+} from "@webpack/common";
 import { JSX } from "react";
 
 import Plugins, { ExcludedPlugins, PluginMeta } from "~plugins";
@@ -51,10 +56,10 @@ function ReloadRequiredCard({ required }: { required: boolean; }) {
             {required
                 ? (
                     <>
-                        <Forms.FormTitle tag="h5">Restart required!</Forms.FormTitle>
-                        <Forms.FormText className={cl("dep-text")}>
+                        <HeadingTertiary>Restart required!</HeadingTertiary>
+                        <Paragraph className={cl("dep-text")}>
                             Restart now to apply new plugins and their settings
-                        </Forms.FormText>
+                        </Paragraph>
                         <Button onClick={() => location.reload()} className={cl("restart-button")}>
                             Restart
                         </Button>
@@ -62,9 +67,9 @@ function ReloadRequiredCard({ required }: { required: boolean; }) {
                 )
                 : (
                     <>
-                        <Forms.FormTitle tag="h5">Plugin Management</Forms.FormTitle>
-                        <Forms.FormText>Press the cog wheel or info icon to get more info on a plugin</Forms.FormText>
-                        <Forms.FormText>Plugins with a cog wheel have settings you can modify!</Forms.FormText>
+                        <HeadingTertiary>Plugin Management</HeadingTertiary>
+                        <Paragraph>Press the cog wheel or info icon to get more info on a plugin</Paragraph>
+                        <Paragraph>Plugins with a cog wheel have settings you can modify!</Paragraph>
                     </>
                 )}
         </Card>
@@ -91,10 +96,10 @@ function ExcludedPluginsList({ search }: { search: string; }) {
     };
 
     return (
-        <Text variant="text-md/normal" className={Margins.top16}>
+        <Paragraph className={Margins.top16}>
             {matchingExcludedPlugins.length
                 ? <>
-                    <Forms.FormText>Are you looking for:</Forms.FormText>
+                    <Paragraph>Are you looking for:</Paragraph>
                     <ul>
                         {matchingExcludedPlugins.map(([name, reason]) => (
                             <li key={name}>
@@ -105,7 +110,7 @@ function ExcludedPluginsList({ search }: { search: string; }) {
                 </>
                 : "No plugins meet the search criteria."
             }
-        </Text>
+        </Paragraph>
     );
 }
 
@@ -149,7 +154,7 @@ function PluginSettings() {
     }, []);
 
     const sortedPlugins = useMemo(() =>
-        Object.values(Plugins).sort((a, b) => a.name.localeCompare(b.name)),
+            Object.values(Plugins).sort((a, b) => a.name.localeCompare(b.name)),
         []
     );
 
@@ -304,31 +309,36 @@ function PluginSettings() {
             <div>
                 <ReloadRequiredCard required={changes.hasChanges}/>
 
-                <Forms.FormTitle tag="h5" className={classes(Margins.top20, Margins.bottom8)}>
+                <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
                     Filters
-                </Forms.FormTitle>
+                </HeadingTertiary>
 
-            <div className={classes(Margins.bottom20, cl("filter-controls"))}>
-                <TextInput autoFocus value={searchValue.value} placeholder="Search for a plugin..." onChange={onSearch} />
-                <div className={InputStyles.inputWrapper}>
-                    <Select
-                        options={[
-                            { label: "Show All", value: SearchStatus.ALL, default: true },
-                            { label: "Show Enabled", value: SearchStatus.ENABLED },
-                            { label: "Show Disabled", value: SearchStatus.DISABLED },
-                            { label: "Show New", value: SearchStatus.NEW }
-                        ]}
-                        serialize={String}
-                        select={onStatusChange}
-                        isSelected={v => v === searchValue.status}
-                        closeOnSelect={true}
-                    />
+                <div className={classes(Margins.bottom20, cl("filter-controls"))}>
+                    <ErrorBoundary noop>
+                        <TextInput autoFocus value={searchValue.value} placeholder="Search for a plugin..."
+                                   onChange={onSearch}/>
+                    </ErrorBoundary>
+                    <div>
+                        <ErrorBoundary noop>
+                            <Select
+                                options={[
+                                    { label: "Show All", value: SearchStatus.ALL, default: true },
+                                    { label: "Show Enabled", value: SearchStatus.ENABLED },
+                                    { label: "Show Disabled", value: SearchStatus.DISABLED },
+                                    { label: "Show New", value: SearchStatus.NEW }
+                                ]}
+                                serialize={String}
+                                select={onStatusChange}
+                                isSelected={v => v === searchValue.status}
+                                closeOnSelect={true}
+                            />
+                        </ErrorBoundary>
+                    </div>
                 </div>
-            </div>
 
-                <Forms.FormTitle tag="h5" className={classes(Margins.top20, Margins.bottom8)}>
+                <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
                     Categories
-                </Forms.FormTitle>
+                </HeadingTertiary>
                 <div className={cl("category-picker")}>
                     <Checkbox value={searchValue.combineCategoryFilters} onChange={toggleCombineCategoryFilters}>
                         Combine filters
@@ -350,7 +360,7 @@ function PluginSettings() {
                     ]}
                 </ul>
 
-                <Forms.FormTitle className={Margins.top20}>Plugins</Forms.FormTitle>
+                <HeadingTertiary className={Margins.top20}>Plugins</HeadingTertiary>
             </div>
             <div className={classes(cl("list"), ScrollbarClasses.auto)}>
                 {plugins.length || requiredPlugins.length
@@ -358,34 +368,35 @@ function PluginSettings() {
                         <div className={cl("grid")}>
                             {plugins.length
                                 ? plugins
-                                : <Text variant="text-md/normal">No plugins meet the search criteria.</Text>
+                                : <Paragraph>No plugins meet the search criteria.</Paragraph>
                             }
                         </div>
                     )
                     : <ExcludedPluginsList search={search}/>
                 }
 
-                <Forms.FormDivider className={Margins.top20}/>
 
-                <Forms.FormTitle tag="h5" className={classes(Margins.top20, Margins.bottom8)}>
+                <Divider className={Margins.top20}/>
+
+                <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
                     Required Plugins
-                </Forms.FormTitle>
+                </HeadingTertiary>
                 <div className={cl("grid")}>
                     {requiredPlugins.length
                         ? requiredPlugins
-                        : <Text variant="text-md/normal">No plugins meet the search criteria.</Text>
+                        : <Paragraph>No plugins meet the search criteria.</Paragraph>
                     }
                 </div>
             </div>
-        </SettingsTab >
+        </SettingsTab>
     );
 }
 
 function makeDependencyList(deps: string[]) {
     return (
         <>
-            <Forms.FormText>This plugin is required by:</Forms.FormText>
-            {deps.map((dep: string) => <Forms.FormText key={dep} className={cl("dep-text")}>{dep}</Forms.FormText>)}
+            <Paragraph>This plugin is required by:</Paragraph>
+            {deps.map((dep: string) => <Paragraph key={dep} className={cl("dep-text")}>{dep}</Paragraph>)}
         </>
     );
 }
