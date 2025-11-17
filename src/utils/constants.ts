@@ -31,6 +31,9 @@ const platform = navigator.platform.toLowerCase();
 export const IS_WINDOWS = platform.startsWith("win");
 export const IS_MAC = platform.startsWith("mac");
 export const IS_LINUX = platform.startsWith("linux");
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent#mobile_tablet_or_desktop
+// "In summary, we recommend looking for the string Mobi anywhere in the User Agent to detect a mobile device."
+export const IS_MOBILE = navigator.userAgent.includes("Mobi");
 
 export interface Dev {
     name: string;
@@ -677,6 +680,10 @@ export const Devs = /* #__PURE__*/ Object.freeze({
         name: "thororen",
         id: 848339671629299742n
     },
+    alfred: {
+        name: "alfred",
+        id: 1038466644353232967n
+    }
     Suffocate: {
         name: "Suffocate",
         id: 772601756776923187n

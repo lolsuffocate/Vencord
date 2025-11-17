@@ -5,10 +5,10 @@
  */
 
 import { showNotice } from "@api/Notices";
+import { isPluginEnabled, startDependenciesRecursive, startPlugin, stopPlugin } from "@api/PluginManager";
 import { CogWheel, InfoIcon } from "@components/Icons";
 import { AddonCard } from "@components/settings/AddonCard";
 import { CategoryBadge } from "@components/settings/tabs/plugins/CategoryBadge";
-import { proxyLazy } from "@utils/lazy";
 import { isObjectEmpty } from "@utils/misc";
 import { Plugin, PluginCategory } from "@utils/types";
 import { React, showToast, Toasts } from "@webpack/common";
@@ -16,9 +16,6 @@ import { Settings } from "Vencord";
 
 import { cl, logger } from ".";
 import { openPluginModal } from "./PluginModal";
-
-// Avoid circular dependency
-const { startDependenciesRecursive, startPlugin, stopPlugin, isPluginEnabled } = proxyLazy(() => require("plugins") as typeof import("plugins"));
 
 interface PluginCardProps extends React.HTMLProps<HTMLDivElement> {
     plugin: Plugin;
