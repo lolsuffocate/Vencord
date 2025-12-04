@@ -42,6 +42,7 @@ import { JSX } from "react";
 import Plugins, { ExcludedPlugins, PluginMeta } from "~plugins";
 
 import { PluginCard } from "./PluginCard";
+import { UIElementsButton } from "./UIElements";
 
 export const cl = classNameFactory("vc-plugins-");
 export const logger = new Logger("PluginSettings", "#a6d189");
@@ -266,9 +267,11 @@ function PluginSettings() {
             <div>
                 <ReloadRequiredCard required={changes.hasChanges}/>
 
-                <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
-                    Filters
-                </HeadingTertiary>
+            <UIElementsButton />
+
+            <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
+            Filters
+            </HeadingTertiary>
 
             <div className={classes(Margins.bottom20, cl("filter-controls"))}>
                 <ErrorBoundary noop>
