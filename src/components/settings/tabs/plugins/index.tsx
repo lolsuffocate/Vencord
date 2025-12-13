@@ -263,39 +263,40 @@ function PluginSettings() {
     }
 
     return (
-        <SettingsTab title="Plugins">
+        <SettingsTab>
             <div>
-                <ReloadRequiredCard required={changes.hasChanges}/>
+                <ReloadRequiredCard required={changes.hasChanges} />
 
-            <UIElementsButton />
+                <UIElementsButton/>
 
-            <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
-            Filters
-            </HeadingTertiary>
+                <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
+                    Filters
+                </HeadingTertiary>
 
-            <div className={classes(Margins.bottom20, cl("filter-controls"))}>
-                <ErrorBoundary noop>
-                    <TextInput autoFocus value={searchValue.value} placeholder="Search for a plugin..." onChange={onSearch} />
-                </ErrorBoundary>
-                <div>
+                <div className={classes(Margins.bottom20, cl("filter-controls"))}>
                     <ErrorBoundary noop>
-                        <Select
-                            options={[
-                                { label: "Show All", value: SearchStatus.ALL, default: true },
-                                { label: "Show Enabled", value: SearchStatus.ENABLED },
-                                { label: "Show Disabled", value: SearchStatus.DISABLED },
-                                { label: "Show New", value: SearchStatus.NEW },
-                                hasUserPlugins && { label: "Show UserPlugins", value: SearchStatus.USER_PLUGINS },
-                                { label: "Show API Plugins", value: SearchStatus.API_PLUGINS },
-                            ].filter(isTruthy)}
-                            serialize={String}
-                            select={onStatusChange}
-                            isSelected={v => v === searchValue.status}
-                            closeOnSelect={true}
-                        />
+                        <TextInput autoFocus value={searchValue.value} placeholder="Search for a plugin..."
+                                   onChange={onSearch}/>
                     </ErrorBoundary>
+                    <div>
+                        <ErrorBoundary noop>
+                            <Select
+                                options={[
+                                    { label: "Show All", value: SearchStatus.ALL, default: true },
+                                    { label: "Show Enabled", value: SearchStatus.ENABLED },
+                                    { label: "Show Disabled", value: SearchStatus.DISABLED },
+                                    { label: "Show New", value: SearchStatus.NEW },
+                                    hasUserPlugins && { label: "Show UserPlugins", value: SearchStatus.USER_PLUGINS },
+                                    { label: "Show API Plugins", value: SearchStatus.API_PLUGINS },
+                                ].filter(isTruthy)}
+                                serialize={String}
+                                select={onStatusChange}
+                                isSelected={v => v === searchValue.status}
+                                closeOnSelect={true}
+                            />
+                        </ErrorBoundary>
+                    </div>
                 </div>
-            </div>
 
 
                 <HeadingTertiary className={Margins.top20}>Plugins</HeadingTertiary>
