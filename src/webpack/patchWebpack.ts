@@ -497,8 +497,11 @@ function runFactoryWithWrap(patchedFactory: PatchedModuleFactory, thisArg: unkno
  * @returns The patched module factory
  */
 function patchFactory(moduleId: PropertyKey, originalFactory: AnyModuleFactory): PatchedModuleFactory {
+    const originalFactoryCode = String(originalFactory);
+    const isArrowFunction = originalFactoryCode.startsWith("(");
+
     // 0, prefix to turn it into an expression: 0,function(){} would be invalid syntax without the 0,
-    let code: string = "0," + String(originalFactory);
+    let code = "0," + (!isArrowFunction ? "function" : "") + originalFactoryCode.slice(originalFactoryCode.indexOf("("));
     let patchedSource = code;
     let patchedFactory = originalFactory;
 
