@@ -1,6 +1,7 @@
 .expandable-wrapper-container {
     overflow: hidden;
     position: relative;
+    width: fit-content;
 }
 
 .expandable-wrapper-container.expanded {
@@ -11,31 +12,34 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    /*position: absolute;*/
     bottom: 0;
     left: 0;
     right: 0;
     height: 40px;
-    cursor: pointer;
-    color: var(--text-normal);
+    pointer-events: none;
     font-size: 0.75rem;
     padding: 10px;
-    /*noinspection CssUnresolvedCustomProperty*/
-    background: linear-gradient(transparent, var(--background-secondary));
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
     z-index: 999;
 }
 
 .expandable-wrapper-button.expanded {
-    /*position: relative;*/
     height: unset;
-    /*noinspection CssUnresolvedCustomProperty*/
-    background: var(--background-secondary);
 }
 
 .expandable-wrapper-expand-icon {
     transition: transform 0.3s;
+    cursor: pointer;
+    pointer-events: all;
+    background-color: var(--brand-530);
+    border-radius: 35%;
+}
+
+.expandable-wrapper-expand-icon:hover {
+    scale: 1.1;
 }
 
 .expandable-wrapper-expand-icon.expanded {
     transform: rotate(180deg);
+    transition: transform 0.3s;
 }

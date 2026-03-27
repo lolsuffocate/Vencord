@@ -12,7 +12,6 @@ export * from "./CodeBlock";
 export * from "./Divider";
 export { default as ErrorBoundary } from "./ErrorBoundary";
 export * from "./ErrorCard";
-export * from "./ExpandableWrapper";
 export * from "./Flex";
 export * from "./FormSwitch";
 export * from "./Grid";

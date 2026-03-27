@@ -18,10 +18,10 @@
 
 import { addMessageAccessory, removeMessageAccessory } from "@api/MessageAccessories";
 import { updateMessage } from "@api/MessageUpdater";
-import { definePluginSettings } from "@api/Settings";
+import { definePluginSettings, useSettings } from "@api/Settings";
 import { getUserSettingLazy } from "@api/UserSettings";
+import CollapsibleContainer from "@components/CollapsibleContainer";
 import ErrorBoundary from "@components/ErrorBoundary";
-import ExpandableWrapper from "@components/ExpandableWrapper";
 import { Devs } from "@utils/constants.js";
 import { classes } from "@utils/misc";
 import { Queue } from "@utils/Queue";
@@ -378,6 +378,7 @@ export default definePlugin({
 
     start() {
         addMessageAccessory("messageLinkEmbed", props => {
+            const expandSettings = useSettings(["plugins.CollapsibleEmbeds.overlayCollapseButtonWhenExpanded","plugins.CollapsibleEmbeds.collapseIfOver","plugins.CollapsibleEmbeds.collapseTo"]);
             if (!messageLinkRegex.test(props.message.content))
                 return null;
 
@@ -386,9 +387,10 @@ export default definePlugin({
 
             return (
                 <ErrorBoundary>
-                    <ExpandableWrapper collapseIfOver={400} collapseTo={200}>
+                    {/* @ts-ignore */}
+                    <CollapsibleContainer collapseIfOver={expandSettings?.collapseIfOver ?? 400} collapseTo={expandSettings?.collapseTo ?? 200} overlayWhenExpanded={expandSettings?.overlayCollapseButtonWhenExpanded ?? false}>
                         <MessageEmbedAccessory message={props.message}/>
-                    </ExpandableWrapper>
+                    </CollapsibleContainer>
                 </ErrorBoundary>
             );
         }, 4 /* just above rich embeds */);
