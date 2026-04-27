@@ -82,7 +82,8 @@ const getNames = ({ author, message, isRepliedMessage, withMentionPrefix, userOv
 export default definePlugin({
     name: "ShowMeYourName",
     description: "Display usernames next to nicks, or no nicks at all",
-    authors: [Devs.Rini, Devs.TheKodeToad],
+    tags: ["Appearance", "Customisation"],
+    authors: [Devs.Rini, Devs.TheKodeToad, Devs.rae],
     patches: [
         {
             find: '="SYSTEM_TAG"',
