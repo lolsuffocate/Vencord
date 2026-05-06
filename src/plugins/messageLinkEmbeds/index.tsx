@@ -54,7 +54,7 @@ const Embed = findComponentLazy(m => m.prototype?.renderSuppressButton);
 const ChannelMessage = findComponentByCodeLazy("childrenExecutedCommand:", ".hideAccessories");
 let AutoModEmbed: ComponentType<any> = () => null;
 
-const SearchResultClasses = findCssClassesLazy("message", "searchResult");
+const SearchResultClasses = findCssClassesLazy("message", "automodMessage");
 const EmbedClasses = findCssClassesLazy("embedAuthorIcon", "embedAuthor", "embedAuthor", "embedMargin");
 
 const MessageDisplayCompact = getUserSettingLazy("textAndImages", "messageDisplayCompact")!;
@@ -309,7 +309,7 @@ function ChannelMessageEmbedAccessory({ message, channel }: MessageEmbedProps): 
             }}
             renderDescription={() => (
                 <div key={message.id}
-                     className={classes(SearchResultClasses.message, settings.store.messageBackgroundColor && SearchResultClasses.searchResult)}>
+                     className={classes(SearchResultClasses.message, settings.store.messageBackgroundColor && SearchResultClasses.automodMessage)}>
                     <ChannelMessage
                         id={`message-link-embeds-${message.id}`}
                         message={message}
@@ -403,8 +403,7 @@ export default definePlugin({
 
             return (
                 <ErrorBoundary>
-                    {/* @ts-ignore */}
-                    <CollapsibleContainer collapseIfOver={expandSettings?.collapseIfOver ?? 400} collapseTo={expandSettings?.collapseTo ?? 200} overlayWhenExpanded={expandSettings?.overlayCollapseButtonWhenExpanded ?? false}>
+                    <CollapsibleContainer collapseIfOver={expandSettings?.plugins.CollapsibleEmbeds?.collapseIfOver ?? 400} collapseTo={expandSettings?.plugins.CollapsibleEmbeds?.collapseTo ?? 200} overlayWhenExpanded={expandSettings?.plugins.CollapsibleEmbeds?.overlayCollapseButtonWhenExpanded ?? true}>
                         <MessageEmbedAccessory message={props.message}/>
                     </CollapsibleContainer>
                 </ErrorBoundary>

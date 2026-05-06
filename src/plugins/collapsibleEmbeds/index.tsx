@@ -51,7 +51,7 @@ export default definePlugin({
     name: "CollapsibleEmbeds",
     description: "Collapse embeds that are over a certain height",
     authors: [Devs.Suffocate],
-
+    settings,
     patches: [
         {
             /** Collapsible code blocks */
@@ -77,7 +77,8 @@ export default definePlugin({
         // the expandable wrapper breaks the size of the video in youtube embeds
         // and no video embed is going to be tall enough to need it anyway
         if (orig?.props?.children?.props?.embed?.provider?.url === "https://www.youtube.com" ||
-            orig?.props?.children?.props?.embed?.url?.startsWith("https://youtube.com/clip/") ||
+        orig?.props?.children?.props?.embed?.provider?.url === "https://www.youtube.com/" ||
+            orig?.props?.children?.props?.embed?.url?.startsWith("https://youtube.com/") ||
             orig?.props?.children?.props?.embed?.url?.startsWith("https://www.twitch.tv/")
         ) {
             return orig;
