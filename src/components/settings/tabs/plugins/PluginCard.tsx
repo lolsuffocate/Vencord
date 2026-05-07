@@ -5,13 +5,11 @@
  */
 
 import { showNotice } from "@api/Notices";
-import { isPluginEnabled, pluginRequiresRestart, startDependenciesRecursive, startPlugin, stopPlugin } from "@api/PluginManager";
+import { hasAnyVisibleSettings, isPluginEnabled, pluginRequiresRestart, startDependenciesRecursive, startPlugin, stopPlugin } from "@api/PluginManager";
 import { Settings } from "@api/Settings";
 import { CogWheel, InfoIcon } from "@components/Icons";
 import { AddonCard } from "@components/settings/AddonCard";
-import { CategoryBadge } from "@components/settings/tabs/plugins/CategoryBadge";
-import { isObjectEmpty } from "@utils/misc";
-import { Plugin, PluginCategory } from "@utils/types";
+import { Plugin } from "@utils/types";
 import { React, showToast, Toasts } from "@webpack/common";
 
 import { cl, logger } from ".";
@@ -20,13 +18,11 @@ import { openPluginModal } from "./PluginModal";
 interface PluginCardProps extends React.HTMLProps<HTMLDivElement> {
     plugin: Plugin;
     disabled: boolean;
-    toggleCategory?: (category: PluginCategory) => void;
-    activeCategories?: PluginCategory[];
     onRestartNeeded(name: string, key: string): void;
     isNew?: boolean;
 }
 
-export function PluginCard({ plugin, disabled, onRestartNeeded, toggleCategory, activeCategories, onMouseEnter, onMouseLeave, isNew }: PluginCardProps) {
+export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, onMouseLeave, isNew }: PluginCardProps) {
     const settings = Settings.plugins[plugin.name];
 
     const isEnabled = () => isPluginEnabled(plugin.name);
@@ -85,16 +81,6 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, toggleCategory, 
         <AddonCard
             name={plugin.name}
             description={plugin.description}
-            footer={
-                plugin.categories && (
-                    <div className={cl("categories")}>
-                        {plugin.categories.sort((a, b) => a.name.localeCompare(b.name)).map((category, index) => (
-                            <CategoryBadge key={category.name} category={category} toggleCategory={toggleCategory}
-                                           selected={activeCategories?.includes(category)}/>
-                        ))}
-                    </div>
-                )
-            }
             isNew={isNew}
             enabled={isEnabled()}
             setEnabled={toggleEnabled}
@@ -107,7 +93,7 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, toggleCategory, 
                     onClick={() => openPluginModal(plugin, onRestartNeeded)}
                     className={cl("info-button")}
                 >
-                    {plugin.options && !isObjectEmpty(plugin.options)
+                    {hasAnyVisibleSettings(plugin)
                         ? <CogWheel className={cl("info-icon")} />
                         : <InfoIcon className={cl("info-icon")} />
                     }
