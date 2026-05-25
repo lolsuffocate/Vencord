@@ -38,8 +38,9 @@ import { useAwaiter, useCleanupEffect } from "@utils/react";
 import { PluginTag, PluginTags } from "@utils/types";
 import { findCssClassesLazy } from "@webpack";
 import {
-    Alerts,
+    ConfirmModal,
     lodash,
+    openModal,
     Parser,
     React,
     SearchableSelect,
@@ -138,9 +139,15 @@ function PluginSettings() {
 
     useCleanupEffect(() => {
         if (changes.hasChanges)
-            Alerts.show({
-                title: "Restart required",
-                body: (
+            openModal(props => (
+                <ConfirmModal
+                    {...props}
+                    title="Restart required"
+                    confirmText="Restart now"
+                    cancelText="Later!"
+                    variant="primary"
+                    onConfirm={() => location.reload()}
+                >
                     <>
                         <p>The following plugins require a restart:</p>
                         <div>{changes.map((s, i) => (
@@ -150,11 +157,8 @@ function PluginSettings() {
                             </>
                         ))}</div>
                     </>
-                ),
-                confirmText: "Restart now",
-                cancelText: "Later!",
-                onConfirm: () => location.reload()
-            });
+                </ConfirmModal>
+            ));
     }, []);
 
     const depMap = useMemo(() => {

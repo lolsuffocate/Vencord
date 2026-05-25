@@ -62,6 +62,7 @@ export interface Settings {
     | "under-page"
     | "window"
     | undefined;
+    windowsMaterial: "none" | "mica" | "tabbed" | "acrylic";
     disableMinSize: boolean;
     showErrorBoundaries: boolean;
     winNativeTitleBar: boolean;
@@ -104,6 +105,7 @@ const DefaultSettings: Settings = {
     transparent: false,
     winCtrlQ: false,
     macosVibrancyStyle: undefined,
+    windowsMaterial: "none",
     disableMinSize: false,
     showErrorBoundaries: true,
     winNativeTitleBar: false,
