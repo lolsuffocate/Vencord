@@ -76,6 +76,7 @@ export function stringifyValues(obj) {
  * @param {import("esbuild").BuildOptions[]} buildConfigs
  */
 export async function buildOrWatchAll(buildConfigs) {
+    console.log(`Building at ${new Date().toLocaleString()}`);
     if (watch) {
         await Promise.all(buildConfigs.map(cfg =>
             context(cfg).then(ctx => ctx.watch())
