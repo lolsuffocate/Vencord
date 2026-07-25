@@ -54,7 +54,7 @@
     margin-top: 16px;
     display: grid;
     grid-gap: 8px;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .vc-plugins-category-picker {
@@ -149,6 +149,17 @@
     display: flex;
     flex-direction: column;
     gap: 0.25em;
+}
+.vc-plugins-restart-card {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    animation: slide-down 0.5s;
+    background-color: color-mix(in oklab, rgb(from var(--background-feedback-warning) r g b / 1) 5%, var(--background-base-low) 95%) !important;
+}
+@keyframes slide-down{
+    0% { top: -100% }
+    100% { top: 0 }
 }
 
 .vc-plugins-restart-button {

@@ -64,9 +64,9 @@ export const logger = new Logger("PluginSettings", "#a6d189");
 const ScrollbarClasses = findCssClassesLazy("thin", "auto", "managedReactiveScroller");
 
 function ReloadRequiredCard({ required }: { required: boolean; }) {
-    if (!required) return null; // todo: properly remove regular plugin management card maybe
+    // if (!required) return null; // todo: properly remove regular plugin management card maybe
     return (
-        <Card variant={required ? "warning" : "normal"} className={cl("info-card")}>
+        <Card variant={required ? "warning" : "normal"} className={cl("info-card", required && "restart-card")}>
             {required
                 ? (
                     <>
@@ -283,56 +283,54 @@ function PluginSettings() {
 
     return (
         <SettingsTab>
-            <div>
-                <ReloadRequiredCard required={changes.hasChanges}/>
+            <ReloadRequiredCard required={changes.hasChanges}/>
 
-                <UIElementsButton/>
+            <UIElementsButton/>
 
-                <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
-                    Filters
-                </HeadingTertiary>
+            <HeadingTertiary className={classes(Margins.top20, Margins.bottom8)}>
+                Filters
+            </HeadingTertiary>
 
-                <ErrorBoundary noop>
-                    <TextInput
-                        inputClassName={cl("filter-control")}
-                        placeholder="Search for a plugin..."
-                        value={searchValue.value}
-                        onChange={onSearch}
-                        autoFocus
+            <ErrorBoundary noop>
+                <TextInput
+                    inputClassName={cl("filter-control")}
+                    placeholder="Search for a plugin..."
+                    value={searchValue.value}
+                    onChange={onSearch}
+                    autoFocus
+                />
+            </ErrorBoundary>
+
+            <ErrorBoundary noop>
+                <div className={classes(Margins.bottom20, Margins.top8, cl("filter-controls"))}>
+                    <Select
+                        options={[
+                            { label: "Show All", value: SearchStatus.ALL, default: true },
+                            { label: "Show Enabled", value: SearchStatus.ENABLED },
+                            { label: "Show Disabled", value: SearchStatus.DISABLED },
+                            { label: "Show New", value: SearchStatus.NEW },
+                            hasUserPlugins && { label: "Show UserPlugins", value: SearchStatus.USER_PLUGINS },
+                            { label: "Show API Plugins", value: SearchStatus.API_PLUGINS },
+                        ].filter(isTruthy)}
+                        serialize={String}
+                        select={status => setSearchValue(prev => ({ ...prev, status }))}
+                        isSelected={v => v === searchValue.status}
+                        closeOnSelect={true}
+                        placeholder="Filter by Type"
                     />
-                </ErrorBoundary>
-
-                <ErrorBoundary noop>
-                    <div className={classes(Margins.bottom20, Margins.top8, cl("filter-controls"))}>
-                        <Select
-                            options={[
-                                { label: "Show All", value: SearchStatus.ALL, default: true },
-                                { label: "Show Enabled", value: SearchStatus.ENABLED },
-                                { label: "Show Disabled", value: SearchStatus.DISABLED },
-                                { label: "Show New", value: SearchStatus.NEW },
-                                hasUserPlugins && { label: "Show UserPlugins", value: SearchStatus.USER_PLUGINS },
-                                { label: "Show API Plugins", value: SearchStatus.API_PLUGINS },
-                            ].filter(isTruthy)}
-                            serialize={String}
-                            select={status => setSearchValue(prev => ({ ...prev, status }))}
-                            isSelected={v => v === searchValue.status}
-                            closeOnSelect={true}
-                            placeholder="Filter by Type"
-                        />
-                        <SearchableSelect
-                            options={PluginTags.map(tag => ({ label: tag, value: tag }))}
-                            value={searchValue.tags}
-                            onChange={tags => setSearchValue(prev => ({ ...prev, tags }))}
-                            closeOnSelect={false}
-                            placeholder="Filter by Tags"
-                            multi
-                        />
-                    </div>
-                </ErrorBoundary>
+                    <SearchableSelect
+                        options={PluginTags.map(tag => ({ label: tag, value: tag }))}
+                        value={searchValue.tags}
+                        onChange={tags => setSearchValue(prev => ({ ...prev, tags }))}
+                        closeOnSelect={false}
+                        placeholder="Filter by Tags"
+                        multi
+                    />
+                </div>
+            </ErrorBoundary>
 
 
-                <HeadingTertiary className={Margins.top20}>Plugins</HeadingTertiary>
-            </div>
+            <HeadingTertiary className={Margins.top20}>Plugins</HeadingTertiary>
             <div className={classes(cl("list"), ScrollbarClasses.auto)}>
                 {plugins.length || requiredPlugins.length
                     ? (
