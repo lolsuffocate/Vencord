@@ -37,20 +37,7 @@ import { classes } from "@utils/misc";
 import { useAwaiter, useCleanupEffect } from "@utils/react";
 import { PluginTag, PluginTags } from "@utils/types";
 import { findCssClassesLazy } from "@webpack";
-import {
-    ConfirmModal,
-    lodash,
-    openModal,
-    Parser,
-    React,
-    SearchableSelect,
-    Select,
-    TextInput,
-    Tooltip,
-    useMemo,
-    useRef,
-    useState
-} from "@webpack/common";
+import { ConfirmModal, lodash, openModal, Parser, React, SearchableSelect, Select, TextInput, Tooltip, useMemo, useRef, useState } from "@webpack/common";
 import { JSX } from "react";
 
 import Plugins, { ExcludedPlugins, PluginMeta } from "~plugins";
@@ -92,6 +79,7 @@ function ReloadRequiredCard({ required }: { required: boolean; }) {
 
 const enum SearchStatus {
     ALL,
+    FAVORITES,
     ENABLED,
     DISABLED,
     NEW,
@@ -151,10 +139,10 @@ function PluginSettings() {
                     <>
                         <p>The following plugins require a restart:</p>
                         <div>{changes.map((s, i) => (
-                            <>
+                            <React.Fragment key={s}>
                                 {i > 0 && ", "}
                                 {Parser.parse("`" + s.split(".")[0] + "`")}
-                            </>
+                            </React.Fragment>
                         ))}</div>
                     </>
                 </ConfirmModal>
@@ -178,7 +166,8 @@ function PluginSettings() {
     const sortedPlugins = useMemo(() =>
             Object.values(Plugins).sort((a, b) => a.name.localeCompare(b.name)),
         []
-    );
+    )
+        .toSorted((a, b) => Number(settings.plugins[b.name]?.isFavorite ?? false) - Number(settings.plugins[a.name]?.isFavorite ?? false));
 
     const hasUserPlugins = useMemo(() => !IS_STANDALONE && Object.values(PluginMeta).some(m => m.userPlugin), []);
 
@@ -191,6 +180,9 @@ function PluginSettings() {
         const { status, tags } = searchValue;
 
         switch (status) {
+            case SearchStatus.FAVORITES:
+                if (!settings.plugins[plugin.name]?.isFavorite) return false;
+                break;
             case SearchStatus.DISABLED:
                 if (isPluginEnabled(plugin.name)) return false;
                 break;
@@ -306,6 +298,7 @@ function PluginSettings() {
                     <Select
                         options={[
                             { label: "Show All", value: SearchStatus.ALL, default: true },
+                            { label: "Show Favorites", value: SearchStatus.FAVORITES },
                             { label: "Show Enabled", value: SearchStatus.ENABLED },
                             { label: "Show Disabled", value: SearchStatus.DISABLED },
                             { label: "Show New", value: SearchStatus.NEW },
