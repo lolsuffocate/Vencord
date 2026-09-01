@@ -360,7 +360,7 @@ function AutomodEmbedAccessory(props: MessageEmbedProps): React.JSX.Element | nu
                     const { width, height } = computeWidthAndHeight(a.width, a.height);
                     return (
                         <div key={idx}>
-                            <img src={a.url} width={width} height={height}/>
+                            <img src={a.proxyURL ?? a.url} width={width} height={height} />
                         </div>
                     );
                 })}
