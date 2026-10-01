@@ -16,8 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { PluginCategory } from "@utils/types";
-
+export const REACT_GLOBAL = "Vencord.Webpack.Common.React";
 export const VENBOT_USER_ID = "1017176847865352332";
 export const VENCORD_GUILD_ID = "1015060230222131221";
 export const DONOR_ROLE_ID = "1042507929485586532";
@@ -40,76 +39,6 @@ export interface Dev {
     id: bigint;
     badge?: boolean;
 }
-
-export const PluginCategories = /* #__PURE__ */ Object.freeze({
-    DEVELOPER: {
-        name: "Dev Tools",
-        description: "Plugins that help with development",
-        color: "#FFD700"
-    },
-    COMMANDS: {
-        name: "Commands",
-        description: "Plugins that add commands",
-        color: "#FFA500"
-    },
-    FUN: {
-        name: "Fun",
-        description: "Plugins that add features just for fun",
-        color: "#FF69B4"
-    },
-    INFO: {
-        name: "Info",
-        description: "Plugins that provide additional information",
-        color: "#00BFFF"
-    },
-    NITRO: {
-        name: "Nitro",
-        description: "Plugins that provide or emulate Nitro features",
-        color: "#A52A2A"
-    },
-    PRIVACY: {
-        name: "Privacy & Tracking",
-        description: "Plugins that enhance privacy",
-        color: "#008000"
-    },
-    RPC: {
-        name: "RPC",
-        description: "Plugins that add Rich Presence features",
-        color: "#FF0000"
-    },
-    TWEAKS: {
-        name: "Tweaks",
-        description: "Plugins that tweak existing features in the client",
-        color: "#FF8C00"
-    },
-    UI: {
-        name: "UI",
-        description: "Plugins that add to or change the client's appearance",
-        color: "#FF1493"
-    },
-    UTILITY: {
-        name: "Utility",
-        description: "Plugins that provide helpful utilities",
-        color: "#00FF00"
-    },
-    VOICE: {
-        name: "Voice",
-        description: "Plugins that enhance voice & call features",
-        color: "#FF4500"
-    },
-
-
-    USER_PLUGIN: {
-        name: "User Plugin",
-        description: "Plugins made by Vencord users, not maintained by the Vencord team",
-        color: "#5e5e5e"
-    },
-    UNCATEGORIZED: {
-        name: "Uncategorized",
-        description: "Plugins that haven't been assigned a category",
-        color: "#2F3136"
-    }
-}) satisfies Record<string, PluginCategory>;
 
 /**
  * If you made a plugin or substantial contribution, add yourself here.
@@ -748,6 +677,10 @@ export const Devs = /* #__PURE__*/ Object.freeze({
     Kaede: {
         name: "Kaede",
         id: 1492642701320126504n
+    },
+    c0nnorgg: {
+        name: "c0nnorgg",
+        id: 1088882977985003620n,
     },
     Suffocate: {
         name: "Suffocate",
