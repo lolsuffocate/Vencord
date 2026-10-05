@@ -16,11 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import {
-    MessageObject
-} from "@api/MessageEvents";
+import { findGroupChildrenByChildId } from "@api/ContextMenu";
+import { MessageObject } from "@api/MessageEvents";
+import { updateMessage } from "@api/MessageUpdater";
+import { definePluginSettings } from "@api/Settings";
+import { LinkIcon } from "@components/Icons";
 import { Devs } from "@utils/constants";
-import definePlugin from "@utils/types";
+import definePlugin, { OptionType } from "@utils/types";
+import { Message } from "@vencord/discord-types";
+import { Menu, React } from "@webpack/common";
 
 const CLEAR_URLS_JSON_URL = "https://raw.githubusercontent.com/ClearURLs/Rules/master/data.min.json";
 
@@ -47,6 +51,19 @@ interface RuleSet {
     exceptions?: RegExp[];
 }
 
+const settings = definePluginSettings({
+   autoIncoming:{
+       displayName: "Apply to Incoming Messages Automatically",
+       description: "Automatically remove tracking elements from URLs in messages you receive",
+       default: false,
+       type: OptionType.BOOLEAN
+   }
+});
+
+function getSettings() {
+    return settings.store;
+}
+
 export default definePlugin({
     name: "ClearURLs",
     description: "Automatically removes tracking elements from URLs you send",
@@ -54,6 +71,32 @@ export default definePlugin({
     authors: [Devs.adryd, Devs.thororen],
 
     rules: [] as RuleSet[],
+
+    contextMenus: {
+        "message": (children, props) => {
+            if (!props.message?.content) return;
+            if (!/http(s)?:\/\//.test(props.message?.content)) return;
+
+            const group = findGroupChildrenByChildId("copy-text", children);
+            if (!group) return;
+            const item = group.find(child => child?.props?.id === "copy-text");
+            if (!item) return;
+            const index = group.indexOf(item);
+
+            const button = <Menu.MenuItem
+                id="clear-urls"
+                label={"Clear URLs"}
+                leadingAccessory={{ type: "icon", icon: LinkIcon }}
+                action={_ => {
+                    // @ts-ignore
+                    Vencord.Plugins.plugins.ClearURLs.cleanMessage(props.message);
+                    updateMessage(props.message.channel_id, props.message.id, props.message);
+                }}
+                key="clear-urls"/>;
+
+            group.splice(index + 1, 0, button);
+        }
+    },
 
     async start() {
         await this.createRules();

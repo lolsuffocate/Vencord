@@ -15,6 +15,7 @@ allowedDeprecatedVersions:
 strictPeerDependencies: false
 allowBuilds:
   esbuild: true
+  tesseract.js: true
 pmOnFail: warn
 minimumReleaseAgeExclude:
   - '@vencord/*'

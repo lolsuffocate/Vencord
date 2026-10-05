@@ -8,10 +8,12 @@ import { openNotificationLogModal } from "@api/Notifications/notificationLog";
 import { isPluginEnabled, isSettingDisabled, isSettingHidden, plugins } from "@api/PluginManager";
 import { Settings, useSettings } from "@api/Settings";
 import { openPluginModal, openSettingsTabModal, PluginsTab, ThemesTab } from "@components/settings";
+import { ComponentSetting } from "@components/settings/tabs/plugins/components/ComponentSetting";
+import { TextSetting } from "@components/settings/tabs/plugins/components/TextSetting";
 import { useAwaiter } from "@utils/react";
 import { wordsFromCamel, wordsToTitle } from "@utils/text";
 import { OptionType, Plugin } from "@utils/types";
-import { Menu, showToast, useMemo, useState } from "@webpack/common";
+import { Menu, React, showToast, useMemo, useState } from "@webpack/common";
 import type { ReactNode } from "react";
 
 import { settings } from ".";
@@ -20,7 +22,7 @@ function buildPluginMenu() {
     const { showPluginMenu } = settings.use(["showPluginMenu"]);
 
     // has to be here due to hooks
-    const pluginEntries = buildPluginMenuEntries();
+    const pluginEntries = buildPluginMenuEntries(true);
 
     if (!showPluginMenu) return null;
 
@@ -43,19 +45,19 @@ export function buildPluginMenuEntries(includeEmpty = false) {
     const lowerSearch = search.toLowerCase();
 
     const sortedPlugins = useMemo(() =>
-        Object.values(plugins).sort((a, b) => a.name.localeCompare(b.name)),
+            Object.values(plugins).sort((a, b) => a.name.localeCompare(b.name)),
         []
     );
 
     const candidates = useMemo(() =>
-        sortedPlugins
-            .filter(p => {
-                if (!isPluginEnabled(p.name)) return false;
-                if (p.name.endsWith("API")) return false;
+            sortedPlugins
+                .filter(p => {
+                    if (!isPluginEnabled(p.name)) return false;
+                    if (p.name.endsWith("API")) return false;
 
-                const name = p.name.toLowerCase();
-                return name.includes(lowerSearch);
-            }),
+                    const name = p.name.toLowerCase();
+                    return name.includes(lowerSearch);
+                }),
         [lowerSearch]
     );
 
@@ -73,7 +75,7 @@ export function buildPluginMenuEntries(includeEmpty = false) {
                 )}
             />
 
-            <Menu.MenuSeparator />
+            <Menu.MenuSeparator/>
 
             {candidates
                 .map(p => {
@@ -147,6 +149,44 @@ export function buildPluginMenuEntries(includeEmpty = false) {
                                     />
                                 );
                                 break;
+                            case OptionType.STRING:
+                                const onChange = (newValue: any) => {
+                                    const option = p.settings!.def[key];
+                                    if (!option || option.type === OptionType.CUSTOM) return;
+
+                                    s[key] = newValue;
+
+                                    if (option.restartNeeded) showToast("Restart to apply the change");
+                                };
+
+                                options.push(<Menu.MenuControlItem
+                                    {...baseProps}
+                                    label={undefined}
+                                    control={(props, ref) => (
+                                        <TextSetting setting={option} onChange={onChange} pluginSettings={s} id={key}
+                                                     definedSettings={p.settings!} closePluginSettings={() => {
+                                        }}/>)}
+                                />);
+                                break;
+                            case OptionType.COMPONENT:
+                                const onChangeC= (newValue: any) => {
+                                    const option = p.settings!.def[key];
+                                    if (!option || option.type === OptionType.CUSTOM) return;
+
+                                    s[key] = newValue;
+
+                                    if (option.restartNeeded) showToast("Restart to apply the change");
+                                };
+
+                                options.push(<Menu.MenuControlItem
+                                    {...baseProps}
+                                    label={undefined}
+                                    control={(props, ref) => (
+                                        <ComponentSetting setting={option} onChange={onChangeC} pluginSettings={s} id={key}
+                                                     definedSettings={p.settings!} closePluginSettings={() => {
+                                        }}/>)}
+                                />);
+                                break;
                         }
                     }
 
@@ -167,7 +207,7 @@ export function buildPluginMenuEntries(includeEmpty = false) {
                                         {options}
                                     </Menu.MenuGroup>
 
-                                    <Menu.MenuSeparator />
+                                    <Menu.MenuSeparator/>
 
                                     <Menu.MenuItem
                                         id={`${p.name}-open`}
@@ -312,6 +352,6 @@ export function renderPopout(onClose: () => void) {
             {buildPluginMenu()}
 
             {buildCustomPluginEntries()}
-        </Menu.Menu >
+        </Menu.Menu>
     );
 }

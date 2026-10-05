@@ -15,6 +15,7 @@ export const CssSrc = ["style-src", "font-src"];
 export const ImageAndMediaSrc = [...ImageSrc, "media-src"];
 export const ImageAndCssSrc = [...ImageSrc, ...CssSrc];
 export const ImageScriptsAndCssSrc = [...ImageAndCssSrc, "script-src", "worker-src"];
+export const FrameSrc = ["frame-src"];
 
 // Plugins can whitelist their own domains by importing this object in their native.ts
 // script and just adding to it. But generally, you should just edit this file instead
@@ -73,6 +74,8 @@ export const CspPolicies: PolicyMap = {
     // Tenor, used by TenorSearch plugin and some themes
     "*.tenor.com": ImageAndMediaSrc,
     "*.tenor.co": ImageAndMediaSrc,
+
+    "*.youtube-nocookie.com": FrameSrc, // YouTube embeds
 };
 
 const findHeader = (headers: PolicyMap, headerName: Lowercase<string>) => {
