@@ -31,7 +31,19 @@ import { classes } from "@utils/misc";
 import definePlugin, { OptionType } from "@utils/types";
 import { Message, MessageAttachment } from "@vencord/discord-types";
 import { findCssClassesLazy } from "@webpack";
-import { AuthenticationStore, ChannelStore, FluxDispatcher, Menu, MessageStore, Parser, SelectedChannelStore, Timestamp, UserStore, useStateFromStores } from "@webpack/common";
+import {
+    AuthenticationStore,
+    ChannelStore,
+    FluxDispatcher,
+    Menu,
+    MessageStore,
+    Parser,
+    SelectedChannelStore,
+    Timestamp,
+    UserStore,
+    useShiftKey,
+    useStateFromStores
+} from "@webpack/common";
 
 import overlayStyle from "./deleteStyleOverlay.css?managed";
 import textStyle from "./deleteStyleText.css?managed";
@@ -256,19 +268,32 @@ export default definePlugin({
     messagePopoverButton: {
         icon: HistoryIcon,
         render(message) {
+            const shift = useShiftKey();
+            const label = shift ? "Clear Chat" : "Clear Message";
             const current = MessageStore.getMessage(message.channel_id, message.id) as MLMessage | undefined;
 
             if (!current || !doesMessageHaveHistory(current))
                 return null;
 
             return {
-                label: "Clear history",
+                label,
+                btnKey: "clear-history",
                 icon: HistoryIcon,
-                onClick: () => {
-                    const latest = MessageStore.getMessage(message.channel_id, message.id) as MLMessage | undefined;
-                    if (!latest) return;
+                dangerous: true,
+                onClick: event => {
+                    if(event.shiftKey){
+                        const messages = MessageStore.getMessages(message.channel_id);
+                        if (!messages?.some(msg => doesMessageHaveHistory(msg))) return;
 
-                    clearMessageHistory(latest);
+                        messages.forEach(msg => {
+                            clearMessageHistory(msg);
+                        });
+                    }else {
+                        const latest = MessageStore.getMessage(message.channel_id, message.id) as MLMessage | undefined;
+                        if (!latest) return;
+
+                        clearMessageHistory(latest);
+                    }
                 }
             };
         }

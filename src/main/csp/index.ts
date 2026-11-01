@@ -15,6 +15,7 @@ export const CssSrc = ["style-src", "font-src"];
 export const ImageAndMediaSrc = [...ImageSrc, "media-src"];
 export const ImageAndCssSrc = [...ImageSrc, ...CssSrc];
 export const ImageScriptsAndCssSrc = [...ImageAndCssSrc, "script-src", "worker-src"];
+export const FrameSrc = ["frame-src"];
 
 // Plugins can whitelist their own domains by importing this object in their native.ts
 // script and just adding to it. But generally, you should just edit this file instead
@@ -24,6 +25,7 @@ export const CspPolicies: PolicyMap = {
     "http://127.0.0.1:*": ImageAndCssSrc,
     "localhost:*": ImageAndCssSrc,
     "127.0.0.1:*": ImageAndCssSrc,
+    "ws://localhost:*": ImageAndCssSrc, // devCompanion websocket
 
     "*.github.io": ImageAndCssSrc, // GitHub pages, used by most themes
     "github.com": ImageAndCssSrc, // GitHub content (stuff uploaded to markdown forms), used by most themes
@@ -73,6 +75,8 @@ export const CspPolicies: PolicyMap = {
     "*.tenor.com": ImageAndMediaSrc,
     "*.tenor.co": ImageAndMediaSrc,
     "*.giphy.com": ImageAndMediaSrc,
+
+    "*.youtube-nocookie.com": FrameSrc, // YouTube embeds
 };
 
 const findHeader = (headers: PolicyMap, headerName: Lowercase<string>) => {

@@ -147,3 +147,5 @@ export const DateUtils: t.DateUtils = mapMangledModuleLazy("millisecondsInUnit:"
 });
 
 export const MessageTypeSets: t.MessageTypeSets = findByPropsLazy("REPLYABLE", "FORWARDABLE");
+
+export const useShiftKey: (context?: Window) => boolean = findByCodeLazy("arguments.length>0&&void 0!==arguments[0]?arguments[0]:window");

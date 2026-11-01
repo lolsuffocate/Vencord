@@ -18,6 +18,7 @@
 
 import { ChatBarButton, ChatBarButtonFactory } from "@api/ChatButtons";
 import { generateId, sendBotMessage } from "@api/Commands";
+import { _handlePreSend } from "@api/MessageEvents";
 import { EyeIcon } from "@components/Icons";
 import { Devs } from "@utils/constants";
 import definePlugin, { IconComponent, StartAt } from "@utils/types";
@@ -100,15 +101,20 @@ const PreviewButton: ChatBarButtonFactory = ({ isAnyChat, isEmpty, type: { attac
             tooltip="Preview Message"
             onClick={async () => {
                 const attachments = hasAttachments ? await getAttachments(channelId) : undefined;
-                const message = sendBotMessage(
-                    channelId,
+                const msgData =
                     {
                         content: getDraft(channelId),
                         author: UserStore.getCurrentUser(),
                         attachments: attachments?.map(a => a.attachment),
-                    }
-                );
+                    };
 
+                // @ts-ignore
+                if(await _handlePreSend(channelId, msgData, {}, {})) return;
+
+                const message = sendBotMessage(
+                    channelId,
+                    msgData
+                );
                 if (attachments)
                     objectURLMap.set(message.id, attachments.map(a => a.objectURL));
             }}
