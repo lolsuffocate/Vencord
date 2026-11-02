@@ -74,8 +74,12 @@ export default definePlugin({
 
     contextMenus: {
         "message": (children, props) => {
-            if (!props.message?.content) return;
-            if (!/http(s)?:\/\//.test(props.message?.content)) return;
+            if (!(props.message?.content && /http(s)?:\/\//.test(props.message?.content))) return;
+
+            const dummy = { content: props.message.content };
+
+            // @ts-ignore
+            Vencord.Plugins.plugins.ClearURLs.cleanMessage(dummy);
 
             const group = findGroupChildrenByChildId("copy-text", children);
             if (!group) return;
@@ -92,6 +96,7 @@ export default definePlugin({
                     Vencord.Plugins.plugins.ClearURLs.cleanMessage(props.message);
                     updateMessage(props.message.channel_id, props.message.id, props.message);
                 }}
+                disabled={dummy.content === props.message.content}
                 key="clear-urls"/>;
 
             group.splice(index + 1, 0, button);
